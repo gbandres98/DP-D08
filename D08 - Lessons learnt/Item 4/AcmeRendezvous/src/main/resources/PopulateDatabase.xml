@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2017 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -31,8 +25,8 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -43,20 +37,100 @@
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
 					<property name="authority" value="USER" />
 				</bean>
+
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Other domain beans come here -->	
-	
+
+	<!-- Other domain beans come here -->
+	<!-- user -->
+	<bean id="user1" class="domain.User">
+		<property name="RSVP">
+			<ref bean="rendezvous1" />
+		</property>
+		<property name="rendezvouses">
+			<ref bean="rendezvous1" />
+		</property>
+		<property name="comments">
+			<ref bean="comment1" />
+		</property>
+	<property name="name" value="user1name" />
+	<property name="surname" value="user1surname" />
+	<property name="postalAddress" value="user1postalAdrdress" />
+	<property name="phoneNumber" value="user1phoneNumber" />
+	<property name="emailAddress" value="user1@email.com" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+	<!-- Question -->
+	<bean id="question1" class="domain.Question">
+		<property name="text" value="text1" />
+		<property name="answers">
+			<ref bean="answer1" />
+		</property>
+	</bean>
+
+	<!-- Reply -->
+	<bean id="reply1" class="domain.Reply">
+		<property name="text" value="text1" />
+		<property name="moment" value="01/05/2014" />
+		<property name="user" ref="user1" />
+	</bean>
+
+	<!-- answer -->
+	<bean id="answer1" class="domain.Answer">
+		<property name="text" value="text1" />
+		<property name="user" ref="user1" />
+	</bean>
+
+	<!-- Annoucement -->
+	<bean id="annoucement1" class="domain.Announcement">
+		<property name="title" value="title1" />
+		<property name="description" value="description1" />
+		<property name="moment" value="01/05/2014" />
+	</bean>
+	<!-- Comment -->
+	<bean id="comment1" class="domain.Comment">
+		<property name="text" value="text1" />
+		<property name="picture" value="http://www.picture1.com" />
+		<property name="moment" value="01/05/2014" />
+		<property name="replies">
+			<ref bean="reply1" />
+		</property>
+		<property name="user" ref="user1" />
+	</bean>
+
+
+	<!-- GPSCoordinates -->
+	<bean id="gpscoordinates1" class="domain.GPSCoordinates">
+		<property name="latitude" value="1.0" />
+		<property name="longitude" value="2.0" />
+	</bean>
+	<!-- rendevous -->
+	<bean id="rendezvous1" class="domain.Rendezvous">
+		<property name="name" value="rendezvous1" />
+		<property name="description" value="description1" />
+		<property name="moment" value="01/05/2014" />
+		<property name="picture" value="http://www.picture1.com" />
+		<property name="adultOnly" value="false" />
+		<property name="finalVersion" value="false" />
+		<property name="deleted" value="false" />
+		<property name="announcements">
+			<ref bean="annoucement1" />
+		</property>
+		<property name="users">
+			<ref bean="user1" />
+		</property>
+		<property name="user" ref="user1" />
+		<property name="comments">
+			<ref bean="comment1" />
+		</property>
+	</bean>
+
 </beans>
