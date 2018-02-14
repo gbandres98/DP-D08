@@ -16,7 +16,8 @@ public class User extends Actor {
 
 	//Relationships
 	private Collection<Rendezvous>	RSVP;
-	private Collection<Rendezvous>	rendezvous;
+	private Collection<Rendezvous>	rendezvouses;
+	private Collection<Comment>		comments;
 
 
 	@NotNull
@@ -26,16 +27,25 @@ public class User extends Actor {
 	}
 	@NotNull
 	@OneToMany(mappedBy = "user")
-	public Collection<Rendezvous> getRendezvous() {
-		return this.rendezvous;
+	public Collection<Rendezvous> getRendezvouses() {
+		return this.rendezvouses;
 	}
 
+	@NotNull
+	@OneToMany()
+	public Collection<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final Collection<Comment> comments) {
+		this.comments = comments;
+	}
 	public void setRSVP(final Collection<Rendezvous> rSVP) {
 		this.RSVP = rSVP;
 	}
 
-	public void setRendezvous(final Collection<Rendezvous> rendezvous) {
-		this.rendezvous = rendezvous;
+	public void setRendezvouses(final Collection<Rendezvous> rendezvouses) {
+		this.rendezvouses = rendezvouses;
 	}
 
 }

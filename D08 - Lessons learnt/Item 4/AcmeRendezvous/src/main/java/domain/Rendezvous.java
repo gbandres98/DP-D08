@@ -6,11 +6,11 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -94,10 +94,11 @@ public class Rendezvous extends DomainEntity {
 	private Collection<User>			users;
 	private User						user;
 	private Collection<Comment>			comments;
+	private GPSCoordinates				GPSCoordinates;
 
 
 	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany()
 	public Collection<Announcement> getAnnouncements() {
 		return this.announcements;
 	}
@@ -115,11 +116,20 @@ public class Rendezvous extends DomainEntity {
 	}
 
 	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany()
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
 
+	@Valid
+	@OneToOne(optional = true)
+	public GPSCoordinates getGPSCoordinate() {
+		return this.GPSCoordinates;
+	}
+
+	public void setGPSCoordinate(final GPSCoordinates gPSCoordinate) {
+		this.GPSCoordinates = gPSCoordinate;
+	}
 	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
 	}
