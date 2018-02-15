@@ -84,10 +84,10 @@ public class RendezvousService {
 
 	//Other business methods
 
-	public Rendezvous findOne(final int rendezvouzId) {
+	public Rendezvous findOne(final int rendezvousId) {
 		Rendezvous result;
 
-		result = this.rendezvousRepository.findOne(rendezvouzId);
+		result = this.rendezvousRepository.findOne(rendezvousId);
 
 		return result;
 	}

@@ -44,11 +44,11 @@ public class CommentController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam(required=true) final int rendezvousId) {
 		ModelAndView result;
 		Comment comment;
 
-		comment = commentService.create();
+		comment = commentService.create(rendezvousId);
 		result = createEditModelAndView(comment);
 		
 		return result;
@@ -90,11 +90,11 @@ public class CommentController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(comment);
+			result = this.createEditModelAndView(comment, "comment.binding.error");
 		else
 			try {
 				this.commentService.save(comment);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/rendezvous/display.do?IdRendevous="+comment.getRendezvous().getId());
 			} catch (final Throwable oops) {
 				String errorMessage = "comment.commit.error";
 				
@@ -114,7 +114,7 @@ public class CommentController extends AbstractController {
 
 		try {
 			this.commentService.delete(comment);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/AcmeRendezvous/");
 		} catch (final Throwable oops) {
 			String errorMessage = "comment.commit.error";
 			

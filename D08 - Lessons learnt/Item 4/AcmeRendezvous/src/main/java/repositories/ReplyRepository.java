@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import domain.Comment;
+
+import domain.Reply;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Integer> {
+public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 
-	@Query("select c from Comment c where c.rendezvous.id=?1")
-	Collection<Comment> findByRendezvousId(int id);
+
 
 }
