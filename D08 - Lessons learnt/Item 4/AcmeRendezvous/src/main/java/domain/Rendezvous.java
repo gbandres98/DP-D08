@@ -93,7 +93,6 @@ public class Rendezvous extends DomainEntity {
 	private Collection<Announcement>	announcements;
 	private Collection<User>			users;
 	private User						user;
-	private Collection<Comment>			comments;
 	private GPSCoordinates				GPSCoordinates;
 
 
@@ -115,11 +114,7 @@ public class Rendezvous extends DomainEntity {
 		return this.user;
 	}
 
-	@NotNull
-	@OneToMany()
-	public Collection<Comment> getComments() {
-		return this.comments;
-	}
+	
 
 	@Valid
 	@OneToOne(optional = true)
@@ -130,9 +125,7 @@ public class Rendezvous extends DomainEntity {
 	public void setGPSCoordinate(final GPSCoordinates gPSCoordinate) {
 		this.GPSCoordinates = gPSCoordinate;
 	}
-	public void setComments(final Collection<Comment> comments) {
-		this.comments = comments;
-	}
+	
 	public void setAnnouncements(final Collection<Announcement> announcements) {
 		this.announcements = announcements;
 	}

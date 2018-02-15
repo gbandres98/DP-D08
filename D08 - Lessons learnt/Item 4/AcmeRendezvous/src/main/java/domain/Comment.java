@@ -55,14 +55,21 @@ public class Comment extends DomainEntity {
 
 	private Collection<Reply>	replies;
 	private User				user;
-
+	private Rendezvous			rendezvous;
 
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Reply> getReplies() {
 		return this.replies;
 	}
-
+	@NotNull
+	@ManyToOne
+	public Rendezvous getRendezvous() {
+		return rendezvous;
+	}
+	public void setRendezvous(Rendezvous rendezvous) {
+		this.rendezvous = rendezvous;
+	}
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)

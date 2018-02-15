@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.RendezvousRepository;
 import domain.Actor;
 import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -88,5 +89,12 @@ public class RendezvousService {
 
 		return result;
 	}
+	
+	public Collection<User> findRSVPByRendezvousId(final int rendezvouzId) {
+		Collection<User> result;
 
+		result = this.rendezvousRepository.findRSVPByRendezvousId(rendezvouzId);
+
+		return result;
+	}
 }
