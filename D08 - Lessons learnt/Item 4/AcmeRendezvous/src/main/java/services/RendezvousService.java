@@ -22,8 +22,10 @@ public class RendezvousService {
 	@Autowired
 	private RendezvousRepository	rendezvousRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -50,10 +52,10 @@ public class RendezvousService {
 	}
 
 	public Rendezvous delete(final Rendezvous rendezvous) {
-		final Actor actor;
+		Actor actor;
 		Rendezvous result;
 
-		//actor = this.actorService.findByPrincipal();
+		actor = this.actorService.findByPrincipal();
 		//Chekear el actor
 
 		Assert.notNull(rendezvous);
@@ -67,13 +69,13 @@ public class RendezvousService {
 
 	public Rendezvous save(final Rendezvous rendezvous) {
 		Rendezvous result;
-		final Actor actor;
+		Actor actor;
 
-		//actor = this.actorService.findByPrincipal();
-		//Assert.isTrue(actor != null);
-		//Assert.isTrue(actor instanceof User);
+		actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
+		Assert.isTrue(actor instanceof User);
 		Assert.notNull(rendezvous);
-		//Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
+		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
 
 		result = this.rendezvousRepository.save(rendezvous);
 
@@ -89,12 +91,5 @@ public class RendezvousService {
 
 		return result;
 	}
-	
-	public Collection<User> findRSVPByRendezvousId(final int rendezvouzId) {
-		Collection<User> result;
 
-		result = this.rendezvousRepository.findRSVPByRendezvousId(rendezvouzId);
-
-		return result;
-	}
 }

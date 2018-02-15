@@ -1,7 +1,7 @@
+
 package services;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -13,7 +13,6 @@ import repositories.CommentRepository;
 import domain.Actor;
 import domain.Comment;
 import domain.Rendezvous;
-import domain.User;
 
 @Service
 @Transactional
@@ -22,11 +21,12 @@ public class CommentService {
 	// Managed Repository ----------------------------------------------------
 
 	@Autowired
-	private CommentRepository commentRepository;
+	private CommentRepository	commentRepository;
 
 	// Supporting services ----------------------------------------------------
 
-	private RendezvousService rendezvousService;
+	private RendezvousService	rendezvousService;
+
 
 	// Constructor ----------------------------------------------------
 
@@ -56,19 +56,18 @@ public class CommentService {
 		Comment result;
 		final Actor actor;
 
-//		Descomentar cuando este el getPrincipal963.
-		
+		//		Descomentar cuando este el getPrincipal963.
+
 		// actor = this.actorService.findByPrincipal();
 		// Assert.isTrue(actor != null);
 		// Assert.isTrue(actor instanceof User);
 		Assert.notNull(comment);
-//		 User user=(User)actor;
+		//		 User user=(User)actor;
 		// comment.setUser(user);
-		 
+
 		//checkear que el usuario tiene RSPV en el rendevous que comenta
-//		Assert.isTrue(user.getRendezvouses().contains(comment.getRendezvous()));
-		
-		
+		//		Assert.isTrue(user.getRendezvouses().contains(comment.getRendezvous()));
+
 		result = this.commentRepository.save(comment);
 		return result;
 	}
@@ -78,12 +77,10 @@ public class CommentService {
 
 		// actor = this.actorService.findByPrincipal();
 		// Assert.isTrue(actor != null);
-		
+
 		//requeriment 6.1 need admin to delete
 		// Assert.isTrue(actor instanceof Admin);
-		
-		
-		
+
 		Assert.notNull(comment);
 		// User user=(User)actor;
 		// comment.setUser(user);
