@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -57,17 +56,18 @@ public class Comment extends DomainEntity {
 	private User				user;
 	private Rendezvous			rendezvous;
 
+
 	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany()
 	public Collection<Reply> getReplies() {
 		return this.replies;
 	}
 	@NotNull
 	@ManyToOne
 	public Rendezvous getRendezvous() {
-		return rendezvous;
+		return this.rendezvous;
 	}
-	public void setRendezvous(Rendezvous rendezvous) {
+	public void setRendezvous(final Rendezvous rendezvous) {
 		this.rendezvous = rendezvous;
 	}
 	@NotNull
