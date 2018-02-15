@@ -104,6 +104,7 @@
 			<ref bean="reply1" />
 		</property>
 		<property name="user" ref="user1" />
+		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
 
 
@@ -128,9 +129,8 @@
 			<ref bean="user1" />
 		</property>
 		<property name="user" ref="user1" />
-		<property name="comments">
-			<ref bean="comment1" />
-		</property>
+		
+	
 	</bean>
 
 </beans>
