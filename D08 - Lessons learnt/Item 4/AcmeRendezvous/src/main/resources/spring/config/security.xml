@@ -33,6 +33,8 @@
 		<security:intercept-url pattern="/images/**" access="permitAll" /> 
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
+		
+		<security:intercept-url pattern="/rendezvous/list.do" access="permitALL" /> 
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 

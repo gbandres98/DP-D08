@@ -25,26 +25,29 @@
 		<bean class="converters.AnnouncementToStringConverter" />
 		<bean class="converters.StringToAnnouncementConverter" />
 		
-		<bean class="converters.AnswerToStringConverter" />
-		<bean class="converters.StringToAnswerConverter" />
-		
 		<bean class="converters.CommentToStringConverter" />
 		<bean class="converters.StringToCommentConverter" />
+		
+		<bean class="converters.RendezvousToStringConverter" />
+		<bean class="converters.StringToRendezvousConverter" />
+		
+		<bean class="converters.UserToStringConverter" />
+		<bean class="converters.StringToUserConverter" />
+		
+		<!-- 
+		<bean class="converters.ReplyToStringConverter" />
+		<bean class="converters.StringToReplyConverter" />
+		
+		
+		
+		<bean class="converters.AnswerToStringConverter" />
+		<bean class="converters.StringToAnswerConverter" />
 		
 		<bean class="converters.GPSCoordinatesToStringConverter" />
 		<bean class="converters.StringToGPSCoordinatesConverter" />
 		
 		<bean class="converters.QuestionToStringConverter" />
-		<bean class="converters.StringToQuestionConverter" />
-		
-		<bean class="converters.RendezvousToStringConverter" />
-		<bean class="converters.StringToRendezvousConverter" />
-		
-		<bean class="converters.ReplyToStringConverter" />
-		<bean class="converters.StringToReplyConverter" />
-		
-		<bean class="converters.UserToStringConverter" />
-		<bean class="converters.StringToUserConverter" />
+		<bean class="converters.StringToQuestionConverter" /> -->
 		
 	</util:list>
 	

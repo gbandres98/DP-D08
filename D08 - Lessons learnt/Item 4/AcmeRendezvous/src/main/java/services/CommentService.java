@@ -99,10 +99,11 @@ public class CommentService {
 	}
 
 	public Collection<Comment> findByRendezvous(final Rendezvous rendezvous) {
-		Collection<Comment> result;
+		final Collection<Comment> result;
 
-		result = this.commentRepository.findByRendezvousId(rendezvous.getId());
+		//TODO arregla la query y tal.
+		//result = this.commentRepository.findByRendezvousId(rendezvous.getId());
 
-		return result;
+		return null;
 	}
 }
