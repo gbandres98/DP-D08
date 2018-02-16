@@ -27,7 +27,7 @@
 					<li><a href="actor/create.do?actorType=ADMINISTRATOR"><spring:message code="master.page.administrator.action.1" /></a></li>
 					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
 				</ul>
-			</li>
+			
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CUSTOMER')">
@@ -41,13 +41,9 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a>
-<ul>
-					<li class="arrow"></li>
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 					<li><a href="actor/create.do?actorType=USER"><spring:message
 								code="master.page.anonymous.action.1" /></a></li>
-					
-				</ul></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
