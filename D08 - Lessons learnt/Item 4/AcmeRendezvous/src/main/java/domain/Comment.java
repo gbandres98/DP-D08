@@ -57,26 +57,24 @@ public class Comment extends DomainEntity {
 
 	//Relationships
 
-	private Collection<Reply>	replies;
-	private User				user;
 	private Rendezvous			rendezvous;
+	private Collection<Comment>	comments;
+	private User				user;
 
 
-	
-	@OneToMany()
-	public Collection<Reply> getReplies() {
-		return this.replies;
-	}
+	@Valid
 	@NotNull
-	@ManyToOne
+	@ManyToOne(optional = false)
 	public Rendezvous getRendezvous() {
 		return this.rendezvous;
 	}
-	public void setRendezvous(final Rendezvous rendezvous) {
-		this.rendezvous = rendezvous;
-	}
 	@NotNull
+	@OneToMany
+	public Collection<Comment> getComments() {
+		return this.comments;
+	}
 	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public User getUser() {
 		return this.user;
@@ -85,8 +83,12 @@ public class Comment extends DomainEntity {
 	public void setUser(final User user) {
 		this.user = user;
 	}
-	public void setReplies(final Collection<Reply> replies) {
-		this.replies = replies;
+	public void setRendezvous(final Rendezvous rendezvous) {
+		this.rendezvous = rendezvous;
+	}
+
+	public void setComments(final Collection<Comment> comments) {
+		this.comments = comments;
 	}
 
 }

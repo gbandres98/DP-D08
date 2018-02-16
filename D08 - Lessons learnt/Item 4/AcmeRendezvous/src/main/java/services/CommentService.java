@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -16,7 +15,6 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Comment;
 import domain.Rendezvous;
-import domain.Reply;
 import domain.User;
 
 @Service
@@ -32,7 +30,7 @@ public class CommentService {
 	@Autowired
 	private RendezvousService	rendezvousService;
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 
 	// Constructor ----------------------------------------------------
@@ -42,37 +40,34 @@ public class CommentService {
 	}
 
 	// CRUD methods ----------------------------------------------------
-	public Comment create(int rendezvousId) {
+	public Comment create(final int rendezvousId) {
 		Assert.notNull(rendezvousId);
-		
+
 		Comment comment;
 		comment = new Comment();
-		
+
 		//le asignamos el rendezvous
-		Rendezvous rendezvous=rendezvousService.findOne(rendezvousId);
+		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 		comment.setRendezvous(rendezvous);
-		
-		//añadimos las replies
-		Collection<Reply> replies=new ArrayList<Reply>();
-		comment.setReplies(replies);
-		
+
+		//añadimos las replies  TODO: Cambiar a la nueva implementación de Reply
+		//		Collection<Reply> replies=new ArrayList<Reply>();
+		//		comment.setReplies(replies);
+
 		//Sacamos el momento del sistema
 		Date moment;
 		moment = new Date(System.currentTimeMillis() - 1);
 		comment.setMoment(moment);
-		
+
 		//añadimos el actor
 		Actor actor;
-		 actor = this.actorService.findByPrincipal();
-		 Assert.isTrue(actor != null);
-		 Assert.isTrue(actor instanceof User);
-		
-		 User user=(User)actor;
-		 comment.setUser(user);
-		
-		
-		
-		
+		actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
+		Assert.isTrue(actor instanceof User);
+
+		final User user = (User) actor;
+		comment.setUser(user);
+
 		return comment;
 	}
 
@@ -87,34 +82,28 @@ public class CommentService {
 
 	public Comment save(final Comment comment) {
 
-
-		 Assert.notNull(comment);
+		Assert.notNull(comment);
 		//Sacamos el momento del sistema
-			Date moment;
-			moment = new Date(System.currentTimeMillis() - 1);
-			comment.setMoment(moment);
+		Date moment;
+		moment = new Date(System.currentTimeMillis() - 1);
+		comment.setMoment(moment);
 
 		//checkear que el usuario tiene RSPV en el rendevous que comenta
 		Assert.isTrue(comment.getUser().getRSVP().contains(comment.getRendezvous()));
-		
-	
-		
-		
-		Comment commentsave = this.commentRepository.save(comment);
+
+		final Comment commentsave = this.commentRepository.save(comment);
 		return commentsave;
 	}
 	public Comment delete(final Comment comment) {
 		Comment result;
 		final Actor actor;
 		Assert.notNull(comment);
-		 actor = this.actorService.findByPrincipal();
-		 Assert.isTrue(actor != null);
+		actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
 
 		//requeriment 6.1 need admin to delete
-		 Assert.isTrue(actor instanceof Administrator);
+		Assert.isTrue(actor instanceof Administrator);
 
-		
-	
 		result = this.commentRepository.save(comment);
 		return result;
 	}

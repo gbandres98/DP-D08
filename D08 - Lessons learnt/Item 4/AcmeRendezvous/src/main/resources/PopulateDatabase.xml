@@ -58,14 +58,12 @@
 		<property name="rendezvouses">
 			<ref bean="rendezvous1" />
 		</property>
-		<property name="comments">
-			<ref bean="comment1" />
-		</property>
-	<property name="name" value="user1name" />
-	<property name="surname" value="user1surname" />
-	<property name="postalAddress" value="user1postalAdrdress" />
-	<property name="phoneNumber" value="user1phoneNumber" />
-	<property name="emailAddress" value="user1@email.com" />
+
+		<property name="name" value="user1name" />
+		<property name="surname" value="user1surname" />
+		<property name="postalAddress" value="user1postalAdrdress" />
+		<property name="phoneNumber" value="user1phoneNumber" />
+		<property name="emailAddress" value="user1@email.com" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 	<!-- Question -->
@@ -76,12 +74,6 @@
 		</property>
 	</bean>
 
-	<!-- Reply -->
-	<bean id="reply1" class="domain.Reply">
-		<property name="text" value="text1" />
-		<property name="moment" value="01/05/2014" />
-		<property name="user" ref="user1" />
-	</bean>
 
 	<!-- answer -->
 	<bean id="answer1" class="domain.Answer">
@@ -100,11 +92,13 @@
 		<property name="text" value="text1" />
 		<property name="picture" value="http://www.picture1.com" />
 		<property name="moment" value="01/05/2014" />
-		<property name="replies">
-			<ref bean="reply1" />
-		</property>
 		<property name="user" ref="user1" />
 		<property name="rendezvous" ref="rendezvous1" />
+		<property name="comments">
+			<list>
+
+			</list>
+		</property>
 	</bean>
 
 
@@ -128,9 +122,12 @@
 		<property name="users">
 			<ref bean="user1" />
 		</property>
+		<property name="questions">
+			<ref bean="question1" />
+		</property>
 		<property name="user" ref="user1" />
-		
-	
+
+
 	</bean>
 
 </beans>

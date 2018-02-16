@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AnnouncementRepository;
+import domain.Actor;
+import domain.Administrator;
 import domain.Announcement;
 import domain.Rendezvous;
 
@@ -23,8 +25,14 @@ public class AnnouncementService {
 	@Autowired
 	private AnnouncementRepository	announcementRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private RendezvousService		rendezvousService;
+
 
 	//Constructor ----------------------------------------------------
 
@@ -53,6 +61,36 @@ public class AnnouncementService {
 		return result;
 	}
 
+	public Announcement save(final Announcement announcement) {
+		Assert.notNull(announcement);
+		Announcement result;
+		Actor actor;
+		Rendezvous rendezvous;
+
+		actor = this.actorService.findByPrincipal();
+		rendezvous = this.rendezvousService.findByAnnouncement(announcement);
+		Assert.isTrue(actor != null);
+		Assert.notNull(rendezvous);
+		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
+
+		announcement.setMoment(new Date());
+		result = this.announcementRepository.save(announcement);
+
+		return result;
+	}
+
+	public void delete(final Announcement announcement) {
+		Actor actor;
+
+		actor = this.actorService.findByPrincipal();
+		//Chekear el actor
+
+		Assert.notNull(announcement);
+		Assert.isTrue(announcement.getId() != 0);
+		Assert.isTrue(actor instanceof Administrator);
+
+		this.announcementRepository.delete(announcement);
+	}
 	//Other business methods
 
 	public Announcement findOne(final int announcementId) {

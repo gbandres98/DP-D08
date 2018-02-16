@@ -17,7 +17,6 @@ public class User extends Actor {
 	//Relationships
 	private Collection<Rendezvous>	RSVP;
 	private Collection<Rendezvous>	rendezvouses;
-	private Collection<Comment>		comments;
 
 
 	@NotNull
@@ -31,15 +30,6 @@ public class User extends Actor {
 		return this.rendezvouses;
 	}
 
-	@NotNull
-	@OneToMany()
-	public Collection<Comment> getComments() {
-		return this.comments;
-	}
-
-	public void setComments(final Collection<Comment> comments) {
-		this.comments = comments;
-	}
 	public void setRSVP(final Collection<Rendezvous> rSVP) {
 		this.RSVP = rSVP;
 	}
