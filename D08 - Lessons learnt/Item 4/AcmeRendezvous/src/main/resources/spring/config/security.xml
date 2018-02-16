@@ -35,6 +35,9 @@
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/rendezvous/list.do" access="permitALL" /> 
+		
+		<security:intercept-url pattern="/actor/create.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/register.do" access="permitAll" />
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
@@ -49,10 +52,6 @@
 		<!-- USUARIO -->
 		<security:intercept-url pattern="/comment/create.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/comment/edit.do" access="hasRole('USER')" /> 
-
-		<!-- Borrar? -->
-		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
-		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
 		
 		<!-- Autentificado -->
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
