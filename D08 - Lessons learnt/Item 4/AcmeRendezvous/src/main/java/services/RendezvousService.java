@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.RendezvousRepository;
 import domain.Actor;
+import domain.Announcement;
 import domain.Rendezvous;
 import domain.User;
 
@@ -92,4 +93,14 @@ public class RendezvousService {
 		return result;
 	}
 
+	public Rendezvous findByAnnouncement(final Announcement announcement) {
+		Rendezvous result;
+
+		Assert.notNull(announcement);
+		Assert.isTrue(announcement.getId() != 0);
+
+		result = this.rendezvousRepository.findByAnnouncementId(announcement.getId());
+
+		return result;
+	}
 }
