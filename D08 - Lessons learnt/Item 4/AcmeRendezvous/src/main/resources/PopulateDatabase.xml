@@ -94,13 +94,17 @@
 		<property name="moment" value="01/05/2014" />
 		<property name="user" ref="user1" />
 		<property name="rendezvous" ref="rendezvous1" />
-		<property name="comments">
-			<list>
-
-			</list>
-		</property>
+		
+			
 	</bean>
-
+	<bean id="comment2" class="domain.Comment">
+		<property name="text" value="I am a anwser of comment1" />
+		<property name="picture" value="http://www.picture1.com" />
+		<property name="moment" value="01/05/2014" />
+		<property name="user" ref="user1" />
+		<property name="rendezvous" ref="rendezvous1" />
+		<property name="parentComment" ref="comment1"/>
+	</bean>
 
 	<!-- GPSCoordinates -->
 	<bean id="gpscoordinates1" class="domain.GPSCoordinates">

@@ -58,20 +58,19 @@ public class Comment extends DomainEntity {
 	//Relationships
 
 	private Rendezvous			rendezvous;
-	private Collection<Comment>	comments;
+	private Comment				parentComment;
 	private User				user;
 
 
+	//se refiere como comentario padre a que este comentario es una respuesta a dicho comentario padre
+	//en caso de no ser una respuesta el comentario padre sera igual a null
 	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
-	public Rendezvous getRendezvous() {
-		return this.rendezvous;
+	@ManyToOne(optional = true)
+	public Comment getparentComment() {
+		return parentComment;
 	}
-	@NotNull
-	@OneToMany
-	public Collection<Comment> getComments() {
-		return this.comments;
+	public void setparentComment(Comment parentComment) {
+		this.parentComment = parentComment;
 	}
 	@Valid
 	@NotNull
@@ -79,7 +78,12 @@ public class Comment extends DomainEntity {
 	public User getUser() {
 		return this.user;
 	}
-
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Rendezvous getRendezvous() {
+		return this.rendezvous;
+	}
 	public void setUser(final User user) {
 		this.user = user;
 	}
@@ -87,8 +91,6 @@ public class Comment extends DomainEntity {
 		this.rendezvous = rendezvous;
 	}
 
-	public void setComments(final Collection<Comment> comments) {
-		this.comments = comments;
-	}
+	
 
 }

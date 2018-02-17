@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -40,20 +41,25 @@ public class CommentService {
 	}
 
 	// CRUD methods ----------------------------------------------------
-	public Comment create(final int rendezvousId) {
+	public Comment create(final Integer rendezvousId,final Integer commentId) {
+		
+		//el id del rendezvous no puede ser nulo, en cambio el del comentarioPadre si(en ese caso no es una respuesta
 		Assert.notNull(rendezvousId);
-
+		
+		
+		
 		Comment comment;
 		comment = new Comment();
 
 		//le asignamos el rendezvous
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 		comment.setRendezvous(rendezvous);
-
-		//añadimos las replies  TODO: Cambiar a la nueva implementación de Reply
-		//		Collection<Reply> replies=new ArrayList<Reply>();
-		//		comment.setReplies(replies);
-
+		
+		//añadimos el comentario padre en caso de haberlo 
+		if(commentId!= null){
+		Comment parentComment=commentRepository.findOne(commentId);
+		comment.setparentComment(parentComment);
+		}
 		//Sacamos el momento del sistema
 		Date moment;
 		moment = new Date(System.currentTimeMillis() - 1);

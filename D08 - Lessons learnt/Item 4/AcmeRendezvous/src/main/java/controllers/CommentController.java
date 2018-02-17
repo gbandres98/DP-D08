@@ -44,11 +44,11 @@ public class CommentController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam(required=true) final int rendezvousId) {
+	public ModelAndView create(@RequestParam(required=true) final Integer rendezvousId,@RequestParam(required=false) final Integer commentId) {
 		ModelAndView result;
 		Comment comment;
 
-		comment = commentService.create(rendezvousId);
+		comment = commentService.create(rendezvousId,commentId);
 		result = createEditModelAndView(comment);
 		
 		return result;

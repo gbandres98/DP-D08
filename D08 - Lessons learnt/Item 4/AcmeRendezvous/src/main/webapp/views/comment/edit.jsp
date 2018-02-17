@@ -25,7 +25,7 @@
 	<form:form action="comment/edit.do" modelAttribute="comment">
 	<form:hidden path="rendezvous" />
 	<form:hidden path="user" /> 
-<%-- 	<form:hidden path="replies" />  --%>
+	<form:hidden path="parentComment" />  
 	<form:hidden path="moment" />  
 	
 	<acme:textarea code="comment.text" path="text"/>
