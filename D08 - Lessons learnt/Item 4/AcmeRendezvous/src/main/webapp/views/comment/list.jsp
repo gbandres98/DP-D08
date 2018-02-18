@@ -20,79 +20,29 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<!-- Listing grid -->
+<!--  Listing grid -->
 
-<display:table  pagesize="5" class="displaytag" keepStatus="true"
-	name="survivalClasses" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="true" name="comments" requestURI="${requestURI}" id="row">
 
-	<!-- Action links -->
-	<!-- Attributes -->
+<!-- Attributes -->
 
-	<spring:message code="survivalClass.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" />
+<spring:message code="comment.picture" var="picture"/>
+<display:column property="picture" title="${picture}" sortable="false"/>
 
-	<spring:message code="survivalClass.description"
-		var="descriptionHeader" />
-	<display:column property="description" title="${descriptionHeader}" />
+<spring:message code="comment.text" var="text"/>
+<display:column property="text" title="${text}" sortable="false"/>
+ 
 
-	<spring:message code="survivalClass.organizationDate"
-		var="organizationDateHeader" />
-	<spring:message code="master.page.date.format" var="dateFormat" />
-	<display:column property="organizationDate"
-		title="${organizationDateHeader}" 
-		format="{0,date,${dateFormat}}" />
+<spring:message code="comment.moment" var="moment"/>
+<display:column property="moment" title="${moment}" sortable="false" format="${datePattern}"/>
 
-	<spring:message code="survivalClass.location" var="locationHeader" />
-	<display:column property="location" title="${locationHeader}" />
+<spring:message code="comment.user" var="user"/>
+<display:column property="user" title="${user}" sortable="false"/>
+<display:column property="parentComment" title="${parentComment}" sortable="false"/>
 
-	<spring:message code="survivalClass.trip" var="tripsHeader" />
-	<display:column property="trip.title" title="${tripsHeader}" />
+<jstl:if test="${empty row.parentComment}">
+<display:column>ver respuestas</display:column></jstl:if>
 
-	<security:authorize access="hasRole('EXPLORER')">
-		<display:column>
-			<jstl:choose>
-
-				<jstl:when test="${registered}">
-					<a
-						href="survivalClass/explorer/unAttend.do?survivalClassId=${row.id}">
-						<spring:message code="survivalClass.unAttend" />
-					</a>
-<a href="survivalClass/display.do?survivalClassId=<jstl:out value="${row.getId()}"/>"><spring:message
-					code="survivalClass.display" /></a>
-				</jstl:when>
-				<jstl:otherwise>
-
-					<a
-						href="survivalClass/explorer/attend.do?survivalClassId=${row.id}">
-						<spring:message code="survivalClass.attend" />
-					</a>
-<br />
-<a href="survivalClass/display.do?survivalClassId=<jstl:out value="${row.getId()}"/>"><spring:message
-					code="survivalClass.display" /></a>
-				</jstl:otherwise>
-
-			</jstl:choose>
-		</display:column>
-	</security:authorize>
-
-	<security:authorize access="hasRole('MANAGER')">
-		<display:column>
-			<%-- <input type="button" name="edit"
-				value="<spring:message code="survivalClass.edit" />"
-				onclick="javascript: relativeRedir('survivalClass/manager/edit.do?survivalClassId=${row.id}')" />
-		 --%>
-
-			
-<a href="survivalClass/display.do?survivalClassId=<jstl:out value="${row.getId()}"/>"><spring:message
-					code="survivalClass.display" /></a>
-					
-			<br />
-			<a
-				href="survivalClass/manager/edit.do?survivalClassId=<jstl:out value="${row.getId()}"/>"><spring:message
-					code="survivalClass.edit" /></a>
-			<br />
-		</display:column>
-	</security:authorize>
 </display:table>
 
 
