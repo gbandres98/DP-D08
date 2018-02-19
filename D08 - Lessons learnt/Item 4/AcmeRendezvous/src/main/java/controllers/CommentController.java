@@ -54,20 +54,34 @@ public class CommentController extends AbstractController {
 		return result;
 	}
 
-	// Listing ----------------------------------------------------------------
+	// Listing Root ----------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView display() {
+	@RequestMapping(value = "/list-Root", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam(required=true) final Integer rendezvousId) {
 		ModelAndView result;
 		Collection<Comment> comments;
 
-		comments = commentService.findAll();
+		comments = commentService.findByRendezvousIdRoot(rendezvousId);
 
 		result = new ModelAndView("comment/list");
 		result.addObject("comments", comments);
 
 		return result;
 	}
+	// Listing Answers----------------------------------------------------------------
+
+		@RequestMapping(value = "/list-Answer", method = RequestMethod.GET)
+		public ModelAndView display2(@RequestParam(required=true) final Integer commentId) {
+			ModelAndView result;
+			Collection<Comment> comments;
+
+			comments = commentService.findByParentCommentId(commentId);
+
+			result = new ModelAndView("comment/list");
+			result.addObject("comments", comments);
+
+			return result;
+		}
 
 	// Edition ----------------------------------------------------------------
 

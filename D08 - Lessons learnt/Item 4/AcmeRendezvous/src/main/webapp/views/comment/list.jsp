@@ -38,11 +38,14 @@
 
 <spring:message code="comment.user" var="user"/>
 <display:column property="user" title="${user}" sortable="false"/>
-<display:column property="parentComment" title="${parentComment}" sortable="false"/>
+<%-- <display:column property="parentComment" title="${parentComment}" sortable="false"/> --%>
 
-<jstl:if test="${empty row.parentComment}">
-<display:column>ver respuestas</display:column></jstl:if>
+ <jstl:if test="${not empty row.parentComment}">
+ <display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${row.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> </display:column>
+  </jstl:if> 
+<display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${row.id}')" > <spring:message code="comment.answers"/></button> </display:column>
 
+<display:column><button type="button" onclick="javascript: relativeRedir('comment/create.do?rendezvousId=${row.rendezvous.id}&commentId=${row.id}')" > <spring:message code="comment.create"/></button> </display:column>
 </display:table>
 
 

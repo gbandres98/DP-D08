@@ -63,7 +63,7 @@ public class Comment extends DomainEntity {
 
 
 	//se refiere como comentario padre a que este comentario es una respuesta a dicho comentario padre
-	//en caso de no ser una respuesta el comentario padre sera igual a null
+	//en caso de no ser una respuesta el comentario padre sera 
 	@Valid
 	@ManyToOne(optional = true)
 	public Comment getparentComment() {

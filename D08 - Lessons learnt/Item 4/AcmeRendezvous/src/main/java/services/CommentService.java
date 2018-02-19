@@ -132,4 +132,36 @@ public class CommentService {
 
 		return result;
 	}
+	public Collection<Comment> findByParentComment(final Comment comment) {
+		final Collection<Comment> result;
+
+		// Tested Query 
+		result = this.commentRepository.findByParentCommentId(comment.getId());
+
+		return result;
+	}
+	public Collection<Comment> findByRendezvousId(final int rendezvousId) {
+		final Collection<Comment> result;
+
+		// Tested Query 
+		result = this.commentRepository.findByRendezvousId(rendezvousId);
+
+		return result;
+	}
+	public Collection<Comment> findByParentCommentId(final int commentId) {
+		final Collection<Comment> result;
+
+		// Tested Query 
+		result = this.commentRepository.findByParentCommentId(commentId);
+
+		return result;
+	}
+	public Collection<Comment> findByRendezvousIdRoot(final int rendezvousId) {
+		final Collection<Comment> result;
+
+		// Tested Query 
+		result = this.commentRepository.findByRendezvousIdRoot(rendezvousId);
+
+		return result;
+	}
 }
