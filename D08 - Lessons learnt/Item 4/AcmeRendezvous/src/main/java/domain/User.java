@@ -15,23 +15,12 @@ import javax.validation.constraints.NotNull;
 public class User extends Actor {
 
 	//Relationships
-	private Collection<Rendezvous>	RSVP;
 	private Collection<Rendezvous>	rendezvouses;
 
-
-	@NotNull
-	@ManyToMany(mappedBy = "users")
-	public Collection<Rendezvous> getRSVP() {
-		return this.RSVP;
-	}
 	@NotNull
 	@OneToMany(mappedBy = "user")
 	public Collection<Rendezvous> getRendezvouses() {
 		return this.rendezvouses;
-	}
-
-	public void setRSVP(final Collection<Rendezvous> rSVP) {
-		this.RSVP = rSVP;
 	}
 
 	public void setRendezvouses(final Collection<Rendezvous> rendezvouses) {

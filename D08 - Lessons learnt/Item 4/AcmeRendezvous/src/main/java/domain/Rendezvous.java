@@ -7,7 +7,6 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -91,7 +90,6 @@ public class Rendezvous extends DomainEntity {
 	//Relationships
 
 	private Collection<Announcement>	announcements;
-	private Collection<User>			users;
 	private User						user;
 	private GPSCoordinates				GPSCoordinates;
 	private Collection<Question>		questions;
@@ -103,11 +101,6 @@ public class Rendezvous extends DomainEntity {
 		return this.announcements;
 	}
 
-	@NotNull
-	@ManyToMany
-	public Collection<User> getUsers() {
-		return this.users;
-	}
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
@@ -136,10 +129,6 @@ public class Rendezvous extends DomainEntity {
 
 	public void setAnnouncements(final Collection<Announcement> announcements) {
 		this.announcements = announcements;
-	}
-
-	public void setUsers(final Collection<User> users) {
-		this.users = users;
 	}
 
 	public void setUser(final User user) {

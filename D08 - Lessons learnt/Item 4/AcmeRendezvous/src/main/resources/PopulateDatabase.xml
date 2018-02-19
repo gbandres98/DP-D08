@@ -50,11 +50,9 @@
 	</bean>
 
 	<!-- Other domain beans come here -->
-	<!-- user -->
+	<!-- User -->
 	<bean id="user1" class="domain.User">
-		<property name="RSVP">
-			<ref bean="rendezvous1" />
-		</property>
+		
 		<property name="rendezvouses">
 			<ref bean="rendezvous1" />
 		</property>
@@ -75,10 +73,9 @@
 	</bean>
 
 
-	<!-- answer -->
+	<!-- Answer -->
 	<bean id="answer1" class="domain.Answer">
 		<property name="text" value="text1" />
-		<property name="user" ref="user1" />
 	</bean>
 
 	<!-- Annoucement -->
@@ -94,8 +91,10 @@
 		<property name="moment" value="01/05/2014" />
 		<property name="user" ref="user1" />
 		<property name="rendezvous" ref="rendezvous1" />
-		
-			
+		<property name="parentComment">
+			<null />
+		</property>
+
 	</bean>
 	<bean id="comment2" class="domain.Comment">
 		<property name="text" value="I am a anwser of comment1" />
@@ -111,7 +110,7 @@
 		<property name="latitude" value="1.0" />
 		<property name="longitude" value="2.0" />
 	</bean>
-	<!-- rendevous -->
+	<!-- Rendevous -->
 	<bean id="rendezvous1" class="domain.Rendezvous">
 		<property name="name" value="rendezvous1" />
 		<property name="description" value="description1" />
@@ -123,15 +122,23 @@
 		<property name="announcements">
 			<ref bean="annoucement1" />
 		</property>
-		<property name="users">
-			<ref bean="user1" />
-		</property>
 		<property name="questions">
 			<ref bean="question1" />
 		</property>
 		<property name="user" ref="user1" />
 
 
+	</bean>
+	
+	<!-- RSVP -->
+	<bean id="RSVP" class="domain.RSVP">
+		<property name="cancelled" value="false" />
+		<property name="joined" value="true" />
+		<property name="user" ref="user1" />
+		<property name="rendezvous" ref="rendezvous1" />
+		<property name="answers">
+			<ref bean="answer1" />
+		</property>
 	</bean>
 
 </beans>

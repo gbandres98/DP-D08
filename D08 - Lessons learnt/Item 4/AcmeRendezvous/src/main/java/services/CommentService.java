@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -41,24 +40,22 @@ public class CommentService {
 	}
 
 	// CRUD methods ----------------------------------------------------
-	public Comment create(final Integer rendezvousId,final Integer commentId) {
-		
+	public Comment create(final Integer rendezvousId, final Integer commentId) {
+
 		//el id del rendezvous no puede ser nulo, en cambio el del comentarioPadre si(en ese caso no es una respuesta
 		Assert.notNull(rendezvousId);
-		
-		
-		
+
 		Comment comment;
 		comment = new Comment();
 
 		//le asignamos el rendezvous
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 		comment.setRendezvous(rendezvous);
-		
+
 		//añadimos el comentario padre en caso de haberlo 
-		if(commentId!= null){
-		Comment parentComment=commentRepository.findOne(commentId);
-		comment.setparentComment(parentComment);
+		if (commentId != null) {
+			final Comment parentComment = this.commentRepository.findOne(commentId);
+			comment.setparentComment(parentComment);
 		}
 		//Sacamos el momento del sistema
 		Date moment;
@@ -95,7 +92,7 @@ public class CommentService {
 		comment.setMoment(moment);
 
 		//checkear que el usuario tiene RSPV en el rendevous que comenta
-		Assert.isTrue(comment.getUser().getRSVP().contains(comment.getRendezvous()));
+		//TODO: Corregir este Assert Assert.isTrue(comment.getUser().getRSVP().contains(comment.getRendezvous()));
 
 		final Comment commentsave = this.commentRepository.save(comment);
 		return commentsave;
