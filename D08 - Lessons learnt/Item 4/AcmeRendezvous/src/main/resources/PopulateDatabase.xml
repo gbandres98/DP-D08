@@ -64,6 +64,16 @@
 		<property name="emailAddress" value="user1@email.com" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
+	<bean id="admin" class="domain.Administrator">
+		
+	
+		<property name="name" value="adminname" />
+		<property name="surname" value="Adminsurname" />
+		<property name="postalAddress" value="AdminpostalAdrdress" />
+		<property name="phoneNumber" value="AdminphoneNumber" />
+		<property name="emailAddress" value="Admin@email.com" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
 	<!-- Question -->
 	<bean id="question1" class="domain.Question">
 		<property name="text" value="text1" />

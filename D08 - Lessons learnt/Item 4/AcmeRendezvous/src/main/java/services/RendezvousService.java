@@ -103,4 +103,14 @@ public class RendezvousService {
 
 		return result;
 	}
+	
+	public Collection<Rendezvous> findRendevousWithRSVPbyUserId(final int id) {
+		Collection<Rendezvous> result;
+
+	
+
+		result = this.rendezvousRepository.findRendevousWithRSVPbyUserId(id);
+
+		return result;
+	}
 }

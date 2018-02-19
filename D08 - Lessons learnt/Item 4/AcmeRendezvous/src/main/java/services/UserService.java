@@ -30,7 +30,7 @@ public class UserService {
 
 		result = new User();
 		result.setRendezvouses(new HashSet<Rendezvous>());
-		result.setRSVP(new HashSet<Rendezvous>());
+		
 
 		return result;
 	}

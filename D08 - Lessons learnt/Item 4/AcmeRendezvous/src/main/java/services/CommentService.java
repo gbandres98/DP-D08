@@ -32,6 +32,7 @@ public class CommentService {
 	private RendezvousService	rendezvousService;
 	@Autowired
 	private ActorService		actorService;
+	
 
 
 	// Constructor ----------------------------------------------------
@@ -95,8 +96,11 @@ public class CommentService {
 		comment.setMoment(moment);
 
 		//checkear que el usuario tiene RSPV en el rendevous que comenta
+	
+		Actor user =  this.actorService.findByPrincipal();
+		Collection<Rendezvous> rsvps =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
+		Assert.isTrue(rsvps.contains(comment.getRendezvous()))	;
 		
-
 		final Comment commentsave = this.commentRepository.save(comment);
 		return commentsave;
 	}
@@ -107,7 +111,7 @@ public class CommentService {
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor != null);
 
-		//requeriment 6.1 need admin to delete
+		//requeriment 6.1 need admin to delete :borra tambien las respuestas(profesor fernando dio visto bueno)
 		Assert.isTrue(actor instanceof Administrator);
 		Collection<Comment> childrenComment = commentRepository.findByParentCommentId(comment.getId());
 		for(Comment c:childrenComment){

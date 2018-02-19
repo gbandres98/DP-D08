@@ -11,6 +11,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.ListResourceBundle;
 
 import javax.validation.Valid;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Comment;
+import domain.Rendezvous;
 
 import services.CommentService;
 
@@ -83,7 +85,32 @@ public class CommentController extends AbstractController {
 			result.addObject("ParentComment", parentComment);
 			return result;
 		}
+//delete from listing
+		@RequestMapping(value = "/delete", method = RequestMethod.GET)
+		public ModelAndView display3(@RequestParam(required=true) final Integer commentId) {
+			ModelAndView result;
+			Comment c=commentService.findOne(commentId);
+			Rendezvous r=c.getRendezvous();
+			
+			try {
+				
+				commentService.delete(c);
+				if(c.getparentComment()==null){
+					result = new ModelAndView("comment/list");
+				
+			
+				
+				}else{
+					result=this.display2(c.getparentComment().getId());
+				}
+				
+			} catch (Throwable oops) {
+				result = display2(c.getId());
+				
+			}
 
+			return result;
+		}
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)

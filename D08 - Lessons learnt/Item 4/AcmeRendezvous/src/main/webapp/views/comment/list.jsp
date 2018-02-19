@@ -66,9 +66,12 @@
 
 <display:column><button type="button" onclick="javascript: relativeRedir('comment/create.do?rendezvousId=${row.rendezvous.id}&commentId=${row.id}')" > <spring:message code="comment.create"/></button> </display:column>
 <security:authorize access="hasRole('ADMINISTRATOR')">
-	<display:column><button type="button" onclick="javascript: relativeRedir('comment/delete.do?commentId=${row.id}')"> </display:column>
+	<display:column><a
+						href="comment/delete.do?commentId=${row.id}">
+						<spring:message code="comment.delete" />
+					</a> </display:column>
 		<spring:message code="comment.delete" />
-	</a>
+
 	<br/>
 </security:authorize>
 
