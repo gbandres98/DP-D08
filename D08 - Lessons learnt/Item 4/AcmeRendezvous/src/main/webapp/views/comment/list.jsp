@@ -22,6 +22,20 @@
 
 <!--  Listing grid -->
 
+<jstl:if test="${comments.size()==0}">
+<jstl:choose>
+ <jstl:when test="${empty ParentComment.parentComment }">
+ <button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${ParentComment.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> 
+  </jstl:when> 
+  <jstl:when test="${not empty ParentComment.parentComment && not empty ParentComment.parentComment.parentComment }">
+ <button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${ParentComment.parentComment.parentComment.id}')" > <spring:message code="comment.parentComment"/></button> 
+  </jstl:when>
+  <jstl:otherwise> <button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${ParentComment.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> 
+  </jstl:otherwise>
+  </jstl:choose>
+
+ </jstl:if>
+  
 <display:table pagesize="5" class="displaytag" keepStatus="true" name="comments" requestURI="${requestURI}" id="row">
 
 <!-- Attributes -->
@@ -39,13 +53,25 @@
 <spring:message code="comment.user" var="user"/>
 <display:column property="user" title="${user}" sortable="false"/>
 <%-- <display:column property="parentComment" title="${parentComment}" sortable="false"/> --%>
-
- <jstl:if test="${not empty row.parentComment}">
+<jstl:choose>
+ <jstl:when test="${empty row.parentComment.parentComment && not empty row.parentComment }">
  <display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${row.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> </display:column>
-  </jstl:if> 
+  </jstl:when> 
+  <jstl:when test="${not empty row.parentComment }">
+  <display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${row.parentComment.parentComment.id}')" > <spring:message code="comment.parentComment"/></button> </display:column>
+  </jstl:when>
+  <jstl:otherwise></jstl:otherwise>
+  </jstl:choose>
 <display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${row.id}')" > <spring:message code="comment.answers"/></button> </display:column>
 
 <display:column><button type="button" onclick="javascript: relativeRedir('comment/create.do?rendezvousId=${row.rendezvous.id}&commentId=${row.id}')" > <spring:message code="comment.create"/></button> </display:column>
+<security:authorize access="hasRole('ADMINISTRATOR')">
+	<display:column><button type="button" onclick="javascript: relativeRedir('comment/delete.do?commentId=${row.id}')"> </display:column>
+		<spring:message code="comment.delete" />
+	</a>
+	<br/>
+</security:authorize>
+
 </display:table>
 
 

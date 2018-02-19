@@ -65,6 +65,7 @@ public class CommentController extends AbstractController {
 
 		result = new ModelAndView("comment/list");
 		result.addObject("comments", comments);
+		
 
 		return result;
 	}
@@ -74,12 +75,12 @@ public class CommentController extends AbstractController {
 		public ModelAndView display2(@RequestParam(required=true) final Integer commentId) {
 			ModelAndView result;
 			Collection<Comment> comments;
-
+			Comment parentComment;
 			comments = commentService.findByParentCommentId(commentId);
-
+			parentComment=commentService.findOne(commentId);
 			result = new ModelAndView("comment/list");
 			result.addObject("comments", comments);
-
+			result.addObject("ParentComment", parentComment);
 			return result;
 		}
 
