@@ -34,7 +34,7 @@
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/rendezvous/list.do" access="permitALL" /> 
+		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/actor/create.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do" access="permitAll" />
