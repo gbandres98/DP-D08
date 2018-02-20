@@ -104,7 +104,7 @@ public class Rendezvous extends DomainEntity {
 
 
 	@NotNull
-	@OneToMany()
+	@OneToMany(mappedBy = "rendezvous")
 	public Collection<Announcement> getAnnouncements() {
 		return this.announcements;
 	}
@@ -123,7 +123,7 @@ public class Rendezvous extends DomainEntity {
 	}
 
 	@NotNull
-	@OneToMany
+	@OneToMany(mappedBy = "rendezvous")
 	public Collection<Question> getQuestions() {
 		return this.questions;
 	}

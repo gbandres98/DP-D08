@@ -80,12 +80,14 @@
 		<property name="answers">
 			<ref bean="answer1" />
 		</property>
+		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
 
 
 	<!-- Answer -->
 	<bean id="answer1" class="domain.Answer">
 		<property name="text" value="text1" />
+		<property name="question" ref="question1" />
 	</bean>
 
 	<!-- Annoucement -->
@@ -93,6 +95,7 @@
 		<property name="title" value="title1" />
 		<property name="description" value="description1" />
 		<property name="moment" value="01/05/2014" />
+		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
 	<!-- Comment -->
 	<bean id="comment1" class="domain.Comment">
