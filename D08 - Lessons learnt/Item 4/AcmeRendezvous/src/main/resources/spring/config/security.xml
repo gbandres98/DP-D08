@@ -34,8 +34,6 @@
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" /> 
-		
 		<security:intercept-url pattern="/actor/create.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do" access="permitAll" />
 
@@ -60,6 +58,9 @@
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
+		
+		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/rendezvous/user/**" access="hasRole('USER')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

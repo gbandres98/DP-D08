@@ -1,12 +1,15 @@
 #./src/main/resources/Entities.map
-#Fri Feb 16 19:28:46 CET 2018
-question1=23
-comment1=28
-answer1=24
-annoucement1=25
-rendezvous1=27
-userAccount3=21
-userAccount2=20
-userAccount1=19
-gpscoordinates1=26
-user1=22
+#Tue Feb 20 15:17:40 CET 2018
+RSVP=42
+question1=37
+comment2=44
+comment1=43
+answer1=38
+annoucement1=39
+rendezvous1=41
+userAccount3=34
+userAccount2=33
+admin=36
+gpscoordinates1=40
+userAccount1=32
+user1=35

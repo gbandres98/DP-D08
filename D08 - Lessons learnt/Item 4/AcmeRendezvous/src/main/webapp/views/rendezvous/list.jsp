@@ -24,10 +24,13 @@
 <display:column property="description" title="${description}" sortable="false"/>
  
 <spring:message code="rendezvous.datePattern" var="datePattern"/>
-
 <spring:message code="rendezvous.moment" var="moment"/>
 <display:column property="moment" title="${moment}" sortable="false" format="${datePattern}"/>
 
+<spring:message code="rendezvous.user" var="user"/>
+<display:column title="${user}" sortable="false">
+<a href="actor/display.do?userId=${row.user.id}"><jstl:out value="${row.user.name}"/> <jstl:out value="${row.user.surname}"/></a>
+</display:column>
 
 
 <security:authorize access="hasRole('USER')">

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.RendezvousRepository;
 import domain.Actor;
 import domain.Announcement;
+import domain.Question;
 import domain.Rendezvous;
 import domain.User;
 
@@ -37,8 +39,13 @@ public class RendezvousService {
 	// Simple CRUD methods ----------------------------------------------------
 	public Rendezvous create() {
 		Rendezvous result;
+		User user;
 
+		user = (User) this.actorService.findByPrincipal();
 		result = new Rendezvous();
+		result.setUser(user);
+		result.setQuestions(new HashSet<Question>());
+		result.setAnnouncements(new HashSet<Announcement>());
 
 		return result;
 	}
@@ -57,11 +64,12 @@ public class RendezvousService {
 		Rendezvous result;
 
 		actor = this.actorService.findByPrincipal();
-		//Chekear el actor
 
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getId() != 0);
 		Assert.isTrue(this.rendezvousRepository.exists(rendezvous.getId()));
+		Assert.isTrue(actor.getId() == rendezvous.getUser().getId());
+
 		rendezvous.setDeleted(true);
 		result = this.save(rendezvous);
 
@@ -103,13 +111,19 @@ public class RendezvousService {
 
 		return result;
 	}
-	
+
 	public Collection<Rendezvous> findRendevousWithRSVPbyUserId(final int id) {
 		Collection<Rendezvous> result;
 
-	
-
 		result = this.rendezvousRepository.findRendevousWithRSVPbyUserId(id);
+
+		return result;
+	}
+
+	public Collection<Rendezvous> findByUser(final int userId) {
+		Collection<Rendezvous> result;
+
+		result = this.rendezvousRepository.findByUser(userId);
 
 		return result;
 	}
