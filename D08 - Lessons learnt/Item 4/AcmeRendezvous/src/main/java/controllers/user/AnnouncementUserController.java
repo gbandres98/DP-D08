@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers;
+package controllers.user;
 
 import java.util.Collection;
 
@@ -16,18 +16,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AnnouncementService;
 import services.RendezvousService;
+import controllers.AbstractController;
+import domain.Actor;
 import domain.Announcement;
-import domain.Rendezvous;
+import domain.User;
 
 @Controller
-@RequestMapping("/announcement")
-public class AnnouncementController extends AbstractController {
+@RequestMapping("/announcement/user")
+public class AnnouncementUserController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
@@ -43,23 +44,23 @@ public class AnnouncementController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public AnnouncementController() {
+	public AnnouncementUserController() {
 		super();
 	}
 
 	// Listing ----------------------------------------------------------------		
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int rendezvousId) {
+	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Announcement> announcements;
-		Rendezvous rendezvous;
+		Actor principal;
 
-		rendezvous = this.rendezvousService.findOne(rendezvousId);
-		announcements = this.announcementService.findByRendezvous(rendezvous);
+		principal = this.actorService.findByPrincipal();
+		announcements = this.announcementService.findByUserRSVP((User) principal);
 		result = new ModelAndView("announcement/list");
 		result.addObject("announcements", announcements);
-		result.addObject("requestURI", "announcement/list.do");
+		result.addObject("requestURI", "announcement/user/list.do");
 		return result;
 	}
 

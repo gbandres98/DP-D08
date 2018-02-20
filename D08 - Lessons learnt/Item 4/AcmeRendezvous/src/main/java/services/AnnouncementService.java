@@ -15,6 +15,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Announcement;
 import domain.Rendezvous;
+import domain.User;
 
 @Service
 @Transactional
@@ -105,6 +106,14 @@ public class AnnouncementService {
 		Collection<Announcement> result;
 
 		result = this.announcementRepository.findByRendezvousId(rendezvous.getId());
+
+		return result;
+	}
+
+	public Collection<Announcement> findByUserRSVP(final User user) {
+		final Collection<Announcement> result;
+
+		result = this.announcementRepository.findByUserRSVPId(user.getId());
 
 		return result;
 	}

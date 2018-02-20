@@ -53,6 +53,7 @@
 		<security:intercept-url pattern="/comment/edit.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/comment/list-Root.do" access="hasAnyRole('USER', 'ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/comment/list-Answer.do" access="hasAnyRole('USER', 'ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/announcement/user/list.do" access="hasRole('USER')" />
 		
 		<!-- Autentificado -->
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 

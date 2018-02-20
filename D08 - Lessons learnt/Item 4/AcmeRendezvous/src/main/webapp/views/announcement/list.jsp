@@ -19,11 +19,23 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<jstl:if test="${requestUri=='announcement/user/list.do' }">
+
+</jstl:if>
 
 <!-- Listing grid -->
-<display:table  pagesize="5" class="displaytag" keepStatus="true"
+<display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="announcements" requestURI="${requestURI}" id="row">
 
+	<spring:message code="announcement.title" var="title" />
+	<display:column property="title" title="${title}" sortable="false" />
+
+	<spring:message code="announcement.description" var="description" />
+	<display:column property="description" title="${description}"
+		sortable="false" />
+
+	<spring:message code="announcement.moment" var="moment" />
+	<display:column property="moment" title="${moment}" sortable="false" />
 
 
 </display:table>
