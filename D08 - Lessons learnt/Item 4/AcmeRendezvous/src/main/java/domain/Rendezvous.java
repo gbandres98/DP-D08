@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -99,6 +100,7 @@ public class Rendezvous extends DomainEntity {
 	private User						user;
 	private GPSCoordinates				GPSCoordinates;
 	private Collection<Question>		questions;
+	private Collection<Rendezvous>		rendezvouses;
 
 
 	@NotNull
@@ -125,7 +127,15 @@ public class Rendezvous extends DomainEntity {
 	public Collection<Question> getQuestions() {
 		return this.questions;
 	}
+	@NotNull
+	@ManyToMany
+	public Collection<Rendezvous> getRendezvouses() {
+		return this.rendezvouses;
+	}
 
+	public void setRendezvouses(final Collection<Rendezvous> rendezvouses) {
+		this.rendezvouses = rendezvouses;
+	}
 	public void setQuestions(final Collection<Question> questions) {
 		this.questions = questions;
 	}

@@ -132,6 +132,10 @@
 		<property name="announcements">
 			<ref bean="annoucement1" />
 		</property>
+		<property name="rendezvouses">
+			<list>
+			</list>
+		</property>
 		<property name="questions">
 			<ref bean="question1" />
 		</property>
