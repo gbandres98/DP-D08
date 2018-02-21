@@ -143,7 +143,7 @@ public class CommentController extends AbstractController {
 		else
 			try {
 				this.commentService.save(comment);
-				result = new ModelAndView("redirect:/rendezvous/display.do?IdRendevous="+r.getId());
+				result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId="+r.getId());
 			} catch (final Throwable oops) {
 				String errorMessage = "comment.commit.error";
 

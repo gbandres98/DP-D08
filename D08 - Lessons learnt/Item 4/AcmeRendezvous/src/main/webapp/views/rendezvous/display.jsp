@@ -32,11 +32,15 @@
 <spring:message code="rendezvous.adultOnly"/>
 </jstl:if>
 
+<br/>
 
-
+<a href="comment/list-Root.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.list"/></b></a>
 
 
 <security:authorize access="hasRole('USER')">
 
-
+<br/>
+<b><spring:message code="rendezvous.description"/></b>
+<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
+<br/>
 </security:authorize>
