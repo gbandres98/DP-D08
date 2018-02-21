@@ -14,8 +14,10 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -24,6 +26,7 @@ import services.RendezvousService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Announcement;
+import domain.Rendezvous;
 import domain.User;
 
 @Controller
@@ -65,11 +68,18 @@ public class AnnouncementUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int rendezvousId) {
 		ModelAndView result;
 		Announcement announcement;
+		Rendezvous rendezvous;
+		Actor principal;
 
+		principal = this.actorService.findByPrincipal();
 		announcement = this.announcementService.create();
+		rendezvous = this.rendezvousService.findOne(rendezvousId);
+		announcement.setRendezvous(rendezvous);
+		Assert.notNull(rendezvous);
+		Assert.isTrue(rendezvous.getUser().getId() == principal.getId());
 		result = this.createEditModelAndView(announcement);
 
 		return result;
@@ -87,7 +97,7 @@ public class AnnouncementUserController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Announcement announcement, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("rendezvous/edit");
+		result = new ModelAndView("announcement/edit");
 		result.addObject("announcement", announcement);
 		result.addObject("message", messageCode);
 
