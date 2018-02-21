@@ -24,11 +24,20 @@
 
 <jstl:if test="${comments.size()==0}">
 <jstl:choose>
+<jstl:when test="${empty ParentComment.parentComment }">
+		<jstl:choose>
+		<jstl:when test="${empty ParentComment }">
+  		 </jstl:when> 
+  		 <jstl:otherwise>
+  		  <button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${ParentComment.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> 
+  		  </jstl:otherwise>
+  		</jstl:choose>
+  </jstl:when> 
  <jstl:when test="${empty ParentComment.parentComment }">
  <button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${ParentComment.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> 
   </jstl:when> 
   <jstl:when test="${not empty ParentComment.parentComment && not empty ParentComment.parentComment.parentComment }">
- <button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${ParentComment.parentComment.parentComment.id}')" > <spring:message code="comment.parentComment"/></button> 
+ <button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${ParentComment.parentComment.id}')" > <spring:message code="comment.parentComment"/></button> 
   </jstl:when>
   <jstl:otherwise> <button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${ParentComment.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> 
   </jstl:otherwise>
