@@ -1,8 +1,6 @@
 
 package converters;
 
-// TODO: Cuando esten los repositorios quitar el comentario
-
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang.StringUtils;
