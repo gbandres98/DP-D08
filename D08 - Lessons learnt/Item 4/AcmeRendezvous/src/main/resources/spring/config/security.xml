@@ -80,6 +80,6 @@
 		<security:logout 
 			logout-success-url="/" 
 			invalidate-session="true" />
-	</security:http>
+		</security:http>
 
 </beans>
