@@ -15,7 +15,7 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	@Query("select r from Rendezvous r join r.announcements a where a.id = ?1")
 	Rendezvous findByAnnouncementId(int id);
 
-	@Query("select r.rendezvous from RSVP r where r.user.id = ?1")
+	@Query("select r.rendezvous from RSVP r where r.user.id = ?1 and r.joined=1")
 	Collection<Rendezvous> findRendevousWithRSVPbyUserId(int id);
 
 	@Query("select r from Rendezvous r where r.user.id = ?1")

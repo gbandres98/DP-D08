@@ -98,8 +98,8 @@ public class CommentService {
 		//checkear que el usuario tiene RSPV en el rendevous que comenta
 	
 		Actor user =  this.actorService.findByPrincipal();
-		Collection<Rendezvous> rsvps =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
-		Assert.isTrue(rsvps.contains(comment.getRendezvous()))	;
+		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
+		Assert.isTrue(rendevouses.contains(comment.getRendezvous()))	;
 		
 		final Comment commentsave = this.commentRepository.save(comment);
 		return commentsave;

@@ -42,24 +42,28 @@ public class CommentController extends AbstractController {
 	public CommentController() {
 		super();
 	}
-	
+
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam(required=true) final Integer rendezvousId,@RequestParam(required=false) final Integer commentId) {
+	public ModelAndView create(
+			@RequestParam(required = true) final Integer rendezvousId,
+			@RequestParam(required = false) final Integer commentId) {
 		ModelAndView result;
 		Comment comment;
 
-		comment = commentService.create(rendezvousId,commentId);
+		comment = commentService.create(rendezvousId, commentId);
 		result = createEditModelAndView(comment);
-		
+
 		return result;
 	}
 
-	// Listing Root ----------------------------------------------------------------
+	// Listing Root
+	// ----------------------------------------------------------------
 
 	@RequestMapping(value = "/list-Root", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required=true) final Integer rendezvousId) {
+	public ModelAndView listRoot(
+			@RequestParam(required = true) final Integer rendezvousId) {
 		ModelAndView result;
 		Collection<Comment> comments;
 
@@ -67,50 +71,53 @@ public class CommentController extends AbstractController {
 
 		result = new ModelAndView("comment/list");
 		result.addObject("comments", comments);
-		
 
 		return result;
 	}
-	// Listing Answers----------------------------------------------------------------
 
-		@RequestMapping(value = "/list-Answer", method = RequestMethod.GET)
-		public ModelAndView display2(@RequestParam(required=true) final Integer commentId) {
-			ModelAndView result;
-			Collection<Comment> comments;
-			Comment parentComment;
-			comments = commentService.findByParentCommentId(commentId);
-			parentComment=commentService.findOne(commentId);
-			result = new ModelAndView("comment/list");
-			result.addObject("comments", comments);
-			result.addObject("ParentComment", parentComment);
-			return result;
-		}
-//delete from listing
-		@RequestMapping(value = "/delete", method = RequestMethod.GET)
-		public ModelAndView display3(@RequestParam(required=true) final Integer commentId) {
-			ModelAndView result;
-			Comment c=commentService.findOne(commentId);
-			Rendezvous r=c.getRendezvous();
-			
-			try {
-				
-				commentService.delete(c);
-				if(c.getparentComment()==null){
-					result = new ModelAndView("comment/list");
-				
-			
-				
-				}else{
-					result=this.display2(c.getparentComment().getId());
-				}
-				
-			} catch (Throwable oops) {
-				result = display2(c.getId());
-				
+	// Listing
+	// Answers----------------------------------------------------------------
+
+	@RequestMapping(value = "/list-Answer", method = RequestMethod.GET)
+	public ModelAndView listAnswer(
+			@RequestParam(required = true) final Integer commentId) {
+		ModelAndView result;
+		Collection<Comment> comments;
+		Comment parentComment;
+		comments = commentService.findByParentCommentId(commentId);
+		parentComment = commentService.findOne(commentId);
+		result = new ModelAndView("comment/list");
+		result.addObject("comments", comments);
+		result.addObject("ParentComment", parentComment);
+		return result;
+	}
+
+	// delete from listing
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView display3(
+			@RequestParam(required = true) final Integer commentId) {
+		ModelAndView result;
+		Comment c = commentService.findOne(commentId);
+		Rendezvous r = c.getRendezvous();
+
+		try {
+
+			commentService.delete(c);
+			if (c.getparentComment() == null) {
+				result = this.listRoot(r.getId());
+
+			} else {
+				result = this.listAnswer(c.getparentComment().getId());
 			}
 
-			return result;
+		} catch (Throwable oops) {
+			result = listAnswer(c.getId());
+
 		}
+
+		return result;
+	}
+
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -119,7 +126,6 @@ public class CommentController extends AbstractController {
 		Comment comment;
 
 		comment = commentService.findOne(commentId);
-
 
 		result = this.createEditModelAndView(comment);
 
@@ -130,17 +136,18 @@ public class CommentController extends AbstractController {
 	public ModelAndView save(@Valid final Comment comment,
 			final BindingResult binding) {
 		ModelAndView result;
-
+		Rendezvous r = comment.getRendezvous();
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(comment, "comment.binding.error");
+			result = this.createEditModelAndView(comment,
+					"comment.binding.error");
 		else
 			try {
 				this.commentService.save(comment);
-				result = new ModelAndView("redirect:/rendezvous/display.do?IdRendevous="+comment.getRendezvous().getId());
+				result = new ModelAndView("redirect:/rendezvous/display.do?IdRendevous="+r.getId());
 			} catch (final Throwable oops) {
 				String errorMessage = "comment.commit.error";
-				
-				if(oops.getMessage().contains("message.error")){
+
+				if (oops.getMessage().contains("message.error")) {
 					errorMessage = oops.getMessage();
 				}
 				result = this.createEditModelAndView(comment, errorMessage);
@@ -156,11 +163,11 @@ public class CommentController extends AbstractController {
 
 		try {
 			this.commentService.delete(comment);
-			result = new ModelAndView("redirect:/AcmeRendezvous/");
+			result = new ModelAndView("redirect:/rendezvous/display.do?IdRendevous=" + comment.getRendezvous().getId());
 		} catch (final Throwable oops) {
 			String errorMessage = "comment.commit.error";
-			
-			if(oops.getMessage().contains("message.error")){
+
+			if (oops.getMessage().contains("message.error")) {
 				errorMessage = oops.getMessage();
 			}
 			result = this.createEditModelAndView(comment, errorMessage);

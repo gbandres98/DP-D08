@@ -64,16 +64,17 @@
 <%-- <display:column property="parentComment" title="${parentComment}" sortable="false"/> --%>
 <jstl:choose>
  <jstl:when test="${empty row.parentComment.parentComment && not empty row.parentComment }">
- <display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Root.do?rendezvousId=${row.rendezvous.id}')" > <spring:message code="comment.parentComment"/></button> </display:column>
+ <display:column><a href="comment/list-Root.do?rendezvousId=${row.rendezvous.id}"> <spring:message code="comment.parentComment"/> </a></display:column>
   </jstl:when> 
   <jstl:when test="${not empty row.parentComment }">
-  <display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${row.parentComment.parentComment.id}')" > <spring:message code="comment.parentComment"/></button> </display:column>
+  <display:column><a href="comment/list-Answer.do?commentId=${row.parentComment.parentComment.id}">  <spring:message code="comment.parentComment"/> </a></display:column>
   </jstl:when>
   <jstl:otherwise></jstl:otherwise>
   </jstl:choose>
-<display:column><button type="button" onclick="javascript: relativeRedir('comment/list-Answer.do?commentId=${row.id}')" > <spring:message code="comment.answers"/></button> </display:column>
-
-<display:column><button type="button" onclick="javascript: relativeRedir('comment/create.do?rendezvousId=${row.rendezvous.id}&commentId=${row.id}')" > <spring:message code="comment.create"/></button> </display:column>
+<display:column><a href='comment/list-Answer.do?commentId=${row.id}' > <spring:message code="comment.answers"/></a> </display:column>
+<security:authorize access="hasRole('USER')">
+<display:column><a href='comment/create.do?rendezvousId=${row.rendezvous.id}&commentId=${row.id}' > <spring:message code="comment.create"/></a> </display:column>
+</security:authorize>
 <security:authorize access="hasRole('ADMINISTRATOR')">
 	<display:column><a
 						href="comment/delete.do?commentId=${row.id}">
