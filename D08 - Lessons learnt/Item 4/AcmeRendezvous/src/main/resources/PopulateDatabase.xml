@@ -51,6 +51,20 @@
 
 	<!-- Other domain beans come here -->
 	<!-- User -->
+	
+	<bean id="admin" class="domain.Administrator">
+		
+	
+		<property name="name" value="adminname" />
+		<property name="surname" value="Adminsurname" />
+		<property name="postalAddress" value="AdminpostalAdrdress" />
+		<property name="phoneNumber" value="AdminphoneNumber" />
+		<property name="emailAddress" value="Admin@email.com" />
+		<property name="birthDate" value="1986/02/16" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	
 	<bean id="user1" class="domain.User">
 		
 		<property name="rendezvouses">
@@ -66,17 +80,7 @@
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 	
-	<bean id="admin" class="domain.Administrator">
-		
-	
-		<property name="name" value="adminname" />
-		<property name="surname" value="Adminsurname" />
-		<property name="postalAddress" value="AdminpostalAdrdress" />
-		<property name="phoneNumber" value="AdminphoneNumber" />
-		<property name="emailAddress" value="Admin@email.com" />
-		<property name="birthDate" value="1986/02/16" />
-		<property name="userAccount" ref="userAccount1" />
-	</bean>
+
 	<!-- Question -->
 	<bean id="question1" class="domain.Question">
 		<property name="text" value="text1" />
@@ -126,6 +130,8 @@
 		<property name="latitude" value="1.0" />
 		<property name="longitude" value="2.0" />
 	</bean>
+	
+	
 	<!-- Rendevous -->
 	<bean id="rendezvous1" class="domain.Rendezvous">
 		<property name="name" value="rendezvous1" />
@@ -144,6 +150,32 @@
 		</property>
 		<property name="questions">
 			<ref bean="question1" />
+		</property>
+		<property name="user" ref="user1" />
+		<property name="GPSCoordinates" ref="gpscoordinates1" />
+
+
+	</bean>
+	
+	<bean id="rendezvous2" class="domain.Rendezvous">
+		<property name="name" value="rendezvous2" />
+		<property name="description" value="description2" />
+		<property name="moment" value="01/05/2020" />
+		<property name="picture" value="http://www.picture1.com" />
+		<property name="adultOnly" value="false" />
+		<property name="finalVersion" value="false" />
+		<property name="deleted" value="false" />
+		<property name="announcements">
+			<list>
+			</list>
+		</property>
+		<property name="rendezvouses">
+			<list>
+			</list>
+		</property>
+		<property name="questions">
+			<list>
+			</list>
 		</property>
 		<property name="user" ref="user1" />
 
