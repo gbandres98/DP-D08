@@ -31,6 +31,7 @@
 		<value>/views/announcement/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
 		<value>/views/law/tiles.xml</value>
+		<value>/views/gpsCoordinates/tiles.xml</value>
 		
 	</util:list>
 

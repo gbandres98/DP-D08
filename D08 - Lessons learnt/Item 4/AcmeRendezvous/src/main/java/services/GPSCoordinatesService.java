@@ -11,6 +11,7 @@ import repositories.GPSCoordinatesRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.GPSCoordinates;
+import domain.Rendezvous;
 import domain.User;
 
 @Service
@@ -22,6 +23,9 @@ public class GPSCoordinatesService {
 
 	@Autowired
 	private ActorService				actorService;
+
+	@Autowired
+	private RendezvousService			rendezvousService;
 
 
 	//Constructors
@@ -37,15 +41,22 @@ public class GPSCoordinatesService {
 		return result;
 	}
 
-	public GPSCoordinates save(final GPSCoordinates gpsCoordinates, final int userId) {
+	public GPSCoordinates save(final GPSCoordinates gpsCoordinates, final int rendezvousId) {
 		GPSCoordinates result;
 		Actor actor;
+		Rendezvous rendezvous;
 
+		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor instanceof User);
-		Assert.isTrue(actor.getId() == userId);
+		Assert.isTrue(actor.getId() == rendezvous.getUser().getId());
 
 		result = this.gpsCoordinatesRepository.save(gpsCoordinates);
+
+		if (gpsCoordinates.getId() == 0) {
+			rendezvous.setGPSCoordinates(result);
+			this.rendezvousService.save(rendezvous);
+		}
 
 		return result;
 	}
@@ -58,5 +69,13 @@ public class GPSCoordinatesService {
 		Assert.isTrue(gpsCoordinates.getId() != 0);
 
 		this.gpsCoordinatesRepository.delete(gpsCoordinates);
+	}
+
+	public GPSCoordinates findOne(final int gpsCoordinatesId) {
+		GPSCoordinates result;
+
+		result = this.gpsCoordinatesRepository.findOne(gpsCoordinatesId);
+
+		return result;
 	}
 }

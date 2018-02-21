@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.RendezvousService;
+import domain.Actor;
 import domain.Rendezvous;
 import domain.User;
 
@@ -61,15 +62,18 @@ public class RendezvousController extends AbstractController {
 	public ModelAndView display(@RequestParam final int rendezvousId) {
 		ModelAndView result;
 		Rendezvous rendezvous;
-		User user;
+		Actor actor;
 
-		user = (User) this.actorService.findByPrincipal();
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
-
 		result = new ModelAndView("rendezvous/display");
 		result.addObject("rendezvous", rendezvous);
 		result.addObject("requestURI", "rendezvous/display.do");
-		result.addObject("userId", user.getId());
+
+		if (this.actorService.isLogged()) {
+			actor = this.actorService.findByPrincipal();
+			if (actor instanceof User)
+				result.addObject("userId", actor.getId());
+		}
 		return result;
 	}
 
