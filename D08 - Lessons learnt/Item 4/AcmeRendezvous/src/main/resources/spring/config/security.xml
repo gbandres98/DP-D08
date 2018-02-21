@@ -36,6 +36,7 @@
 		
 		<security:intercept-url pattern="/actor/create.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/display.do" access="permitAll" />
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 

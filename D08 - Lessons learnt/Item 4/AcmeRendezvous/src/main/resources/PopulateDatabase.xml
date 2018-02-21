@@ -62,8 +62,10 @@
 		<property name="postalAddress" value="user1postalAdrdress" />
 		<property name="phoneNumber" value="user1phoneNumber" />
 		<property name="emailAddress" value="user1@email.com" />
+		<property name="birthDate" value="1992/02/16" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
+	
 	<bean id="admin" class="domain.Administrator">
 		
 	
@@ -72,6 +74,7 @@
 		<property name="postalAddress" value="AdminpostalAdrdress" />
 		<property name="phoneNumber" value="AdminphoneNumber" />
 		<property name="emailAddress" value="Admin@email.com" />
+		<property name="birthDate" value="1986/02/16" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 	<!-- Question -->
