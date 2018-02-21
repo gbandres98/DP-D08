@@ -21,4 +21,13 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	@Query("select r from Rendezvous r where r.user.id = ?1")
 	Collection<Rendezvous> findByUser(int userId);
 
+	// Dashboard -----------------------------------------------------------
+
+	@Query("select avg(u.rendezvouses.size) from User u")
+	Double averageRendezvousesperUser();
+	//TODO PASAR A SERVICIO y PROBAR POST SUPER POPULATE
+	//Standar Deviation
+	@Query("select sqrt(sum(u.rendezvouses.size*u.rendezvouses.size) / count(u.rendezvouses.size) - (avg(u.rendezvouses.size) * avg(u.rendezvouses.size))) from User u")
+	Double standardDeviationRendezvousesperUser();
+
 }
