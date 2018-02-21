@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import repositories.GPSCoordinatesRepository;
 import domain.Actor;
+import domain.Administrator;
 import domain.GPSCoordinates;
 import domain.User;
 
@@ -49,12 +50,11 @@ public class GPSCoordinatesService {
 		return result;
 	}
 
-	public void delete(final GPSCoordinates gpsCoordinates, final int userId) {
+	public void delete(final GPSCoordinates gpsCoordinates) {
 		Actor actor;
 
 		actor = this.actorService.findByPrincipal();
-		Assert.isTrue(actor instanceof User);
-		Assert.isTrue(actor.getId() == userId);
+		Assert.isTrue(actor instanceof Administrator);
 		Assert.isTrue(gpsCoordinates.getId() != 0);
 
 		this.gpsCoordinatesRepository.delete(gpsCoordinates);
