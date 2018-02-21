@@ -18,7 +18,9 @@
 <!-- Attributes -->
 
 <spring:message code="rendezvous.name" var="name"/>
-<display:column property="name" title="${name}" sortable="false"/>
+<display:column title="${name}" sortable="false">
+	<a href="rendezvous/display.do?rendezvousId=${row.id}"><jstl:out value="${row.name}"/></a>
+</display:column>
 
 <spring:message code="rendezvous.description" var="description"/>
 <display:column property="description" title="${description}" sortable="false"/>

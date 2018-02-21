@@ -46,6 +46,7 @@ public class RendezvousService {
 		result.setUser(user);
 		result.setQuestions(new HashSet<Question>());
 		result.setAnnouncements(new HashSet<Announcement>());
+		result.setRendezvouses(new HashSet<Rendezvous>());
 
 		return result;
 	}
@@ -85,6 +86,25 @@ public class RendezvousService {
 		Assert.isTrue(actor instanceof User);
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
+		Assert.isTrue(!rendezvous.isFinalVersion());
+
+		result = this.rendezvousRepository.save(rendezvous);
+
+		return result;
+	}
+
+	public Rendezvous setFinal(final int rendezvousId) {
+		Rendezvous result, rendezvous;
+		Actor actor;
+
+		actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor != null);
+		Assert.isTrue(actor instanceof User);
+
+		rendezvous = this.findOne(rendezvousId);
+		Assert.notNull(rendezvous);
+		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
+		Assert.isTrue(!rendezvous.isFinalVersion());
 
 		result = this.rendezvousRepository.save(rendezvous);
 

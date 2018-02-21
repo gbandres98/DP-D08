@@ -48,6 +48,7 @@ public class Rendezvous extends DomainEntity {
 	public Date getMoment() {
 		return this.moment;
 	}
+
 	@URL
 	public String getPicture() {
 		return this.picture;

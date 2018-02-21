@@ -20,6 +20,7 @@
 	<form:hidden path="user" />
 	<form:hidden path="questions"/>
 	<form:hidden path="announcements"/>
+	<form:hidden path="rendezvouses"/>
 	  
 	<acme:textbox code="rendezvous.name" path="name"/>
 	

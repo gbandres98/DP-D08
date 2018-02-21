@@ -131,6 +131,18 @@ public class RendezvousUserController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/setFinal", method = RequestMethod.GET)
+	public ModelAndView setFinal(@RequestParam final int rendezvousId) {
+		ModelAndView result;
+		Rendezvous rendezvous;
+
+		rendezvous = this.rendezvousService.setFinal(rendezvousId);
+
+		result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId=" + rendezvous.getId());
+
+		return result;
+	}
+
 	// Ancillary Methods ------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Rendezvous rendezvous) {
 		ModelAndView result;
