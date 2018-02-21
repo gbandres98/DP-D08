@@ -17,4 +17,7 @@ public interface RSVPRepository extends JpaRepository<RSVP, Integer> {
 
 	@Query("select r from RSVP r where r.rendezvous.id=?1 and r.joined=false")
 	Collection<RSVP> findNotJoinedByRendezvousId(int rendezvousId);
+	
+	@Query("select r from RSVP r where r.rendezvous.id=?1")
+	Collection<RSVP> findByRendezvousId(int rendezvousId);
 }

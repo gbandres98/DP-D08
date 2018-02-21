@@ -7,8 +7,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.RSVPRepository;
+import domain.Actor;
+import domain.Administrator;
 import domain.RSVP;
 
 @Service
@@ -17,7 +20,8 @@ public class RSVPService {
 
 	@Autowired
 	private RSVPRepository	rsvpRepository;
-
+	@Autowired
+	private ActorService		actorService;
 
 	//Constructors
 	public RSVPService() {
@@ -46,5 +50,20 @@ public class RSVPService {
 		result = this.rsvpRepository.findNotJoinedByRendezvousId(rendezvousId);
 
 		return result;
+	}
+	public Collection<RSVP> findbyRendezvous(final int rendezvousId) {
+		Collection<RSVP> result;
+
+		result = this.rsvpRepository.findByRendezvousId(rendezvousId);
+
+		return result;
+	}
+
+	public void delete(RSVP r) {
+		final Actor actor;
+		actor = this.actorService.findByPrincipal();
+		Assert.isTrue(actor instanceof Administrator);
+		rsvpRepository.delete(r);
+		
 	}
 }

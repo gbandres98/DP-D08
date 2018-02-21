@@ -13,7 +13,9 @@ import org.springframework.util.Assert;
 import repositories.RendezvousRepository;
 import domain.Actor;
 import domain.Announcement;
+import domain.Comment;
 import domain.Question;
+import domain.RSVP;
 import domain.Rendezvous;
 import domain.User;
 
@@ -28,6 +30,15 @@ public class RendezvousService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private ActorService			actorService;
+	@Autowired
+	private AnnouncementService		announcementService;
+	@Autowired
+	private RSVPService		RSVPService;
+	@Autowired
+	private CommentService			commentService;
+	@Autowired
+	private QuestionService			questionService;
+
 
 
 	// Constructors -----------------------------------------------------------
@@ -66,6 +77,38 @@ public class RendezvousService {
 
 		actor = this.actorService.findByPrincipal();
 
+		Assert.notNull(rendezvous);
+		Assert.isTrue(rendezvous.getId() != 0);
+		Assert.isTrue(this.rendezvousRepository.exists(rendezvous.getId()));
+		Assert.isTrue(actor.getId() == rendezvous.getUser().getId());
+
+		rendezvous.setDeleted(true);
+		result = this.save(rendezvous);
+
+		return result;
+	}
+	public Rendezvous remove(final Rendezvous rendezvous) {
+		Actor actor;
+		Rendezvous result;
+		Collection<Announcement> announcements= rendezvous.getAnnouncements();
+		Collection<RSVP> RSVPs= RSVPService.findbyRendezvous(rendezvous.getId()); 
+		Collection<Comment> comments = commentService.findByRendezvous(rendezvous);
+		Collection<Question> questions = rendezvous.getQuestions();
+		actor = this.actorService.findByPrincipal();
+		for(Announcement a:announcements){
+			announcementService.delete(a);
+		}
+		//rendezvous.getGPSCoordinates()
+		for(RSVP r:RSVPs){
+			RSVPService.delete(r);
+		}
+		for(Comment c:comments){
+			commentService.delete(c);
+		}
+		for(Question q:questions){
+			questionService.delete(q);
+		}
+		
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getId() != 0);
 		Assert.isTrue(this.rendezvousRepository.exists(rendezvous.getId()));

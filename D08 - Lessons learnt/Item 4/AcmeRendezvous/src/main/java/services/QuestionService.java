@@ -85,7 +85,7 @@ public class QuestionService {
 		Assert.notNull(question);
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor.getId() == question.getRendezvous().getUser().getId());
-		//requeriment 6.1 need admin to delete :borra tambien las respuestas(profesor fernando dio visto bueno)
+		//need admin to delete :borra tambien las respuestas(profesor fernando dio visto bueno)
 
 		final Collection<Answer> answers = this.answerService.findByQuestionId(question.getId());
 		for (final Answer a : answers)
