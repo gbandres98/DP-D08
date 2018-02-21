@@ -14,6 +14,7 @@ import repositories.RendezvousRepository;
 import domain.Actor;
 import domain.Announcement;
 import domain.Comment;
+import domain.GPSCoordinates;
 import domain.Question;
 import domain.RSVP;
 import domain.Rendezvous;
@@ -38,6 +39,8 @@ public class RendezvousService {
 	private CommentService			commentService;
 	@Autowired
 	private QuestionService			questionService;
+	@Autowired
+	private GPSCoordinatesService			gpscoordinatesService;
 
 
 
@@ -98,7 +101,11 @@ public class RendezvousService {
 		for(Announcement a:announcements){
 			announcementService.delete(a);
 		}
-		//rendezvous.getGPSCoordinates()
+		GPSCoordinates gps=rendezvous.getGPSCoordinates();
+		if(gps!=null){
+			gpscoordinatesService.delete(gps);
+			
+		}
 		for(RSVP r:RSVPs){
 			RSVPService.delete(r);
 		}
