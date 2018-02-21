@@ -64,4 +64,34 @@ public class AnnouncementUserController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Announcement announcement;
+
+		announcement = this.announcementService.create();
+		result = this.createEditModelAndView(announcement);
+
+		return result;
+	}
+
+	// Ancillary Methods ------------------------------------------------------
+	protected ModelAndView createEditModelAndView(final Announcement announcement) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(announcement, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Announcement announcement, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("rendezvous/edit");
+		result.addObject("announcement", announcement);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
+
 }

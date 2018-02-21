@@ -13,3 +13,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<form:form action="announcement/user/edit.do" modelAttribute="announcement">
+	
+	<form:hidden path="id" />
+	<form:hidden path="version" /> 
+	<form:hidden path="rendezvous" />
+	<form:hidden path="moment" />
+	  
+	<acme:textbox code="announcement.title" path="title"/>
+	
+	<acme:textarea code="announcement.description" path="description"/>
+	
+	<acme:submit name="save" code="announcement.save"/>
+	
+	<acme:cancel url="announcement/user/list.do" code="announcement.cancel"/>
+	
+</form:form>

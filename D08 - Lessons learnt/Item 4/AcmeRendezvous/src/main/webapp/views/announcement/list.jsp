@@ -19,9 +19,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<jstl:if test="${requestUri=='announcement/user/list.do' }">
 
-</jstl:if>
 
 <!-- Listing grid -->
 <display:table pagesize="5" class="displaytag" keepStatus="true"
@@ -36,6 +34,13 @@
 
 	<spring:message code="announcement.moment" var="moment" />
 	<display:column property="moment" title="${moment}" sortable="false" />
+
+	<jstl:if test="${requestURI=='announcement/user/list.do' }">
+		<display:column title="Rendezvous">
+			<a href="rendezvous/display.do?rendezvousId=${row.rendezvous.id}"><jstl:out
+					value="${row.rendezvous.name}" /></a>
+		</display:column>
+	</jstl:if>
 
 
 </display:table>
