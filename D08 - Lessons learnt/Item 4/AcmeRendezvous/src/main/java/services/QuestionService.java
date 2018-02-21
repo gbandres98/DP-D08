@@ -81,15 +81,17 @@ public class QuestionService {
 
 	public void delete(final Question question) {
 
-		final Actor actor;
+//		final Actor actor;
 		Assert.notNull(question);
-		actor = this.actorService.findByPrincipal();
-		Assert.isTrue(actor.getId() == question.getRendezvous().getUser().getId());
+//		actor = this.actorService.findByPrincipal();
+		//el admin tambien puede borrar
+//		Assert.isTrue(actor.getId() == question.getRendezvous().getUser().getId());
 		//need admin to delete :borra tambien las respuestas(profesor fernando dio visto bueno)
 
 		final Collection<Answer> answers = this.answerService.findByQuestionId(question.getId());
-		for (final Answer a : answers)
-			answers.remove(a);
+		for (Answer a : answers){
+			answerService.delete(a);
+		}
 		this.questionRepository.delete(question);
 
 	}

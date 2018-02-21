@@ -61,3 +61,6 @@
 <a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
 <br/>
 </security:authorize>
+<security:authorize access="hasRole('ADMINISTRATOR')">
+<a href="rendezvous/remove.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.remove"/></b></a>
+</security:authorize>

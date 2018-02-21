@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.RendezvousRepository;
 import domain.Actor;
+import domain.Administrator;
 import domain.Announcement;
 import domain.Comment;
 import domain.GPSCoordinates;
@@ -90,22 +91,19 @@ public class RendezvousService {
 
 		return result;
 	}
-	public Rendezvous remove(final Rendezvous rendezvous) {
+	public void remove(final Rendezvous rendezvous) {
 		Actor actor;
-		Rendezvous result;
+
 		Collection<Announcement> announcements= rendezvous.getAnnouncements();
 		Collection<RSVP> RSVPs= RSVPService.findbyRendezvous(rendezvous.getId()); 
-		Collection<Comment> comments = commentService.findByRendezvous(rendezvous);
+		Collection<Comment> comments = commentService.findByRendezvousIdRoot(rendezvous.getId());
 		Collection<Question> questions = rendezvous.getQuestions();
 		actor = this.actorService.findByPrincipal();
 		for(Announcement a:announcements){
 			announcementService.delete(a);
 		}
-		GPSCoordinates gps=rendezvous.getGPSCoordinates();
-		if(gps!=null){
-			gpscoordinatesService.delete(gps);
-			
-		}
+	GPSCoordinates gps=rendezvous.getGPSCoordinates();
+	
 		for(RSVP r:RSVPs){
 			RSVPService.delete(r);
 		}
@@ -118,13 +116,15 @@ public class RendezvousService {
 		
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getId() != 0);
-		Assert.isTrue(this.rendezvousRepository.exists(rendezvous.getId()));
-		Assert.isTrue(actor.getId() == rendezvous.getUser().getId());
 
-		rendezvous.setDeleted(true);
-		result = this.save(rendezvous);
-
-		return result;
+		Assert.isTrue(actor instanceof Administrator);
+		
+		rendezvousRepository.delete(rendezvous.getId());
+		if(gps!=null){
+			gpscoordinatesService.delete(gps);
+			
+		}
+	
 	}
 
 	public Rendezvous save(final Rendezvous rendezvous) {

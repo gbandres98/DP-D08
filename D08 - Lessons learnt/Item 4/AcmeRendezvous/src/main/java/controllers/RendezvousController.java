@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.RendezvousService;
 import domain.Actor;
+import domain.Comment;
 import domain.Rendezvous;
 import domain.User;
 
@@ -76,5 +77,16 @@ public class RendezvousController extends AbstractController {
 		}
 		return result;
 	}
-
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public ModelAndView remove(
+			@RequestParam(required = true) final Integer rendezvousId) {
+		ModelAndView result;
+		
+		Rendezvous r = rendezvousService.findOne(rendezvousId);
+		rendezvousService.remove(r);
+		result = list();
+		
+	
+		return result;
+	}
 }
