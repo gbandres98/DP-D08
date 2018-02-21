@@ -37,6 +37,9 @@
 		<bean class="converters.QuestionToStringConverter" />
 		<bean class="converters.StringToQuestionConverter" />
 		
+		<bean class="converters.RSVPToStringConverter" />
+		<bean class="converters.StringToRSVPConverter" />
+		
 		<!-- 
 		<bean class="converters.ReplyToStringConverter" />
 		<bean class="converters.StringToReplyConverter" />
