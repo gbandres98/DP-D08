@@ -49,6 +49,7 @@ public class GPSCoordinatesService {
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor instanceof User);
+		Assert.isTrue(!rendezvous.isFinalVersion());
 		Assert.isTrue(actor.getId() == rendezvous.getUser().getId());
 
 		result = this.gpsCoordinatesRepository.save(gpsCoordinates);
