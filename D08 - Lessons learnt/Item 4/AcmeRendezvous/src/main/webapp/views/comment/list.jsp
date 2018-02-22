@@ -60,7 +60,9 @@
 <display:column property="moment" title="${moment}" sortable="false" format="${datePattern}"/>
 
 <spring:message code="comment.user" var="user"/>
-<display:column property="user" title="${user}" sortable="false"/>
+<display:column title="${user}" sortable="false">
+<a href="actor/display.do?userId=${row.user.id}"><jstl:out value="${row.user.name}"/> <jstl:out value="${row.user.surname}"/></a>
+</display:column>
 <%-- <display:column property="parentComment" title="${parentComment}" sortable="false"/> --%>
 <jstl:choose>
  <jstl:when test="${empty row.parentComment.parentComment && not empty row.parentComment }">

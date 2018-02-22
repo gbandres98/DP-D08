@@ -43,20 +43,18 @@
 <br/>
 </jstl:if>
 
-<br/>
-<a href="comment/list-Root.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.list"/></b></a>
-<br/>
+
 
 <br/>
 <a href="announcement/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.announcement"/></b></a>
-<br/>
+
 
 <jstl:if test="${rendezvous.deleted==true}">
 	<p class="deletedRendezvous"><b><spring:message code="rendezvous.deleted"/></b></p>
 	<br/>
 </jstl:if>
 
-<a href="rsvp/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.rsvp"/></b></a>
+
 <br/>
 <security:authorize access="hasRole('USER')">
 	<jstl:if test="${userId!=null && rendezvous.user.id==userId}">
@@ -82,10 +80,15 @@
 		</jstl:if>
 		<br/>
 	</jstl:if>
-	
-	<b><spring:message code="rendezvous.description"/></b>
+	<a href="rsvp/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.rsvp"/></b></a>
+	<br/>
+	<b><spring:message code="comment.management"/></b>
+	<br/>
 	<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
 	<br/>
+	
+<a href="comment/list-Root.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.list"/></b></a>
+
 </security:authorize>
 <security:authorize access="hasRole('ADMINISTRATOR')">
 <a href="rendezvous/remove.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.remove"/></b></a>
