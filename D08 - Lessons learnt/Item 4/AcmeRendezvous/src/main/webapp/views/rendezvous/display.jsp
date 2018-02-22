@@ -53,7 +53,7 @@
 		<a href="gpscoordinates/user/create.do?rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.addGPS"/></a>
 	</jstl:if>
 	<jstl:if test="${rendezvous.GPSCoordinates!=null}">
-		<a href="gpscoordinates/user/edit.do?rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.modifyGPS"/></a>
+		<a href="gpscoordinates/user/edit.do?gpsCoordinatesId=${rendezvous.GPSCoordinates.id}&rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.modifyGPS"/></a>
 	</jstl:if>
 <br/>
 </jstl:if>
