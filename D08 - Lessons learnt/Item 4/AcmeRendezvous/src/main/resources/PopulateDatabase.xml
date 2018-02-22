@@ -680,7 +680,7 @@
 	</bean>
 	
 	<bean id="rendezvous4" class="domain.Rendezvous">
-		<property name="name" value="rendezvous1" />
+		<property name="name" value="rendezvous4" />
 		<property name="description" value="description1" />
 		<property name="moment" value="01/05/2020" />
 		<property name="picture" value="http://www.picture1.com" />
@@ -704,7 +704,7 @@
 	</bean>
 	
 	<bean id="rendezvous5" class="domain.Rendezvous">
-		<property name="name" value="rendezvous1" />
+		<property name="name" value="rendezvous5" />
 		<property name="description" value="description1" />
 		<property name="moment" value="01/05/2020" />
 		<property name="picture" value="http://www.picture1.com" />
@@ -728,7 +728,7 @@
 	</bean>
 	
 	<bean id="rendezvous6" class="domain.Rendezvous">
-		<property name="name" value="rendezvous1" />
+		<property name="name" value="rendezvous6" />
 		<property name="description" value="description1" />
 		<property name="moment" value="01/05/2020" />
 		<property name="picture" value="http://www.picture1.com" />
