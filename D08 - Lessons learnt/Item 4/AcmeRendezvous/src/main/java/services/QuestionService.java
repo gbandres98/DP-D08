@@ -107,8 +107,8 @@ public class QuestionService {
 	public Collection<Question> findByRendezvous(final Rendezvous rendezvous) {
 		final Collection<Question> result;
 
-		//result = this.questionRepository.findByRendezvousId(rendezvous.getId());
+		result = rendezvous.getQuestions();
 
-		return null;
+		return result;
 	}
 }

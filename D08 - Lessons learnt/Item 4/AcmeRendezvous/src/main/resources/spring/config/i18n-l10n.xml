@@ -31,6 +31,8 @@
  		<value>/views/announcement/messages</value>
 		<value>/views/actor/messages</value>
 		<value>/views/law/messages</value>
+		<value>/views/rsvp/messages</value>
+		<value>/views/answer/messages</value>
 		<value>/views/gpsCoordinates/messages</value>
 		
 	</util:list>

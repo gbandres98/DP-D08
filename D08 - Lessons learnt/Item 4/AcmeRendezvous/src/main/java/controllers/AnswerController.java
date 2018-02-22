@@ -10,37 +10,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.RSVPService;
-import domain.RSVP;
+import services.ActorService;
+import services.AnswerService;
+import domain.Answer;
 
 @Controller
-@RequestMapping("/rsvp")
-public class RSVPController extends AbstractController {
+@RequestMapping("/answer")
+public class AnswerController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private RSVPService	rsvpService;
+	private AnswerService	answerService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public RSVPController() {
+	public AnswerController() {
 		super();
 	}
 
 	// Listing ----------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET, params = "rendezvousId")
-	public ModelAndView listByRendezvous(@RequestParam final int rendezvousId) {
-		ModelAndView result;
-		Collection<RSVP> rsvps;
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam final int rendezvousId, final int userId) {
+		final ModelAndView result;
+		Collection<Answer> answers;
 
-		rsvps = this.rsvpService.findJoined(rendezvousId);
-		result = new ModelAndView("rsvp/list");
-		result.addObject("rsvps", rsvps);
-		result.addObject("requestURI", "rsvp/list.do");
+		answers = this.answerService.findByRendezvousUser(rendezvousId, userId);
+		result = new ModelAndView("answer/list");
+		result.addObject("answers", answers);
+		result.addObject("requestURI", "answer/list.do");
 		return result;
 	}
-
 }

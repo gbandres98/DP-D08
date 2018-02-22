@@ -110,4 +110,12 @@ public class AnswerService {
 
 		return result;
 	}
+
+	public Collection<Answer> findByRendezvousUser(final int rendezvousId, final int userId) {
+		Collection<Answer> result;
+
+		result = this.answerRepository.findByRendezvousUser(rendezvousId, userId);
+
+		return result;
+	}
 }

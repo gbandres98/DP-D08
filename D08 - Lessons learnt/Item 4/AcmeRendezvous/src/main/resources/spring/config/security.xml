@@ -46,6 +46,8 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/law/terms-conditions.do" access="permitAll" /> 
+		
+		<security:intercept-url pattern="/answer/list.do" access="permitAll" /> 
 		<!-- Admin -->
 		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMINISTRATOR')" /> 
@@ -57,6 +59,7 @@
 		<security:intercept-url pattern="/comment/list-Root.do" access="hasAnyRole('USER', 'ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/comment/list-Answer.do" access="hasAnyRole('USER', 'ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/announcement/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/rsvp/list.do" access="permitAll" />
 		
 		<!-- Autentificado -->
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
