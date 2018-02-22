@@ -85,12 +85,17 @@
 	<security:authorize access="hasRole('ADMINISTRATOR')">
 <a href="rendezvous/remove.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.remove"/></b></a>
 </security:authorize>
+	<security:authorize access="hasAnyRole('USER', 'ADMINISTRATOR')">
+
+
 	<br/>
 	<b><spring:message code="comment.management"/></b>
-	<br/>
-	<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
-	<br/>
 	
+	<br/>
 <a href="comment/list-Root.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.list"/></b></a>
+<br/>
+</security:authorize>
+	<security:authorize access="hasRole('USER')">
+	<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
 
-
+</security:authorize>
