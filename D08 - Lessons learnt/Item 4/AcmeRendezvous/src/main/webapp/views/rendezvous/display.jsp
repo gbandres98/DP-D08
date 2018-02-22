@@ -56,7 +56,7 @@
 
 
 <br/>
-<security:authorize access="hasRole('USER')">
+
 	<jstl:if test="${userId!=null && rendezvous.user.id==userId}">
 		<jstl:if test="${rendezvous.finalVersion==false}">
 			<a href="rendezvous/user/setFinal.do?rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.setFinal"/></a>
@@ -82,6 +82,10 @@
 	</jstl:if>
 	<a href="rsvp/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.rsvp"/></b></a>
 	<br/>
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+<a href="rendezvous/remove.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.remove"/></b></a>
+</security:authorize>
+	<br/>
 	<b><spring:message code="comment.management"/></b>
 	<br/>
 	<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
@@ -89,7 +93,4 @@
 	
 <a href="comment/list-Root.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.list"/></b></a>
 
-</security:authorize>
-<security:authorize access="hasRole('ADMINISTRATOR')">
-<a href="rendezvous/remove.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.remove"/></b></a>
-</security:authorize>
+

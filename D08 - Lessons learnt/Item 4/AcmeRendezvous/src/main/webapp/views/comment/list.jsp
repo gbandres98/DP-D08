@@ -55,7 +55,7 @@
 <spring:message code="comment.text" var="text"/>
 <display:column property="text" title="${text}" sortable="false"/>
  
-
+<spring:message code="rendezvous.datePattern" var="datePattern"/>
 <spring:message code="comment.moment" var="moment"/>
 <display:column property="moment" title="${moment}" sortable="false" format="${datePattern}"/>
 
