@@ -24,7 +24,7 @@
 
 <display:column>
 <jstl:if test="${row.joined=='TRUE'}">
-<a href="answer/list.do?RendezvousId=${row.rendezvous.id}&UserId=${row.user.id}">
+<a href="answer/list.do?rendezvousId=${row.rendezvous.id}&userId=${row.user.id}">
 <spring:message	code="rsvp.answer" />
 </a>
 </jstl:if>	
