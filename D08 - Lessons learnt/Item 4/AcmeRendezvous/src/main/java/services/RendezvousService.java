@@ -35,14 +35,13 @@ public class RendezvousService {
 	@Autowired
 	private AnnouncementService		announcementService;
 	@Autowired
-	private RSVPService		RSVPService;
+	private RSVPService				RSVPService;
 	@Autowired
 	private CommentService			commentService;
 	@Autowired
 	private QuestionService			questionService;
 	@Autowired
-	private GPSCoordinatesService			gpscoordinatesService;
-
+	private GPSCoordinatesService	gpscoordinatesService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -75,56 +74,49 @@ public class RendezvousService {
 		return result;
 	}
 
-	public Rendezvous delete(final Rendezvous rendezvous) {
+	public Rendezvous delete(final int rendezvousId) {
 		Actor actor;
-		Rendezvous result;
+		Rendezvous result, rendezvous;
 
 		actor = this.actorService.findByPrincipal();
-
+		rendezvous = this.findOne(rendezvousId);
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getId() != 0);
-		Assert.isTrue(this.rendezvousRepository.exists(rendezvous.getId()));
 		Assert.isTrue(actor.getId() == rendezvous.getUser().getId());
 
 		rendezvous.setDeleted(true);
-		result = this.save(rendezvous);
+		result = this.rendezvousRepository.save(rendezvous);
 
 		return result;
 	}
 	public void remove(final Rendezvous rendezvous) {
 		Actor actor;
 
-		Collection<Announcement> announcements= rendezvous.getAnnouncements();
-		Collection<RSVP> RSVPs= RSVPService.findbyRendezvous(rendezvous.getId()); 
-		Collection<Comment> comments = commentService.findByRendezvousIdRoot(rendezvous.getId());
-		Collection<Question> questions = rendezvous.getQuestions();
+		final Collection<Announcement> announcements = rendezvous.getAnnouncements();
+		final Collection<RSVP> RSVPs = this.RSVPService.findbyRendezvous(rendezvous.getId());
+		final Collection<Comment> comments = this.commentService.findByRendezvousIdRoot(rendezvous.getId());
+		final Collection<Question> questions = rendezvous.getQuestions();
 		actor = this.actorService.findByPrincipal();
-		for(Announcement a:announcements){
-			announcementService.delete(a);
-		}
-	GPSCoordinates gps=rendezvous.getGPSCoordinates();
-	
-		for(RSVP r:RSVPs){
-			RSVPService.delete(r);
-		}
-		for(Comment c:comments){
-			commentService.delete(c);
-		}
-		for(Question q:questions){
-			questionService.delete(q);
-		}
-		
+		for (final Announcement a : announcements)
+			this.announcementService.delete(a);
+		final GPSCoordinates gps = rendezvous.getGPSCoordinates();
+
+		for (final RSVP r : RSVPs)
+			this.RSVPService.delete(r);
+		for (final Comment c : comments)
+			this.commentService.delete(c);
+		for (final Question q : questions)
+			this.questionService.delete(q);
+
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getId() != 0);
 
 		Assert.isTrue(actor instanceof Administrator);
-		
-		rendezvousRepository.delete(rendezvous.getId());
-		if(gps!=null){
-			gpscoordinatesService.delete(gps);
-			
-		}
-	
+
+		this.rendezvousRepository.delete(rendezvous.getId());
+		if (gps != null)
+			this.gpscoordinatesService.delete(gps);
+
 	}
 
 	public Rendezvous save(final Rendezvous rendezvous) {
@@ -137,6 +129,7 @@ public class RendezvousService {
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
 		Assert.isTrue(!rendezvous.isFinalVersion());
+		Assert.isTrue(rendezvous.isDeleted() == false);
 
 		result = this.rendezvousRepository.save(rendezvous);
 
@@ -155,6 +148,7 @@ public class RendezvousService {
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
 		Assert.isTrue(!rendezvous.isFinalVersion());
+		rendezvous.setFinalVersion(true);
 
 		result = this.rendezvousRepository.save(rendezvous);
 

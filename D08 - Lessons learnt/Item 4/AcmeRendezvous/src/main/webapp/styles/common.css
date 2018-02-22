@@ -17,3 +17,15 @@
 	color: red;
 	font-weight: bolder;
 }
+
+.finalVersionSetted{
+	background-color: LightGreen;
+	padding:1px;
+	display:inline;
+}
+
+.deletedRendezvous{
+	background-color: lightcoral;
+	padding:1px;
+	display:inline;
+}

@@ -108,25 +108,12 @@ public class RendezvousUserController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
-	public ModelAndView cancel(@Valid final Rendezvous rendezvous, final BindingResult binding) {
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int rendezvousId) {
 		ModelAndView result;
-		Rendezvous updatedRendezvous;
 
-		if (binding.hasErrors()) {
-			result = new ModelAndView("rendezvous/delete");
-			result.addObject("rendezvous", rendezvous);
-		} else
-			try {
-				updatedRendezvous = this.rendezvousService.findOne(rendezvous.getId());
-				updatedRendezvous.setDeleted(true);
-				this.rendezvousService.save(updatedRendezvous);
-				result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId=" + rendezvous.getId());
-			} catch (final Throwable oops) {
-				result = new ModelAndView("rendezvous/delete");
-				result.addObject("rendezvous", rendezvous);
-				result.addObject("message", "rendezvous.commit.error");
-			}
+		this.rendezvousService.delete(rendezvousId);
+		result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId=" + rendezvousId);
 
 		return result;
 	}
@@ -139,6 +126,7 @@ public class RendezvousUserController extends AbstractController {
 		rendezvous = this.rendezvousService.setFinal(rendezvousId);
 
 		result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId=" + rendezvous.getId());
+		result.addObject("finalVersion", 1);
 
 		return result;
 	}

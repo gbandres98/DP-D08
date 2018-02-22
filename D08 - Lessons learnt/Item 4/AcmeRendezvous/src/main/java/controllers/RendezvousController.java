@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.RendezvousService;
 import domain.Actor;
-import domain.Comment;
 import domain.Rendezvous;
 import domain.User;
 
@@ -60,7 +59,7 @@ public class RendezvousController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int rendezvousId) {
+	public ModelAndView display(@RequestParam final int rendezvousId, @RequestParam(required = false) final Integer finalVersion) {
 		ModelAndView result;
 		Rendezvous rendezvous;
 		Actor actor;
@@ -75,18 +74,18 @@ public class RendezvousController extends AbstractController {
 			if (actor instanceof User)
 				result.addObject("userId", actor.getId());
 		}
+		if (finalVersion != null)
+			result.addObject("finalVersion", 1);
 		return result;
 	}
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public ModelAndView remove(
-			@RequestParam(required = true) final Integer rendezvousId) {
+	public ModelAndView remove(@RequestParam(required = true) final Integer rendezvousId) {
 		ModelAndView result;
-		
-		Rendezvous r = rendezvousService.findOne(rendezvousId);
-		rendezvousService.remove(r);
-		result = list();
-		
-	
+
+		final Rendezvous r = this.rendezvousService.findOne(rendezvousId);
+		this.rendezvousService.remove(r);
+		result = this.list();
+
 		return result;
 	}
 }
