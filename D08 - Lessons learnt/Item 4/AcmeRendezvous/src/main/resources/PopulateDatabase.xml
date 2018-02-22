@@ -247,76 +247,7 @@
 		<property name="rendezvous" ref="rendezvous1" />
 	</bean>
 
-	<!-- Question -->
-	<bean id="question1" class="domain.Question">
-		<property name="text" value="text1" />
-		<property name="answers">
-			<ref bean="answer1" />
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
-	
-	<!-- Question -->
-	<bean id="question1" class="domain.Question">
-		<property name="text" value="text1" />
-		<property name="answers">
-			<ref bean="answer1" />
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
-	
-	<bean id="question2" class="domain.Question">
-		<property name="text" value="text2" />
-		<property name="answers">
-			<ref bean="answer1" />
 
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
-	
-
-	<bean id="question3" class="domain.Question">
-		<property name="text" value="text3" />
-		<property name="answers">
-			<ref bean="answer3" />
-		</property>
-		<property name="rendezvous" ref="rendezvous3" />
-	</bean>
-	
-
-	<bean id="question1" class="domain.Question">
-		<property name="text" value="text1" />
-		<property name="answers">
-			<ref bean="answer1" />
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
-	
-
-	<bean id="question1" class="domain.Question">
-		<property name="text" value="text1" />
-		<property name="answers">
-			<ref bean="answer1" />
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
-	
-
-	<bean id="question1" class="domain.Question">
-		<property name="text" value="text1" />
-		<property name="answers">
-			<ref bean="answer1" />
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
-	
-	<bean id="question1" class="domain.Question">
-		<property name="text" value="text1" />
-		<property name="answers">
-			<ref bean="answer1" />
-		</property>
-		<property name="rendezvous" ref="rendezvous1" />
-	</bean>
 
 
 	<!-- Answer -->
