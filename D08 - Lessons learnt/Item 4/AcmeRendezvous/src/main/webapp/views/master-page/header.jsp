@@ -31,7 +31,8 @@
 			<li><a class="fNiv"><spring:message	code="master.page.user" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="rendezvous/user/list.do"><spring:message code="master.page.user.rendezvous.list" /></a></li>					
+					<li><a href="rendezvous/user/list.do"><spring:message code="master.page.user.rendezvous.list" /></a></li>
+					<li><a href="announcement/user/list.do"><spring:message code="master.page.user.announcement.list" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>
