@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.UserService;
 import domain.Actor;
+import domain.User;
 import forms.ActorForm;
 
 @Controller
@@ -33,6 +37,9 @@ public class ActorController extends AbstractController {
 	@Autowired
 	private ActorService	actorService;
 
+	@Autowired
+	private UserService		userService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -40,8 +47,17 @@ public class ActorController extends AbstractController {
 		super();
 	}
 
-	// Listing ----------------------------------------------------------------		
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() throws Exception {
+		final ModelAndView result;
+		final Collection<User> users;
 
+		users = this.userService.findAll();
+
+		result = new ModelAndView("actor/list");
+		result.addObject("users", users);
+		return result;
+	}
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final String actorType) throws Exception {
 		ModelAndView result;

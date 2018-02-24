@@ -39,8 +39,11 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-					<li><a href="actor/create.do?actorType=USER"><spring:message
-								code="master.page.anonymous.action.1" /></a></li>
+			<li><a href="actor/create.do?actorType=USER"><spring:message
+				code="master.page.anonymous.action.1" /></a></li>
+			<li><a href="actor/list.do"><spring:message
+				code="master.page.anonymous.action.2" /></a></li>
+								
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -31,6 +32,14 @@ public class UserService {
 		result = new User();
 		result.setRendezvouses(new HashSet<Rendezvous>());
 		
+
+		return result;
+	}
+
+	public Collection<User> findAll() {
+		Collection<User> result;
+
+		result = this.userRepository.findAll();
 
 		return result;
 	}

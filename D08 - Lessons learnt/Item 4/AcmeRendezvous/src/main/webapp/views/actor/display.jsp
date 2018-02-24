@@ -17,39 +17,11 @@
 <jstl:out value="${actor.surname}" />
 <br />
 <b><spring:message code="actor.email" /></b>
-<jstl:out value="${actor.email}" />
+<jstl:out value="${actor.emailAddress}" />
 <br />
 <b><spring:message code="actor.phone" /></b>
-<jstl:out value="${actor.phone}" />
+<jstl:out value="${actor.phoneNumber}" />
 <br />
 <b><spring:message code="actor.address" /></b>
-<jstl:out value="${actor.address}" />
+<jstl:out value="${actor.postalAddress}" />
 <br />
-
-<a href="socialIdentity/actor/list.do"><spring:message code="actor.socialIdentities" /></a>
-<jstl:if test="${existCurricula}">
-	<spring:message code="actor.curricula" var="urlCurricula" />
-	<a href="curriculum/display.do?rangerId=${actor.id }"><jstl:out
-			value="${urlCurricula}" /></a>
-
-</jstl:if>
-<jstl:if test="${rol=='ranger'&&isOwner}">
-	<jstl:choose>
-		<jstl:when test="${!existCurricula}">
-	
-	<spring:message code="actor.curricula.create" var="createCurricula" />
-	<a href="curriculum/ranger/create.do"><jstl:out
-			value="${createCurricula}" /></a>
-	
-	</jstl:when>
-		<jstl:otherwise>
-	
-	<spring:message code="actor.curricula.edit" var="editCurricula" />
-	<a href="curriculum/ranger/edit.do"><jstl:out
-			value="${editCurricula}" /></a>
-	
-	</jstl:otherwise>
-	</jstl:choose>
-
-
-</jstl:if>
