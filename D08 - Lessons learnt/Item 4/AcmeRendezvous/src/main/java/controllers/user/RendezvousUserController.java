@@ -67,6 +67,20 @@ public class RendezvousUserController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/listrsvp", method = RequestMethod.GET)
+	public ModelAndView listrsvp() {
+		ModelAndView result;
+		Collection<Rendezvous> rendezvouses;
+		User user;
+
+		user = (User) this.actorService.findByPrincipal();
+		rendezvouses = this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
+
+		result = new ModelAndView("rendezvous/list");
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("requestURI", "rendezvous/user/listrsvp.do");
+		return result;
+	}
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
