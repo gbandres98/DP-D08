@@ -28,6 +28,7 @@ import services.RendezvousService;
 import controllers.AbstractController;
 import domain.Rendezvous;
 import domain.User;
+import forms.SimilarForm;
 
 @Controller
 @RequestMapping("/rendezvous/user")
@@ -75,6 +76,44 @@ public class RendezvousUserController extends AbstractController {
 
 		rendezvous = this.rendezvousService.create();
 		result = this.createEditModelAndView(rendezvous);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/similar", method = RequestMethod.GET)
+	public ModelAndView similar(@RequestParam final int rendezvousId) {
+		ModelAndView result;
+		SimilarForm similarForm;
+		Collection<Rendezvous> rendezvouses;
+		Rendezvous rendezvous;
+
+		similarForm = new SimilarForm(rendezvousId);
+		rendezvouses = this.rendezvousService.findAll();
+		rendezvous = this.rendezvousService.findOne(rendezvousId);
+		rendezvouses.removeAll(rendezvous.getRendezvouses());
+
+		result = new ModelAndView("rendezvous/similar");
+		result.addObject("similarForm", similarForm);
+		result.addObject("rendezvouses", rendezvouses);
+		return result;
+	}
+
+	@RequestMapping(value = "/similar", method = RequestMethod.POST, params = "save")
+	public ModelAndView similar(@Valid final SimilarForm similarForm, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = new ModelAndView("rendezvous/similar");
+			result.addObject("similarForm", similarForm);
+		} else
+			try {
+				this.rendezvousService.save(similarForm);
+				result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId=" + similarForm.getRendezvous());
+			} catch (final Throwable oops) {
+				result = new ModelAndView("rendezvous/similar");
+				result.addObject("similarForm", similarForm);
+				result.addObject("message", "rendezvous.commit.error");
+			}
 
 		return result;
 	}

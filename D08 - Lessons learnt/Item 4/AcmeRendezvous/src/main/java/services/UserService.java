@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.UserRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Rendezvous;
 import domain.User;
 
@@ -49,6 +51,23 @@ public class UserService {
 
 		result = this.userRepository.findOne(userId);
 		Assert.notNull(result);
+
+		return result;
+	}
+
+	public User findByPrincipal() {
+		User result;
+		UserAccount userAccount;
+
+		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		result = this.findByUserAccount(userAccount);
+		return result;
+	}
+
+	public User findByUserAccount(final UserAccount userAccount) {
+		User result;
+		result = this.userRepository.findByUserAccount(userAccount.getId());
 
 		return result;
 	}

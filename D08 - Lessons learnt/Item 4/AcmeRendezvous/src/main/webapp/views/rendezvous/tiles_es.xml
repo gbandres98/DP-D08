@@ -31,4 +31,9 @@
 		<put-attribute name="body" value="/views/rendezvous/display.jsp" />
 	</definition>
 	
+	<definition name="rendezvous/similar" extends="master.page">
+		<put-attribute name="title" value="Añadir encuentro similar" />
+		<put-attribute name="body" value="/views/rendezvous/similar.jsp" />
+	</definition>
+	
 </tiles-definitions>

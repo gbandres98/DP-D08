@@ -7,6 +7,9 @@ public class SimilarForm {
 	private Integer	similar;
 
 
+	public SimilarForm() {
+	}
+
 	public SimilarForm(final Integer rendezvous) {
 		this.rendezvous = rendezvous;
 	}

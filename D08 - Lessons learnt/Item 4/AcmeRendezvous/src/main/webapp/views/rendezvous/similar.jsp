@@ -17,6 +17,16 @@
 	
 	<form:hidden path="rendezvous" />
 	
+	<form:select path="similar">
+		<form:option
+			label="----"
+			value="0" />
+		<form:options
+			items="${rendezvouses}"
+			itemLabel="name"
+			itemValue="id" />
+	</form:select>
+	
 	<acme:submit name="save" code="rendezvous.save"/>
 	
 	<acme:cancel url="rendezvous/user/list.do" code="rendezvous.cancel"/>

@@ -62,6 +62,7 @@
 		<security:intercept-url pattern="/comment/list-Answer.do" access="hasAnyRole('USER', 'ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/announcement/user/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/rsvp/list.do" access="permitAll" />
+		<security:intercept-url pattern="/rendezvous/user/similar.do" access="hasRole('USER')" />
 		
 		<!-- Autentificado -->
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 

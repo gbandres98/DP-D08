@@ -20,6 +20,7 @@ import domain.Question;
 import domain.RSVP;
 import domain.Rendezvous;
 import domain.User;
+import forms.SimilarForm;
 
 @Service
 @Transactional
@@ -32,6 +33,8 @@ public class RendezvousService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private ActorService			actorService;
+	@Autowired
+	private UserService				userService;
 	@Autowired
 	private AnnouncementService		announcementService;
 	@Autowired
@@ -198,6 +201,21 @@ public class RendezvousService {
 		result = this.rendezvousRepository.findSimilar(rendezvousId);
 
 		return result;
+	}
+
+	public void save(final SimilarForm similarForm) {
+		Rendezvous rendezvous;
+		Rendezvous similar;
+		User user;
+
+		user = this.userService.findByPrincipal();
+
+		rendezvous = this.rendezvousRepository.findOne(similarForm.getRendezvous());
+		Assert.isTrue(rendezvous.getUser().equals(user));
+		similar = this.rendezvousRepository.findOne(similarForm.getSimilar());
+		if (!rendezvous.getRendezvouses().contains(similar))
+			rendezvous.getRendezvouses().add(similar);
+		this.rendezvousRepository.save(rendezvous);
 	}
 
 }
