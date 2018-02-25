@@ -47,7 +47,7 @@
 
 <br/>
 <a href="announcement/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.announcement"/></b></a>
-
+<br/>
 
 <jstl:if test="${rendezvous.deleted==true}">
 	<p class="deletedRendezvous"><b><spring:message code="rendezvous.deleted"/></b></p>
@@ -58,7 +58,7 @@
 <br/>
 
 	<jstl:if test="${userId!=null && rendezvous.user.id==userId}">
-		<jstl:if test="${rendezvous.finalVersion==false}">
+		<jstl:if test="${rendezvous.finalVersion==false && !rendezvous.deleted}">
 			<a href="rendezvous/user/setFinal.do?rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.setFinal"/></a>
 			<br/>
 		</jstl:if>

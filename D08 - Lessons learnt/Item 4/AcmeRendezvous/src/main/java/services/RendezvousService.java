@@ -151,6 +151,7 @@ public class RendezvousService {
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
 		Assert.isTrue(!rendezvous.isFinalVersion());
+		Assert.isTrue(rendezvous.isDeleted() == false);
 		rendezvous.setFinalVersion(true);
 
 		result = this.rendezvousRepository.save(rendezvous);
