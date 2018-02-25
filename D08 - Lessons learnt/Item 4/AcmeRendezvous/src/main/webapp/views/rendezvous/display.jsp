@@ -80,6 +80,7 @@
 		</jstl:if>
 		<br/>
 		<a href="rendezvous/user/similar.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.addSimilar"/></b></a>
+		<br />
 	</jstl:if>
 	<a href="rsvp/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.rsvp"/></b></a>
 	<br/>
