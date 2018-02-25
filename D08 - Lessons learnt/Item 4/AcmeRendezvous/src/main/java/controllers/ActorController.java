@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.RendezvousService;
 import services.UserService;
 import domain.Actor;
+import domain.Rendezvous;
 import domain.User;
 import forms.ActorForm;
 
@@ -35,10 +37,13 @@ public class ActorController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private UserService		userService;
+	private UserService			userService;
+
+	@Autowired
+	private RendezvousService	rendezvousService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -58,6 +63,23 @@ public class ActorController extends AbstractController {
 		result.addObject("users", users);
 		return result;
 	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int userId) throws Exception {
+		final ModelAndView result;
+		User user;
+		final Collection<Rendezvous> rendezvouses;
+
+		user = this.userService.findOne(userId);
+		rendezvouses = this.rendezvousService.findByUser(userId);
+
+		result = new ModelAndView("actor/display");
+		result.addObject("user", user);
+		result.addObject("rendezvouses", rendezvouses);
+		result.addObject("requestURI", "actor/display.do?userId=" + userId);
+		return result;
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final String actorType) throws Exception {
 		ModelAndView result;
@@ -128,17 +150,6 @@ public class ActorController extends AbstractController {
 	//		return result;
 	//	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int actorId) throws Exception {
-		ModelAndView result;
-		Actor actor;
-
-		result = new ModelAndView("actor/display");
-		actor = this.actorService.findOne(actorId);
-
-		result.addObject("actor", actor);
-		return result;
-	}
 	// Ancillary methods
 
 	protected ModelAndView createRegisterModelAndView(final ActorForm actorForm) {

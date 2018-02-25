@@ -1,31 +1,5 @@
 #./src/main/resources/Entities.map
-<<<<<<< .mine
-#Mon Feb 19 16:24:37 CET 2018
-question1=32
-comment2=38
-comment1=37
-answer1=33
-annoucement1=34
-rendezvous1=36
-userAccount3=30
-userAccount2=29
-userAccount1=28
-gpscoordinates1=35
-user1=31
-||||||| .r46
-#Fri Feb 16 19:28:46 CET 2018
-question1=23
-comment1=28
-answer1=24
-annoucement1=25
-rendezvous1=27
-userAccount3=21
-userAccount2=20
-userAccount1=19
-gpscoordinates1=26
-user1=22
-=======
-#Thu Feb 22 12:51:06 CET 2018
+#Sat Feb 24 11:16:04 CET 2018
 question1=701
 RSVP5=699
 RSVP4=698
@@ -96,4 +70,3 @@ comment10=733
 question3=703
 question2=702
 RSVP6=700
->>>>>>> .r102

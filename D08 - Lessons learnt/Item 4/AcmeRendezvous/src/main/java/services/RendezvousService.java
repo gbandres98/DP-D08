@@ -191,4 +191,13 @@ public class RendezvousService {
 
 		return result;
 	}
+
+	public Collection<Rendezvous> findSimilar(final int rendezvousId) {
+		Collection<Rendezvous> result;
+
+		result = this.rendezvousRepository.findSimilar(rendezvousId);
+
+		return result;
+	}
+
 }

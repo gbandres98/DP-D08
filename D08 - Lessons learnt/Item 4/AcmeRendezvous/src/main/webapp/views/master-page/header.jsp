@@ -26,6 +26,8 @@
 					<li><a href="rendezvous/list.do"><spring:message code="master.page.rendezvous.list" /></a></li>			
 				</ul>
 			</li>
+			<li><a href="actor/list.do"><spring:message
+				code="master.page.anonymous.action.2" /></a></li>
 		
 		<security:authorize access="hasRole('USER')">
 			<li><a class="fNiv"><spring:message	code="master.page.user" /></a>
@@ -41,8 +43,7 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a href="actor/create.do?actorType=USER"><spring:message
 				code="master.page.anonymous.action.1" /></a></li>
-			<li><a href="actor/list.do"><spring:message
-				code="master.page.anonymous.action.2" /></a></li>
+			
 								
 		</security:authorize>
 		

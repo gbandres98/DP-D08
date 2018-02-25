@@ -36,13 +36,9 @@
 		
 		<security:intercept-url pattern="/actor/create.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do" access="permitAll" />
-<<<<<<< .mine
 		<security:intercept-url pattern="/actor/list.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/display.do" access="permitAll" />
-||||||| .r46
-=======
-		<security:intercept-url pattern="/actor/display.do" access="permitAll" />
->>>>>>> .r102
+
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
@@ -71,11 +67,6 @@
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
-<<<<<<< .mine
-	<!--  
-||||||| .r46
-	
-=======
 		
 		<security:intercept-url pattern="/rendezvous/list.do" access="permitAll" />
 		<security:intercept-url pattern="/rendezvous/display.do" access="permitAll" /> 
@@ -84,10 +75,9 @@
 		<security:intercept-url pattern="/announcement/list.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/gpscoordinates/user/**" access="hasRole('USER')" />
-	
->>>>>>> .r102
+
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
--->
+
 		<security:form-login 
 			login-page="/security/login.do"
 			password-parameter="password" 

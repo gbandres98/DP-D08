@@ -30,4 +30,7 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	@Query("select sqrt(sum(u.rendezvouses.size*u.rendezvouses.size) / count(u.rendezvouses.size) - (avg(u.rendezvouses.size) * avg(u.rendezvouses.size))) from User u")
 	Double standardDeviationRendezvousesperUser();
 
+	@Query("select r.rendezvouses from Rendezvous r where r.id = ?1")
+	Collection<Rendezvous> findSimilar(int rendezvousId);
+
 }

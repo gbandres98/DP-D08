@@ -22,7 +22,7 @@
 
 <!--  Listing grid -->
 
-<display:table pagesize="5" class="displaytag" keepStatus="true" name="actor" requestURI="/actor/list.do" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="true" name="users" requestURI="/actor/list.do" id="row">
 
 <!-- Attributes -->
 
@@ -32,7 +32,7 @@
 	<spring:message code="actor.surname" var="surname"/>
 	<display:column property="surname" title="${surname}" sortable="true"/>
 	
-	<display:column><button type="button" onclick="javascript: relativeRedir('actor/display?actorId=${row.id}')" > <spring:message code="actor.view"/></button> </display:column>
+	<display:column><button type="button" onclick="javascript: relativeRedir('actor/display.do?userId=${row.id}')" > <spring:message code="actor.view"/></button> </display:column>
 	  
 </display:table>
 

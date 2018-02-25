@@ -79,6 +79,7 @@
 			<a href="gpscoordinates/user/edit.do?gpsCoordinatesId=${rendezvous.GPSCoordinates.id}&rendezvousId=${rendezvous.id}"><spring:message code="rendezvous.modifyGPS"/></a>
 		</jstl:if>
 		<br/>
+		<a href="rendezvous/addSimilar.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.addSimilar"/></b></a>
 	</jstl:if>
 	<a href="rsvp/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.rsvp"/></b></a>
 	<br/>
@@ -99,3 +100,5 @@
 	<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message code="comment.create"/></b></a>
 
 </security:authorize>
+<br /><br />
+<a href="rendezvous/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.viewSimilar"/></b></a>
