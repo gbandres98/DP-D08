@@ -42,6 +42,15 @@
 		</display:column>
 	</jstl:if>
 
+	<security:authorize access="hasRole('ADMINISTRATOR')">
+		<display:column>
+			<a
+				href="announcement/administrator/delete.do?announcementId=${row.id }&rendezvousId=${row.rendezvous.id}">
+				<spring:message code="announcement.delete"></spring:message>
+			</a>
+		</display:column>
+	</security:authorize>
+
 
 </display:table>
 
