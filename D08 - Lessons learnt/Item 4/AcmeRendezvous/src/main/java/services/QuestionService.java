@@ -13,6 +13,7 @@ import repositories.QuestionRepository;
 import domain.Actor;
 import domain.Answer;
 import domain.Question;
+import domain.RSVP;
 import domain.Rendezvous;
 import domain.User;
 
@@ -32,6 +33,8 @@ public class QuestionService {
 	private ActorService		actorService;
 	@Autowired
 	private AnswerService		answerService;
+	@Autowired
+	private RSVPService			rsvpService;
 
 
 	// Constructor -----------------------------------------------------------
@@ -116,6 +119,24 @@ public class QuestionService {
 
 		result = this.questionRepository.findByUser(userId);
 
+		return result;
+	}
+
+	public Question findNext(final int rsvpId) {
+		RSVP rsvp;
+		Collection<Question> answered, notAnswered;
+		Question result;
+
+		rsvp = this.rsvpService.findOne(rsvpId);
+		notAnswered = rsvp.getRendezvous().getQuestions();
+		answered = this.questionRepository.findAnsweredByRSVP(rsvpId);
+		notAnswered.removeAll(answered);
+
+		//TODO testear esto
+		if (notAnswered.isEmpty())
+			result = null;
+		else
+			result = notAnswered.iterator().next();
 		return result;
 	}
 }

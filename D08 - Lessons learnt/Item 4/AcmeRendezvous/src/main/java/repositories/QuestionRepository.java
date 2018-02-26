@@ -18,4 +18,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	@Query("select q from Question q where q.rendezvous.user.id=?1")
 	Collection<Question> findByUser(int userId);
 
+	@Query("select a.question from RSVP r join r.answers a where r.id=?1")
+	Collection<Question> findAnsweredByRSVP(int rsvpId);
 }

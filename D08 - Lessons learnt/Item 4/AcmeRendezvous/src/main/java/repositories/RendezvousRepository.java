@@ -21,6 +21,9 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 	@Query("select r from Rendezvous r where r.user.id = ?1")
 	Collection<Rendezvous> findByUser(int userId);
 
+	@Query("select r from Rendezvous r where r.finalVersion = true")
+	Collection<Rendezvous> findAllFinal();
+
 	// Dashboard -----------------------------------------------------------
 
 	@Query("select avg(u.rendezvouses.size) from User u")

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AnswerRepository;
+import domain.Actor;
 import domain.Answer;
 import domain.Question;
+import domain.RSVP;
 import domain.Rendezvous;
 
 @Service
@@ -26,11 +28,11 @@ public class AnswerService {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private RendezvousService	rendezvousService;
-	@Autowired
 	private ActorService		actorService;
 	@Autowired
 	private QuestionService		questionService;
+	@Autowired
+	private RSVPService			rsvpService;
 
 
 	// Constructor ----------------------------------------------------
@@ -41,6 +43,7 @@ public class AnswerService {
 
 	// CRUD methods ----------------------------------------------------
 	public Answer create(final Integer questionId) {
+		Question question;
 
 		Assert.notNull(questionId);
 
@@ -48,7 +51,7 @@ public class AnswerService {
 		answer = new Answer();
 
 		//le asignamos el rendezvous
-		final Question question = this.questionService.findOne(questionId);
+		question = this.questionService.findOne(questionId);
 		answer.setQuestion(question);
 
 		return answer;
@@ -63,11 +66,22 @@ public class AnswerService {
 		return result;
 	}
 
-	public Answer save(final Answer answer) {
+	public Answer save(final Answer answer, final int rsvpId) {
+		RSVP rsvp;
+		Answer result;
+		Actor actor;
 
+		actor = this.actorService.findByPrincipal();
+		rsvp = this.rsvpService.findOne(rsvpId);
 		Assert.notNull(answer);
+		Assert.isTrue(rsvp.getUser().getId() == actor.getId());
+		Assert.isTrue(!rsvp.isJoined());
+		Assert.isTrue(rsvp.getRendezvous().getQuestions().contains(answer.getQuestion()));
 
-		final Answer result = this.answerRepository.save(answer);
+		result = this.answerRepository.save(answer);
+
+		rsvp.addAnswer(result);
+		this.rsvpService.save(rsvp);
 
 		return result;
 	}

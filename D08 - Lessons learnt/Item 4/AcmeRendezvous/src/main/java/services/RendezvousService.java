@@ -219,4 +219,13 @@ public class RendezvousService {
 		this.rendezvousRepository.save(rendezvous);
 	}
 
+	public Collection<Rendezvous> findAllFinal() {
+		Collection<Rendezvous> result;
+
+		result = this.rendezvousRepository.findAllFinal();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }

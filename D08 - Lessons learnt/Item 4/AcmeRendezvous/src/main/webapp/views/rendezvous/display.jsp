@@ -53,6 +53,22 @@
 			code="rendezvous.display.announcement" /></b></a>
 <br />
 <security:authorize access="hasRole('USER')">
+	<jstl:if test="${rsvpJoined==null && rendezvous.user.id!=userId}">
+		<a href="rsvp/user/create.do?rendezvousId=${rendezvous.id }">
+			<spring:message code="rendezvous.rsvp.join" />
+		</a>
+	</jstl:if>
+	
+	<jstl:if test="${rsvpJoined==true}">
+		<spring:message code="rendezvous.rsvp.congrats" />
+	</jstl:if>
+	
+	<jstl:if test="${rsvpId!=null}">
+		<a href="rsvp/user/edit.do?rsvpId=${rsvpId}">
+			<spring:message code="rendezvous.rsvp.continueJoining" />
+		</a>
+	</jstl:if>
+
 	<jstl:if test="${rendezvous.user.id==userId }">
 		<a href="announcement/user/create.do?rendezvousId= ${rendezvous.id }">
 			<spring:message code="announcement.create" />
@@ -94,13 +110,14 @@
 	<jstl:if test="${rendezvous.GPSCoordinates==null}">
 		<a href="gpscoordinates/user/create.do?rendezvousId=${rendezvous.id}"><spring:message
 				code="rendezvous.addGPS" /></a>
+		<br />
 	</jstl:if>
-	<jstl:if test="${rendezvous.GPSCoordinates!=null}">
+	<jstl:if test="${rendezvous.GPSCoordinates!=null && !rendezvous.finalVersion && !rendezvous.deleted}">
 		<a
 			href="gpscoordinates/user/edit.do?gpsCoordinatesId=${rendezvous.GPSCoordinates.id}&rendezvousId=${rendezvous.id}"><spring:message
 				code="rendezvous.modifyGPS" /></a>
+		<br />
 	</jstl:if>
-	<br />
 	<a href="rendezvous/user/similar.do?rendezvousId=${rendezvous.id}"><b><spring:message
 				code="rendezvous.addSimilar" /></b></a>
 	<br />

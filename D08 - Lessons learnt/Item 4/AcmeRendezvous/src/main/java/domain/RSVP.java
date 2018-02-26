@@ -52,28 +52,30 @@ public class RSVP extends DomainEntity {
 	@NotNull
 	@OneToMany()
 	public Collection<Answer> getAnswers() {
-		return answers;
+		return this.answers;
 	}
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Rendezvous getRendezvous() {
-		return rendezvous;
+		return this.rendezvous;
 	}
 
-	
-	public void setAnswers(Collection<Answer> answers) {
+	public void setAnswers(final Collection<Answer> answers) {
 		this.answers = answers;
 	}
 
-	
-	public void setRendezvous(Rendezvous rendezvous) {
+	public void setRendezvous(final Rendezvous rendezvous) {
 		this.rendezvous = rendezvous;
 	}
 
 	public void setUser(final User user) {
 		this.user = user;
+	}
+
+	public void addAnswer(final Answer answer) {
+		this.answers.add(answer);
 	}
 
 }

@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.RSVPService;
 import services.RendezvousService;
 import domain.Actor;
+import domain.RSVP;
 import domain.Rendezvous;
 import domain.User;
 
@@ -37,6 +39,9 @@ public class RendezvousController extends AbstractController {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private RSVPService			rsvpService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -51,7 +56,7 @@ public class RendezvousController extends AbstractController {
 		ModelAndView result;
 		Collection<Rendezvous> rendezvouses;
 
-		rendezvouses = rendezvousId == null ? this.rendezvousService.findAll() : this.rendezvousService.findSimilar(rendezvousId);
+		rendezvouses = rendezvousId == null ? this.rendezvousService.findAllFinal() : this.rendezvousService.findSimilar(rendezvousId);
 		result = new ModelAndView("rendezvous/list");
 		result.addObject("rendezvouses", rendezvouses);
 		result.addObject("requestURI", "rendezvous/list.do");
@@ -59,42 +64,51 @@ public class RendezvousController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int rendezvousId, @RequestParam(required = false) final Integer finalVersion) {
+	public ModelAndView display(@RequestParam final int rendezvousId, @RequestParam(required = false) final Integer finalVersion, @RequestParam(required = false) final Integer rsvpDONE) {
 		ModelAndView result;
 		Rendezvous rendezvous;
 		Actor actor;
+		RSVP rsvp;
 		User user;
-		Boolean puedeCrear =false;
+		Boolean puedeCrear = false;
+
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		result = new ModelAndView("rendezvous/display");
 		result.addObject("rendezvous", rendezvous);
 		result.addObject("requestURI", "rendezvous/display.do");
 
-		
-		
-		
 		if (this.actorService.isLogged()) {
 			actor = this.actorService.findByPrincipal();
-			
-			
-		if (actor instanceof User){
+
+			if (actor instanceof User) {
 				result.addObject("userId", actor.getId());
-			//Esto es para que no salga el create comment si no tiene RSVP
-			user =(User) this.actorService.findByPrincipal();
-			Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(actor.getId());
-			Collection<Rendezvous> rendezvousesCreados=user.getRendezvouses() ;
-			rendevouses.addAll(rendezvousesCreados);
-			puedeCrear =rendevouses.contains(rendezvous);
-			result.addObject("puedeCrear",puedeCrear);
-		}}
+				//Esto es para que no salga el create comment si no tiene RSVP
+				user = (User) this.actorService.findByPrincipal();
+				final Collection<Rendezvous> rendevouses = this.rendezvousService.findRendevousWithRSVPbyUserId(actor.getId());
+				final Collection<Rendezvous> rendezvousesCreados = user.getRendezvouses();
+				rendevouses.addAll(rendezvousesCreados);
+				puedeCrear = rendevouses.contains(rendezvous);
+				result.addObject("puedeCrear", puedeCrear);
+
+				rsvp = this.rsvpService.existByRendezvousIdUserId(rendezvousId, actor.getId());
+				if (rsvp != null) {
+					if (rsvp.isJoined())
+						result.addObject("rsvpJoined", true);
+					if (!rsvp.isJoined()) {
+						result.addObject("rsvpJoined", false);
+						result.addObject("rsvpId", rsvp.getId());
+					}
+				}
+
+			}
+
+		}
 		if (finalVersion != null)
 			result.addObject("finalVersion", 1);
-		
-	
-		
-		
-		
-		
+		if (rsvpDONE != null)
+			result.addObject("rsvpDONE", 1);
+		result.addObject("puedeCrear", puedeCrear);
+
 		return result;
 	}
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
