@@ -32,8 +32,8 @@
 		<li><a href="actor/list.do"><spring:message
 					code="master.page.anonymous.action.2" /></a></li>
 
-				
-				
+
+
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
@@ -43,18 +43,6 @@
 
 
 		</security:authorize>
-		
-		<security:authorize access="hasRole('ADMINISTRATOR')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/dashboard.do"><spring:message
-								code="master.page.administrator.dashboard" /></a></li>
-				</ul></li>
-
-		</security:authorize>
-
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
@@ -63,12 +51,21 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="rendezvous/user/list.do"><spring:message
-								code="master.page.user.rendezvous.list" /></a></li>
-					<li><a href="announcement/user/list.do"><spring:message
-								code="master.page.user.announcement.list" /></a></li>
-					<li><a href="rendezvous/user/listrsvp.do"><spring:message
-								code="master.page.user.rendezvous.listrsvp" /></a></li>
+					<security:authorize access="hasRole('USER')">
+						<li><a href="rendezvous/user/list.do"><spring:message
+									code="master.page.user.rendezvous.list" /></a></li>
+						<li><a href="announcement/user/list.do"><spring:message
+									code="master.page.user.announcement.list" /></a></li>
+						<li><a href="rendezvous/user/listrsvp.do"><spring:message
+									code="master.page.user.rendezvous.listrsvp" /></a></li>
+					</security:authorize>
+
+
+					<security:authorize access="hasRole('ADMINISTRATOR')">
+						<li><a href="administrator/dashboard.do"><spring:message
+									code="master.page.administrator.dashboard" /></a></li>
+					</security:authorize>
+
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
