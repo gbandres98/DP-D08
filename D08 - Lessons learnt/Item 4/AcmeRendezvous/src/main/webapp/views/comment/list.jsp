@@ -45,7 +45,7 @@
 
  </jstl:if>
   
-<display:table pagesize="5" class="displaytag" keepStatus="true" name="comments" requestURI="${requestURI}" id="row">
+<display:table pagesize="25" class="displaytag" keepStatus="true" name="comments" requestURI="${requestURI}" id="row">
 
 <!-- Attributes -->
 

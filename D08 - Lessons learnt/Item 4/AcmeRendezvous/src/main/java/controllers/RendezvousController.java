@@ -63,6 +63,7 @@ public class RendezvousController extends AbstractController {
 		ModelAndView result;
 		Rendezvous rendezvous;
 		Actor actor;
+		User user;
 		Boolean puedeCrear =false;
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		result = new ModelAndView("rendezvous/display");
@@ -74,20 +75,24 @@ public class RendezvousController extends AbstractController {
 		
 		if (this.actorService.isLogged()) {
 			actor = this.actorService.findByPrincipal();
-			//Esto es para que no salga el create comment si no tiene RSVP
-			Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(actor.getId());
-			puedeCrear =rendevouses.contains(rendezvous);
-			// fin de lo de que no salga el create comment si no tiene RSVP
-			if (actor instanceof User)
+			
+			
+		if (actor instanceof User){
 				result.addObject("userId", actor.getId());
-		}
+			//Esto es para que no salga el create comment si no tiene RSVP
+			user =(User) this.actorService.findByPrincipal();
+			Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(actor.getId());
+			Collection<Rendezvous> rendezvousesCreados=user.getRendezvouses() ;
+			rendevouses.addAll(rendezvousesCreados);
+			puedeCrear =rendevouses.contains(rendezvous);
+			result.addObject("puedeCrear",puedeCrear);
+		}}
 		if (finalVersion != null)
 			result.addObject("finalVersion", 1);
 		
-		//Esto es para que no salga el create comment si no tiene RSVP
+	
 		
 		
-		result.addObject("puedeCrear",puedeCrear);
 		
 		
 		return result;

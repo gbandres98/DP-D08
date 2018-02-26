@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Actor;
 import domain.Comment;
 import domain.Rendezvous;
+import domain.User;
 
 import services.ActorService;
 import services.CommentService;
@@ -73,13 +74,21 @@ public class CommentController extends AbstractController {
 			@RequestParam(required = true) final Integer rendezvousId) {
 		ModelAndView result;
 		Collection<Comment> comments;
-
-		comments = commentService.findByRendezvousIdRoot(rendezvousId);
-		Actor user =  this.actorService.findByPrincipal();
-		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
 		result = new ModelAndView("comment/list");
-		result.addObject("comments", comments);
+		Actor actor = this.actorService.findByPrincipal();
+		comments = commentService.findByRendezvousIdRoot(rendezvousId);
+		
+		//Esto es para que no salga el create comment si no tiene RSVP
+		if (actor instanceof User){
+		User user =  (User) this.actorService.findByPrincipal();
+		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
+		Collection<Rendezvous> rendezvousesCreados=user.getRendezvouses() ;
+		rendevouses.addAll(rendezvousesCreados);
 		result.addObject("rendezvousesWithRSVP",rendevouses);
+		}
+	
+		result.addObject("comments", comments);
+		
 		return result;
 	}
 
@@ -90,16 +99,26 @@ public class CommentController extends AbstractController {
 	public ModelAndView listAnswer(
 			@RequestParam(required = true) final Integer commentId) {
 		ModelAndView result;
-		Actor user =  this.actorService.findByPrincipal();
+		result = new ModelAndView("comment/list");
+		Actor actor = this.actorService.findByPrincipal();
+		
+		//Esto es para que no salga el create comment si no tiene RSVP
+		if (actor instanceof User){
+		User user =  (User) this.actorService.findByPrincipal();
 		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
+		Collection<Rendezvous> rendezvousesCreados=user.getRendezvouses() ;
+		rendevouses.addAll(rendezvousesCreados);
+		result.addObject("rendezvousesWithRSVP",rendevouses);
+		}
+		
 		Collection<Comment> comments;
 		Comment parentComment;
 		comments = commentService.findByParentCommentId(commentId);
 		parentComment = commentService.findOne(commentId);
-		result = new ModelAndView("comment/list");
+		
 		result.addObject("comments", comments);
 		result.addObject("ParentComment", parentComment);
-		result.addObject("rendezvousesWithRSVP",rendevouses);
+	
 		return result;
 	}
 
@@ -149,7 +168,7 @@ public class CommentController extends AbstractController {
 		ModelAndView result;
 		Rendezvous r = comment.getRendezvous();
 		if (binding.hasErrors()){
-//			result = this.createEditModelAndView(comment,"comment.binding.error");
+//			result = this.createEditModelAndView(comment,"comment.binding.error"); esto si quieres que te salga blinding error en pantalla al equivocarte
 			result = this.createEditModelAndView(comment);
 		}else
 			try {
