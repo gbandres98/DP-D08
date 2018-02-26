@@ -69,7 +69,7 @@ public class AnnouncementService {
 		Rendezvous rendezvous;
 
 		actor = this.actorService.findByPrincipal();
-		rendezvous = this.rendezvousService.findByAnnouncement(announcement);
+		rendezvous = announcement.getRendezvous();
 		Assert.isTrue(actor != null);
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());

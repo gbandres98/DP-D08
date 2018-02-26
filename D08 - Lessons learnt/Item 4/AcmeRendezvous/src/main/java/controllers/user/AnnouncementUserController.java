@@ -12,9 +12,12 @@ package controllers.user;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,6 +84,23 @@ public class AnnouncementUserController extends AbstractController {
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == principal.getId());
 		result = this.createEditModelAndView(announcement);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(@Valid final Announcement announcement, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(announcement);
+		else
+			try {
+				this.announcementService.save(announcement);
+				result = new ModelAndView("redirect:/announcement/user/list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(announcement, "announcement.commit.error");
+			}
 
 		return result;
 	}
