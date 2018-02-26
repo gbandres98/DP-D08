@@ -124,9 +124,10 @@
 	<br />
 </security:authorize>
 <security:authorize access="hasRole('USER')">
+		<jstl:if test="${puedeCrear}">
 	<a href="comment/create.do?rendezvousId=${rendezvous.id}"><b><spring:message
 				code="comment.create" /></b></a>
-
+		</jstl:if>
 </security:authorize>
 <br />
 <br />

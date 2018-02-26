@@ -63,19 +63,33 @@ public class RendezvousController extends AbstractController {
 		ModelAndView result;
 		Rendezvous rendezvous;
 		Actor actor;
-
+		Boolean puedeCrear =false;
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		result = new ModelAndView("rendezvous/display");
 		result.addObject("rendezvous", rendezvous);
 		result.addObject("requestURI", "rendezvous/display.do");
 
+		
+		
+		
 		if (this.actorService.isLogged()) {
 			actor = this.actorService.findByPrincipal();
+			//Esto es para que no salga el create comment si no tiene RSVP
+			Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(actor.getId());
+			puedeCrear =rendevouses.contains(rendezvous);
+			// fin de lo de que no salga el create comment si no tiene RSVP
 			if (actor instanceof User)
 				result.addObject("userId", actor.getId());
 		}
 		if (finalVersion != null)
 			result.addObject("finalVersion", 1);
+		
+		//Esto es para que no salga el create comment si no tiene RSVP
+		
+		
+		result.addObject("puedeCrear",puedeCrear);
+		
+		
 		return result;
 	}
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)

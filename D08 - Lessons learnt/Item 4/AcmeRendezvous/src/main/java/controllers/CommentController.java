@@ -23,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
 import domain.Comment;
 import domain.Rendezvous;
 
+import services.ActorService;
 import services.CommentService;
+import services.RendezvousService;
 
 @Controller
 @RequestMapping("/comment")
@@ -36,6 +39,10 @@ public class CommentController extends AbstractController {
 
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private ActorService actorService;
+	@Autowired
+	private RendezvousService rendezvousService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -68,10 +75,11 @@ public class CommentController extends AbstractController {
 		Collection<Comment> comments;
 
 		comments = commentService.findByRendezvousIdRoot(rendezvousId);
-
+		Actor user =  this.actorService.findByPrincipal();
+		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
 		result = new ModelAndView("comment/list");
 		result.addObject("comments", comments);
-
+		result.addObject("rendezvousesWithRSVP",rendevouses);
 		return result;
 	}
 
@@ -82,6 +90,8 @@ public class CommentController extends AbstractController {
 	public ModelAndView listAnswer(
 			@RequestParam(required = true) final Integer commentId) {
 		ModelAndView result;
+		Actor user =  this.actorService.findByPrincipal();
+		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
 		Collection<Comment> comments;
 		Comment parentComment;
 		comments = commentService.findByParentCommentId(commentId);
@@ -89,6 +99,7 @@ public class CommentController extends AbstractController {
 		result = new ModelAndView("comment/list");
 		result.addObject("comments", comments);
 		result.addObject("ParentComment", parentComment);
+		result.addObject("rendezvousesWithRSVP",rendevouses);
 		return result;
 	}
 

@@ -75,7 +75,10 @@
   </jstl:choose>
 <display:column><a href='comment/list-Answer.do?commentId=${row.id}' > <spring:message code="comment.answers"/></a> </display:column>
 <security:authorize access="hasRole('USER')">
+
+<jstl:if test="${rendezvousesWithRSVP.contains(row.rendezvous)}">
 <display:column><a href='comment/create.do?rendezvousId=${row.rendezvous.id}&commentId=${row.id}' > <spring:message code="comment.create"/></a> </display:column>
+</jstl:if>
 </security:authorize>
 <security:authorize access="hasRole('ADMINISTRATOR')">
 	<display:column><a
