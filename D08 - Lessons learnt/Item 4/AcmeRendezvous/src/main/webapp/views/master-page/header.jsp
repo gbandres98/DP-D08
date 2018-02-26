@@ -32,7 +32,8 @@
 		<li><a href="actor/list.do"><spring:message
 					code="master.page.anonymous.action.2" /></a></li>
 
-		
+				
+				
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
@@ -42,6 +43,18 @@
 
 
 		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMINISTRATOR')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.administrator" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/dashboard.do"><spring:message
+								code="master.page.administrator.dashboard" /></a></li>
+				</ul></li>
+
+		</security:authorize>
+
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
