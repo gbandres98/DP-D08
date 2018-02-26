@@ -88,6 +88,7 @@ public class CommentController extends AbstractController {
 		}
 	
 		result.addObject("comments", comments);
+		result.addObject("requestURI", "/comment/list-Root.do");
 		
 		return result;
 	}
@@ -118,7 +119,7 @@ public class CommentController extends AbstractController {
 		
 		result.addObject("comments", comments);
 		result.addObject("ParentComment", parentComment);
-	
+		result.addObject("requestURI", "/comment/list-Answer.do");
 		return result;
 	}
 

@@ -21,6 +21,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <!--  Listing grid -->
+<display:table pagesize="5" class="displaytag" keepStatus="true" requestURI="${requestURI}" name="comments"  id="row">
 
 <jstl:if test="${comments.size()==0}">
 <jstl:choose>
@@ -45,7 +46,7 @@
 
  </jstl:if>
   
-<display:table pagesize="25" class="displaytag" keepStatus="true" name="comments" requestURI="${requestURI}" id="row">
+
 
 <!-- Attributes -->
 
