@@ -148,10 +148,10 @@ public class CommentController extends AbstractController {
 			final BindingResult binding) {
 		ModelAndView result;
 		Rendezvous r = comment.getRendezvous();
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(comment,
-					"comment.binding.error");
-		else
+		if (binding.hasErrors()){
+//			result = this.createEditModelAndView(comment,"comment.binding.error");
+			result = this.createEditModelAndView(comment);
+		}else
 			try {
 				this.commentService.save(comment);
 				result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId="+r.getId());
