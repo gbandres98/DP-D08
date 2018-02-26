@@ -101,7 +101,7 @@ public class RendezvousService {
 		final Collection<Question> questions = rendezvous.getQuestions();
 		actor = this.actorService.findByPrincipal();
 		for (final Announcement a : announcements)
-			this.announcementService.delete(a);
+			this.announcementService.delete(a.getId());
 		final GPSCoordinates gps = rendezvous.getGPSCoordinates();
 
 		for (final RSVP r : RSVPs)

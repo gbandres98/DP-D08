@@ -80,17 +80,19 @@ public class AnnouncementService {
 		return result;
 	}
 
-	public void delete(final Announcement announcement) {
+	public void delete(final int announcementId) {
 		Actor actor;
+		Announcement announcement;
 
 		actor = this.actorService.findByPrincipal();
-		//Chekear el actor
 
-		Assert.notNull(announcement);
-		Assert.isTrue(announcement.getId() != 0);
+		Assert.isTrue(announcementId != 0);
 		Assert.isTrue(actor instanceof Administrator);
 
-		this.announcementRepository.delete(announcement);
+		announcement = this.findOne(announcementId);
+		Assert.notNull(announcement);
+
+		this.announcementRepository.delete(announcementId);
 	}
 	//Other business methods
 
