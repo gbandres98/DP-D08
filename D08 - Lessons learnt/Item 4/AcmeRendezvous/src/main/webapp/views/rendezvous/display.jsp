@@ -77,7 +77,7 @@
 		<br/>
 	</jstl:if>
 
-	<jstl:if test="${rendezvous.user.id==userId }">
+	<jstl:if test="${rendezvous.user.id==userId && finalVersion!=0}">
 		<a href="announcement/user/create.do?rendezvousId= ${rendezvous.id }">
 			<spring:message code="announcement.create" />
 		</a>

@@ -73,6 +73,7 @@ public class AnnouncementService {
 		Assert.isTrue(actor != null);
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
+		Assert.isTrue(!(rendezvous.isFinalVersion()) || !(rendezvous.isDeleted()));
 
 		announcement.setMoment(new Date());
 		result = this.announcementRepository.save(announcement);
