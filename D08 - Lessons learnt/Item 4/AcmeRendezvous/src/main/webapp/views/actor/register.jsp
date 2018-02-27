@@ -32,6 +32,12 @@
 	<form:input type="password" path="password" />
 	<form:errors cssClass="error" path="password" />
 	<br />
+	<form:label path="password2">
+		<spring:message code="actor.password2" />
+	</form:label>
+	<form:input type="password" path="password2" />
+	<form:errors cssClass="error" path="password2" />
+	<br />
 	<form:label path="name">
 		<spring:message code="actor.name" />
 	</form:label>
@@ -43,6 +49,12 @@
 	</form:label>
 	<form:input path="surname" />
 	<form:errors cssClass="error" path="surname" />
+	<br />
+	<form:label path="birthDate">
+		<spring:message code="actor.birthDate" />
+	</form:label>
+	<form:input path="birthDate" placeholder="dd/mm/yyyy HH:MM"/>
+	<form:errors cssClass="error" path="birthDate" />
 	<br />
 	<form:label path="email">
 		<spring:message code="actor.email" />
@@ -61,6 +73,12 @@
 	</form:label>
 	<form:input path="address" />
 	<form:errors cssClass="error" path="address" />
+	<br />
+	<form:label path="agree">
+		<spring:message code="actor.agree" />
+	</form:label>
+	<form:checkbox path="agree" />
+	<form:errors cssClass="error" path="agree" />
 	<br />
 	<input type="submit" name="save"
 		value="<spring:message code="actor.save" />" />

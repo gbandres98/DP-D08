@@ -71,12 +71,15 @@ public class ActorService {
 	public Actor create(final ActorForm actorForm) {
 		Actor result;
 
+		Assert.isTrue(actorForm.getPassword().equals(actorForm.getPassword2()));
+
 		result = this.create(actorForm.getAuthority());
 		result.setPostalAddress(actorForm.getAddress());
 		result.setEmailAddress(actorForm.getEmail());
 		result.setName(actorForm.getName());
 		result.setPhoneNumber(actorForm.getPhone());
 		result.setSurname(actorForm.getSurname());
+		result.setBirthDate(actorForm.getBirthDate());
 		result.getUserAccount().setUsername(actorForm.getUsername());
 		result.getUserAccount().setPassword(actorForm.getPassword());
 

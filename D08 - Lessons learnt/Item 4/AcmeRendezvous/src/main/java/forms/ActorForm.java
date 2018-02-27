@@ -1,7 +1,10 @@
 
 package forms;
 
+import java.util.Date;
+
 import javax.persistence.Column;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -17,6 +20,9 @@ public class ActorForm {
 	private String	phone;
 	private String	address;
 	private String	authority;
+	private String	password2;
+	private Boolean	agree;
+	private Date	birthDate;
 
 
 	@Size(min = 5, max = 32)
@@ -87,6 +93,31 @@ public class ActorForm {
 
 	public void setAuthority(final String authority) {
 		this.authority = authority;
+	}
+
+	public String getPassword2() {
+		return this.password2;
+	}
+
+	public void setPassword2(final String password2) {
+		this.password2 = password2;
+	}
+
+	@AssertTrue
+	public Boolean getAgree() {
+		return this.agree;
+	}
+
+	public void setAgree(final Boolean agree) {
+		this.agree = agree;
+	}
+
+	public Date getBirthDate() {
+		return this.birthDate;
+	}
+
+	public void setBirthDate(final Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 }
