@@ -71,7 +71,7 @@ public class AnswerUserController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(@Valid final Answer answer, @RequestParam final int rsvpId, final BindingResult binding) {
+	public ModelAndView edit(@Valid final Answer answer, final BindingResult binding, @RequestParam final int rsvpId) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
