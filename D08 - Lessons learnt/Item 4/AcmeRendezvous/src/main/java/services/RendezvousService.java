@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -127,16 +128,23 @@ public class RendezvousService {
 	}
 
 	public Rendezvous save(final Rendezvous rendezvous) {
-		Rendezvous result;
+		Rendezvous result, db;
 		Actor actor;
+		Date today;
 
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(actor != null);
 		Assert.isTrue(actor instanceof User);
 		Assert.notNull(rendezvous);
 		Assert.isTrue(rendezvous.getUser().getId() == actor.getId());
-		Assert.isTrue(!rendezvous.isFinalVersion());
-		Assert.isTrue(rendezvous.isDeleted() == false);
+		today = new Date();
+		if (rendezvous.getId() != 0) {
+			db = this.findOne(rendezvous.getId());
+			Assert.isTrue(!db.isFinalVersion());
+			Assert.isTrue(db.isDeleted() == false);
+			Assert.isTrue(db.getMoment().after(today));
+		}
+		Assert.isTrue(rendezvous.getMoment().after(today));
 
 		result = this.rendezvousRepository.save(rendezvous);
 

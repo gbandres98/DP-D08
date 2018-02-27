@@ -59,28 +59,31 @@
 <br />
 
 <security:authorize access="hasRole('USER')">
-	<jstl:if test="${rsvpJoined==null && rendezvous.user.id!=userId}">
+	<jstl:if test="${rsvpJoined==true}">
+		<spring:message code="rendezvous.rsvp.congrats" />
+		<a href="rsvp/user/cancel.do?rsvpId=${rsvpId}"><spring:message code="rendezvous.rsvp.cancel" /></a>
+		<br/>
+	</jstl:if>
+	
+	<jstl:if test="${rsvpJoined==null && rendezvous.user.id!=userId && joinable}">
 		<a href="rsvp/user/create.do?rendezvousId=${rendezvous.id }">
 			<spring:message code="rendezvous.rsvp.join" />
 		</a>
+		<br/>
 	</jstl:if>
 	
-	<jstl:if test="${rsvpJoined==true}">
-		<spring:message code="rendezvous.rsvp.congrats" />
-		<a href="rsvp/user/cancel.do?rsvpId=${rsvpId}">Cancel RSVP</a>
-	</jstl:if>
-	
-	<jstl:if test="${rsvpId!=null && rsvpJoined==false}">
+	<jstl:if test="${rsvpId!=null && rsvpJoined==false && joinable}">
 		<a href="rsvp/user/edit.do?rsvpId=${rsvpId}">
 			<spring:message code="rendezvous.rsvp.continueJoining" />
 		</a>
+		<br/>
 	</jstl:if>
 
 	<jstl:if test="${rendezvous.user.id==userId }">
 		<a href="announcement/user/create.do?rendezvousId= ${rendezvous.id }">
 			<spring:message code="announcement.create" />
 		</a>
-		<br />
+		<br/>
 	</jstl:if>
 </security:authorize>
 

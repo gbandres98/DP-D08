@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -135,11 +136,14 @@ public class RSVPService {
 	public RSVP save(final RSVP rsvp) {
 		RSVP result;
 		Actor actor;
+		Date today;
 
 		Assert.isTrue(this.actorService.isLogged());
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(rsvp.getUser().getId() == actor.getId());
 		Assert.isTrue(rsvp.getRendezvous().isFinalVersion() == true);
+		today = new Date();
+		Assert.isTrue(rsvp.getRendezvous().getMoment().after(today));
 
 		if (rsvp.getRendezvous().getQuestions().size() == rsvp.getAnswers().size() && rsvp.isJoined() == false)
 			rsvp.setJoined(true);

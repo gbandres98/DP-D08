@@ -11,6 +11,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,7 +71,8 @@ public class RendezvousController extends AbstractController {
 		Actor actor;
 		RSVP rsvp;
 		User user;
-		Boolean puedeCrear = false;
+		Boolean joinable, puedeCrear = false;
+		Date today;
 
 		rendezvous = this.rendezvousService.findOne(rendezvousId);
 		result = new ModelAndView("rendezvous/display");
@@ -90,6 +92,9 @@ public class RendezvousController extends AbstractController {
 				puedeCrear = rendevouses.contains(rendezvous);
 				result.addObject("puedeCrear", puedeCrear);
 
+				today = new Date();
+				joinable = rendezvous.getMoment().after(today);
+				result.addObject("joinable", joinable);
 				rsvp = this.rsvpService.existByRendezvousIdUserId(rendezvousId, actor.getId());
 				if (rsvp != null && !rsvp.isCancelled()) {
 					result.addObject("rsvpId", rsvp.getId());
@@ -97,11 +102,8 @@ public class RendezvousController extends AbstractController {
 						result.addObject("rsvpJoined", true);
 					else
 						result.addObject("rsvpJoined", false);
-
 				}
-
 			}
-
 		}
 		if (finalVersion != null)
 			result.addObject("finalVersion", 1);
