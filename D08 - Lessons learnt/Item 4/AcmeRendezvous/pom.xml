@@ -21,7 +21,7 @@
 
 	<groupId>Design-and-Testing</groupId>
 	<artifactId>AcmeRendezvous</artifactId>
-	<version>1.12</version>
+	<version>1.13</version>
 	<packaging>war</packaging>
 	
 	<properties>
@@ -31,7 +31,7 @@
 	<!-- Indexing information -->
 
 	<name>AcmeRendezvous</name>
-	<url>http://www.sample-project.com</url>
+	<url>http://www.acme.com/rendezvous</url>
 	<description>This is D&amp;T's project.</description>
 	
 	<!-- Build commands -->
