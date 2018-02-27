@@ -13,7 +13,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<jstl:out value="${answer.question.text}"/>
+<b><spring:message code="answer.question"/>:</b> <jstl:out value="${answer.question.text}"/>
 <br/>
 <form:form action="answer/user/edit.do" modelAttribute="answer">
 	
