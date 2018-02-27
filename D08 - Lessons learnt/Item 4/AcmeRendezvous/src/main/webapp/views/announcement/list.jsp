@@ -25,15 +25,20 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="announcements" requestURI="${requestURI}" id="row">
 
+	<spring:message code="announcement.datePattern" var="datePattern" />
 	<spring:message code="announcement.title" var="title" />
-	<display:column property="title" title="${title}" sortable="false" />
+	<display:column title="${title}" sortable="false">
+		<jstl:out value="${row.title}" />
+	</display:column>
 
 	<spring:message code="announcement.description" var="description" />
-	<display:column property="description" title="${description}"
-		sortable="false" />
+	<display:column title="${description}" sortable="false">
+		<jstl:out value="${row.description}" />
+	</display:column>
+
 
 	<spring:message code="announcement.moment" var="moment" />
-	<display:column property="moment" title="${moment}" sortable="false" />
+	<display:column property="moment" title="${moment}" sortable="false" format="${datePattern}"/>
 
 	<jstl:if test="${requestURI=='announcement/user/list.do' }">
 		<display:column title="Rendezvous">
