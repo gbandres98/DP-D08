@@ -19,4 +19,4 @@
 
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Sample Co., Inc.</b>
 <br>
-<a href="law/terms-conditions.do"> <spring:message code="master.page.law" /> </a>
+<spring:message code="master.page.legal"/><a href="law/terms-conditions.do"> <spring:message code="master.page.law" /> </a>
