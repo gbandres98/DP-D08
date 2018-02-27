@@ -245,25 +245,24 @@ public class RendezvousService {
 		final List<Rendezvous> a = new ArrayList<>(aux.keySet());
 		final List<Integer> b = new ArrayList<>(aux.values());
 		//reordeno ambas listas
-		if (a.size() >= 10)
-			for (int i = 0; i < b.size(); i++)
-				for (final int j = i + 1; j < b.size(); i++)
-					if (b.get(i) < b.get(j)) {
-						final Integer ix = b.get(i);
-						b.set(i, b.get(j));
-						b.set(j, ix);
-						final Rendezvous ir = a.get(i);
-						a.set(i, a.get(j));
-						a.set(j, ir);
-					}
+		for (int i = 0; i < b.size(); i++)
+			for (int j = i + 1; j < b.size(); j++)
+				if (b.get(i) < b.get(j)) {
+					final Integer ix = b.get(i);
+					b.set(i, b.get(j));
+					b.set(j, ix);
+					final Rendezvous ir = a.get(i);
+					a.set(i, a.get(j));
+					a.set(j, ir);
+				}
 		final List<Rendezvous> res = new ArrayList<Rendezvous>();
 		int n = 10;
 		if (a.size() < 10)
 			n = a.size();
-		for (int i = 0; res.size() <= n; i++)
+		for (int i = 0; res.size() <= n - 1; i++)
 			res.add(a.get(i));
 
-		final Collection<Rendezvous> result = res;
+		final Collection<Rendezvous> result = a;
 		return result;
 	}
 	public Collection<Rendezvous> findRendezvousWithMoreAnnouncementsThanAverage() {
