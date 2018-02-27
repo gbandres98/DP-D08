@@ -90,7 +90,6 @@ public class AdministratorController extends AbstractController {
 	@RequestMapping("/dashboard")
 	public ModelAndView dashboard() {
 		ModelAndView result;
-		final String avg = "average", min = "minimum", max = "maximum", sd = "standardDeviation";
 
 		Double avgRendezvousesperUser = 0.0;
 		Double sdRendezvousesperUser = 0.0;
