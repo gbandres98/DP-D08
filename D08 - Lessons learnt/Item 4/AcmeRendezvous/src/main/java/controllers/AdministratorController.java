@@ -168,7 +168,7 @@ public class AdministratorController extends AbstractController {
 		result.addObject("sdRSVPperRendezvous", sdRSVPperRendezvous);
 
 		result.addObject("avgRSVPperUser", avgRSVPperUser);
-		result.addObject("sdgRSVPperUser", sdRSVPperUser);
+		result.addObject("sdRSVPperUser", sdRSVPperUser);
 
 		result.addObject("toptenbyRSVP", toptenbyRSVP);
 
