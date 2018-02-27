@@ -55,6 +55,7 @@
 		<!-- Admin -->
 		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/administrator/dashboard.do" access="hasRole('ADMINISTRATOR')" />
 		<security:intercept-url pattern="/comment/delete.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/rendezvous/remove.do" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/announcement/administrator/**" access="hasRole('ADMINISTRATOR')" />

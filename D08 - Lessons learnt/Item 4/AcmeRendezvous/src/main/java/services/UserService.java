@@ -72,4 +72,9 @@ public class UserService {
 		return result;
 	}
 
+	public Double ratioUserRendezvousvsUserNoRendezvous() {
+		final Double result = this.userRepository.ratioUserRendezvousvsUserNoRendezvous();
+		return result;
+	}
+
 }

@@ -119,4 +119,15 @@ public class AnnouncementService {
 
 		return result;
 	}
+
+	public Double averageAnnouncementperRendezvous() {
+		final Double result = this.announcementRepository.averageAnnoucementsperRendezvous();
+		return result;
+	}
+
+	public Double standardDeviationAnnouncementperRendezvous() {
+		final Double result = this.announcementRepository.standardDeviationAnnoucementsperRendezvous();
+		return result;
+	}
+
 }

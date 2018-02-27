@@ -28,12 +28,17 @@ public interface RendezvousRepository extends JpaRepository<Rendezvous, Integer>
 
 	@Query("select avg(u.rendezvouses.size) from User u")
 	Double averageRendezvousesperUser();
-	//TODO PASAR A SERVICIO y PROBAR POST SUPER POPULATE
 	//Standar Deviation
 	@Query("select sqrt(sum(u.rendezvouses.size*u.rendezvouses.size) / count(u.rendezvouses.size) - (avg(u.rendezvouses.size) * avg(u.rendezvouses.size))) from User u")
 	Double standardDeviationRendezvousesperUser();
 
 	@Query("select r.rendezvouses from Rendezvous r where r.id = ?1")
 	Collection<Rendezvous> findSimilar(int rendezvousId);
+
+	@Query("select r from Rendezvous r where r.announcements.size>= (select avg(rt.announcements.size)*1.75 from Rendezvous rt)")
+	Collection<Rendezvous> findRendezvousWithMoreAnnouncementsThanAverage();
+
+	@Query("select r from Rendezvous r where r.rendezvouses.size>= (select avg(rt.rendezvouses.size)*1.1 from Rendezvous rt)")
+	Collection<Rendezvous> findRendezvousWithMoreRendezvousesThanAverage();
 
 }

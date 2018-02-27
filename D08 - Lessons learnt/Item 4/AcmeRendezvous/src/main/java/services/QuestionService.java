@@ -129,6 +129,16 @@ public class QuestionService {
 		return result;
 	}
 
+	public Double averageQuestionsperRendezvous() {
+		final Double result = this.questionRepository.averageQuestionsperRendezvous();
+		return result;
+	}
+
+	public Double standardDeviationQuestionsperRendezvous() {
+		final Double result = this.questionRepository.standardDeviationQuestionsperRendezvous();
+		return result;
+	}
+
 	public Question findNext(final int rsvpId) {
 		RSVP rsvp;
 		Collection<Question> answered, notAnswered;
@@ -146,4 +156,5 @@ public class QuestionService {
 			result = notAnswered.iterator().next();
 		return result;
 	}
+
 }

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -26,6 +27,8 @@ public class RSVPService {
 	private RSVPRepository		rsvpRepository;
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	private UserService			userService;
 	@Autowired
 	private RendezvousService	rendezvousService;
 
@@ -88,6 +91,45 @@ public class RSVPService {
 
 	}
 
+	public Double averageRSVPperRendezvous() {
+		final Double result = this.rsvpRepository.averageRSVPperUser();
+		return result;
+	}
+
+	public Double standardDeviationRSVPperRendezvous() {
+		final Double auxavg = this.averageRSVPperRendezvous();
+		final Collection<Rendezvous> aux = this.rendezvousService.findAll();
+		Collection<RSVP> auxr = new ArrayList<RSVP>();
+		Double auxsum = 0.0;
+		for (final Rendezvous r : aux) {
+			auxr = this.rsvpRepository.findByRendezvousId(r.getId());
+			auxsum = auxsum + (auxr.size() * auxr.size());
+		}
+
+		final Double result = Math.sqrt(auxsum / aux.size() - (auxavg * auxavg));
+		return result;
+	}
+
+	public Double averageRSVPperUser() {
+		final Double result = this.rsvpRepository.averageRSVPperUser();
+		return result;
+	}
+
+	public Double standardDeviationRSVPperUser() {
+		final Double auxavg = this.averageRSVPperUser();
+		final Collection<User> aux = this.userService.findAll();
+		Collection<RSVP> auxr = new ArrayList<RSVP>();
+		Double auxsum = 0.0;
+		for (final User s : aux) {
+			auxr = this.rsvpRepository.findByUser(s.getId());
+			auxsum = auxsum + (auxr.size() * auxr.size());
+		}
+
+		final Double result = Math.sqrt(auxsum / aux.size() - (auxavg * auxavg));
+		return result;
+
+	}
+
 	public RSVP save(final RSVP rsvp) {
 		RSVP result;
 		Actor actor;
@@ -122,4 +164,5 @@ public class RSVPService {
 
 		return result;
 	}
+
 }

@@ -383,6 +383,11 @@
 		<property name="text" value="text6" />
 		<property name="question" ref="question1" />
 	</bean>
+
+	<bean id="answer7" class="domain.Answer">
+		<property name="text" value="text7" />
+		<property name="question" ref="question11" />
+	</bean>
 	
 	
 

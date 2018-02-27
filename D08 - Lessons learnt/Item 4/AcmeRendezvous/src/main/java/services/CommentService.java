@@ -32,7 +32,6 @@ public class CommentService {
 	private RendezvousService	rendezvousService;
 	@Autowired
 	private ActorService		actorService;
-	
 
 
 	// Constructor ----------------------------------------------------
@@ -42,24 +41,22 @@ public class CommentService {
 	}
 
 	// CRUD methods ----------------------------------------------------
-	public Comment create(final Integer rendezvousId,final Integer commentId) {
-		
+	public Comment create(final Integer rendezvousId, final Integer commentId) {
+
 		//el id del rendezvous no puede ser nulo, en cambio el del comentarioPadre si(en ese caso no es una respuesta
 		Assert.notNull(rendezvousId);
-		
-		
-		
+
 		Comment comment;
 		comment = new Comment();
 
 		//le asignamos el rendezvous
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
 		comment.setRendezvous(rendezvous);
-		
+
 		//añadimos el comentario padre en caso de haberlo 
-		if(commentId!= null){
-		Comment parentComment=commentRepository.findOne(commentId);
-		comment.setparentComment(parentComment);
+		if (commentId != null) {
+			final Comment parentComment = this.commentRepository.findOne(commentId);
+			comment.setparentComment(parentComment);
 		}
 		//Sacamos el momento del sistema
 		Date moment;
@@ -96,18 +93,17 @@ public class CommentService {
 		comment.setMoment(moment);
 
 		//checkear que el usuario tiene RSPV en el rendevous que comenta
-	
-		User user =  (User) this.actorService.findByPrincipal();
-		Collection<Rendezvous> rendevouses =this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
-		Collection<Rendezvous> rendezvousesCreados=user.getRendezvouses() ;
+		final User user = (User) this.actorService.findByPrincipal();
+		final Collection<Rendezvous> rendevouses = this.rendezvousService.findRendevousWithRSVPbyUserId(user.getId());
+		final Collection<Rendezvous> rendezvousesCreados = user.getRendezvouses();
 		rendevouses.addAll(rendezvousesCreados);
-		Assert.isTrue(rendevouses.contains(comment.getRendezvous()))	;
-		
+		Assert.isTrue(rendevouses.contains(comment.getRendezvous()));
+
 		final Comment commentsave = this.commentRepository.save(comment);
 		return commentsave;
 	}
 	public void delete(final Comment comment) {
-		
+
 		final Actor actor;
 		Assert.notNull(comment);
 		actor = this.actorService.findByPrincipal();
@@ -115,12 +111,11 @@ public class CommentService {
 
 		//requeriment 6.1 need admin to delete :borra tambien las respuestas(profesor fernando dio visto bueno)
 		Assert.isTrue(actor instanceof Administrator);
-		Collection<Comment> childrenComment = commentRepository.findByParentCommentId(comment.getId());
-		for(Comment c:childrenComment){
+		final Collection<Comment> childrenComment = this.commentRepository.findByParentCommentId(comment.getId());
+		for (final Comment c : childrenComment)
 			this.delete(c);
-		}
 		this.commentRepository.delete(comment);
-		
+
 	}
 
 	// Other business methods
@@ -170,6 +165,34 @@ public class CommentService {
 
 		// Tested Query 
 		result = this.commentRepository.findByRendezvousIdRoot(rendezvousId);
+
+		return result;
+	}
+
+	public Double averageReplysperComment() {
+		final Collection<Comment> aux = this.commentRepository.findAll();
+		Collection<Comment> auxc = new ArrayList<Comment>();
+		Double auxs = 0.0;
+		for (final Comment c : aux) {
+			auxc = this.findByParentCommentId(c.getId());
+			auxs = auxs + auxc.size();
+		}
+
+		final Double result = 1.0 * auxs / aux.size();
+		return result;
+	}
+
+	public Double standardDeviationReplysperComment() {
+		final Double avg = this.averageReplysperComment();
+		final Collection<Comment> aux = this.commentRepository.findAll();
+		Collection<Comment> auxc = new ArrayList<Comment>();
+		Double auxsum = 0.0;
+		for (final Comment c : aux) {
+			auxc = this.findByParentCommentId(c.getId());
+			auxsum = auxsum + (auxc.size() * auxc.size());
+		}
+
+		final Double result = Math.sqrt((auxsum / aux.size()) - (avg * avg));
 
 		return result;
 	}

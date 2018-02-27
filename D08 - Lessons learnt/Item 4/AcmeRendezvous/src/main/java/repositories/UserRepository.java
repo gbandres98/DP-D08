@@ -11,9 +11,9 @@ import domain.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	// Dashboard -----------------------------------------------------------
-	//TODO pasar a servicio y comprobar despues de populated
+
 	@Query("select count(u)*100/(select count(ru) from User ru where ru.rendezvouses.size=0) from User u where u.rendezvouses.size>0")
-	Double averageUserRendezvousvsUserNoRendezvous();
+	Double ratioUserRendezvousvsUserNoRendezvous();
 
 	@Query("select u from User u where u.userAccount.id = ?1")
 	User findByUserAccount(int id);

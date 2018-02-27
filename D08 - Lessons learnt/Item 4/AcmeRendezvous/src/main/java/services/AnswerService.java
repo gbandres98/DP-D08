@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -33,6 +34,8 @@ public class AnswerService {
 	private QuestionService		questionService;
 	@Autowired
 	private RSVPService			rsvpService;
+	@Autowired
+	private RendezvousService	rendezvousService;
 
 
 	// Constructor ----------------------------------------------------
@@ -132,4 +135,25 @@ public class AnswerService {
 
 		return result;
 	}
+
+	public Double averageAnswersperRendezvous() {
+		final Double result = this.answerRepository.averageAnswersperRendezvous();
+		return result;
+	}
+
+	public Double standardDeviationAnswersperRendezvous() {
+		final Double avg = this.averageAnswersperRendezvous();
+		final Collection<Rendezvous> aux = this.rendezvousService.findAll();
+		Collection<Answer> auxa = new ArrayList<Answer>();
+		Double auxsum = 0.0;
+		for (final Rendezvous r : aux) {
+			auxa = this.answerRepository.findByRendezvousID(r.getId());
+			auxsum = auxsum + (auxa.size() * auxa.size());
+		}
+
+		final Double result = Math.sqrt((auxsum / aux.size()) - (avg * avg));
+
+		return result;
+	}
+
 }

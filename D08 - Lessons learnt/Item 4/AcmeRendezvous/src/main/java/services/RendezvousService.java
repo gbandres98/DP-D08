@@ -1,8 +1,12 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -217,6 +221,61 @@ public class RendezvousService {
 		if (!rendezvous.getRendezvouses().contains(similar))
 			rendezvous.getRendezvouses().add(similar);
 		this.rendezvousRepository.save(rendezvous);
+	}
+
+	public Double averageRendezvousesperUser() {
+		final Double result = this.rendezvousRepository.averageRendezvousesperUser();
+		return result;
+	}
+
+	public Double standardDeviationRendezvousesperUser() {
+		final Double result = this.rendezvousRepository.standardDeviationRendezvousesperUser();
+		return result;
+	}
+
+	public Collection<Rendezvous> toptenbyRSVP() {
+		final Map<Rendezvous, Integer> aux = new HashMap<>();
+		final List<Rendezvous> auxr = this.rendezvousRepository.findAll();
+		Collection<RSVP> auxrv = new ArrayList<RSVP>();
+		for (final Rendezvous r : auxr) {
+			auxrv = this.RSVPService.findbyRendezvous(r.getId());
+			aux.put(r, auxrv.size());
+		}
+		final List<Rendezvous> a = (List<Rendezvous>) aux.keySet();
+		final List<Integer> b = (List<Integer>) aux.values();
+		//reordeno ambas listas
+		for (int i = 0; i < b.size(); i++)
+			for (final int j = i + 1; j < b.size(); i++)
+				if (b.get(i) < b.get(j)) {
+					final Integer ix = b.get(i);
+					b.set(i, b.get(j));
+					b.set(j, ix);
+					final Rendezvous ir = a.get(i);
+					a.set(i, a.get(j));
+					a.set(j, ir);
+				}
+		final List<Rendezvous> res = new ArrayList<Rendezvous>();
+		for (int i = 0; res.size() <= 10; i++)
+			res.add(a.get(i));
+
+		final Collection<Rendezvous> result = res;
+		return result;
+	}
+
+	public Collection<Rendezvous> findRendezvousWithMoreAnnouncementsThanAverage() {
+		Collection<Rendezvous> result;
+
+		result = this.rendezvousRepository.findRendezvousWithMoreAnnouncementsThanAverage();
+
+		return result;
+	}
+
+	public Collection<Rendezvous> findRendezvousWithMoreRendezvousesThanAverage() {
+		Collection<Rendezvous> result;
+
+		result = this.rendezvousRepository.findRendezvousWithMoreRendezvousesThanAverage();
+
+		return result;
 	}
 
 	public Collection<Rendezvous> findAllFinal() {
