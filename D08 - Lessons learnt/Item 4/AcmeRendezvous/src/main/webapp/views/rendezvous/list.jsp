@@ -23,7 +23,9 @@
 </display:column>
 
 <spring:message code="rendezvous.description" var="description"/>
-<display:column property="description" title="${description}" sortable="false"/>
+<display:column title="${description}" sortable="false">
+	<jstl:out value="${row.description}"/>
+</display:column>
  
 <spring:message code="rendezvous.datePattern" var="datePattern"/>
 <spring:message code="rendezvous.moment" var="moment"/>

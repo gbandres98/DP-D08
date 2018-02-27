@@ -27,8 +27,7 @@
 <spring:message code="rendezvous.display.datePattern" var="datePattern" />
 
 <b><spring:message code="rendezvous.moment" /></b>
-<fmt:formatDate value="${rendezvous.moment}"
-	pattern="${rendezvous.moment}" />
+<fmt:formatDate value="${rendezvous.moment}" pattern="${datePattern}" />
 <br />
 
 <jstl:if test="${rendezvous.adultOnly}">
@@ -54,8 +53,7 @@
 <br />
 
 <br />
-<a href="question/list.do?rendezvousId=${rendezvous.id}"><b><spring:message
-			code="rendezvous.display.question" /></b></a>
+<a href="question/list.do?rendezvousId=${rendezvous.id}"><b><spring:message code="rendezvous.display.question" /></b></a>
 <br />
 
 <security:authorize access="hasRole('USER')">
