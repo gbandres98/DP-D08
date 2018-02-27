@@ -127,13 +127,16 @@ public class AdministratorController extends AbstractController {
 
 			ratioUserRendezvousvsUserNoRendezvous = this.userService.ratioUserRendezvousvsUserNoRendezvous();
 
-			avgRSVPperRendezvous = this.rsvpService.averageRSVPperRendezvous();
-			sdRSVPperRendezvous = this.rsvpService.standardDeviationRSVPperRendezvous();
+			if (this.rsvpService.findAll().size() > 0) {
 
-			avgRSVPperUser = this.rsvpService.averageRSVPperUser();
-			sdRSVPperUser = this.rsvpService.standardDeviationRSVPperUser();
+				avgRSVPperRendezvous = this.rsvpService.averageRSVPperRendezvous();
+				sdRSVPperRendezvous = this.rsvpService.standardDeviationRSVPperRendezvous();
 
-			toptenbyRSVP = this.rendezvousService.toptenbyRSVP();
+				avgRSVPperUser = this.rsvpService.averageRSVPperUser();
+				sdRSVPperUser = this.rsvpService.standardDeviationRSVPperUser();
+
+				toptenbyRSVP = this.rendezvousService.toptenbyRSVP();
+			}
 
 			avgAnnoucementsperRendezvous = this.announcementService.averageAnnouncementperRendezvous();
 			sdAnnoucementsperRendezvous = this.announcementService.standardDeviationAnnouncementperRendezvous();
@@ -148,9 +151,10 @@ public class AdministratorController extends AbstractController {
 			avgAnswersperRendezvous = this.answerService.averageAnswersperRendezvous();
 			sdAnswerssperRendezvous = this.answerService.standardDeviationAnswersperRendezvous();
 
-			avgReplysperComment = this.commentService.averageReplysperComment();
-			sdReplysperComment = this.commentService.standardDeviationReplysperComment();
-
+			if (this.commentService.findAll().size() > 0) {
+				avgReplysperComment = this.commentService.averageReplysperComment();
+				sdReplysperComment = this.commentService.standardDeviationReplysperComment();
+			}
 		}
 
 		result = new ModelAndView("administrator/dashboard");
