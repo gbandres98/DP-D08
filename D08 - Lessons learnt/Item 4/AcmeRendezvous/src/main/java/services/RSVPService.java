@@ -163,6 +163,11 @@ public class RSVPService {
 		return result;
 	}
 
+	public Collection<RSVP> findAll() {
+		final Collection<RSVP> result = this.rsvpRepository.findAll();
+		return result;
+	}
+
 	public RSVP existByRendezvousIdUserId(final int rendezvousId, final int userId) {
 		RSVP result;
 
