@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -52,6 +53,8 @@ public class QuestionService {
 
 		Question question;
 		question = new Question();
+		final Collection<Answer> answers = new HashSet<Answer>();
+		question.setAnswers(answers);
 
 		//le asignamos el rendezvous
 		final Rendezvous rendezvous = this.rendezvousService.findOne(rendezvousId);
@@ -73,10 +76,13 @@ public class QuestionService {
 		Assert.notNull(question);
 		Actor actor;
 		Question result;
+		Rendezvous rendezvous;
 
 		actor = this.actorService.findByPrincipal();
+		rendezvous = question.getRendezvous();
 		Assert.isTrue(actor instanceof User);
 		Assert.isTrue(actor.getId() == question.getRendezvous().getUser().getId());
+		Assert.isTrue(rendezvous.isFinalVersion() == false);
 		result = this.questionRepository.save(question);
 
 		return result;
@@ -94,6 +100,7 @@ public class QuestionService {
 		final Collection<Answer> answers = this.answerService.findByQuestionId(question.getId());
 		for (final Answer a : answers)
 			this.answerService.delete(a);
+		Assert.isTrue(question.getRendezvous().isFinalVersion() == false);
 		this.questionRepository.delete(question);
 
 	}

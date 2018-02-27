@@ -18,8 +18,9 @@ import services.ActorService;
 import services.QuestionService;
 import services.RendezvousService;
 import controllers.AbstractController;
+import domain.Answer;
 import domain.Question;
-import domain.User;
+import domain.Rendezvous;
 
 @Controller
 @RequestMapping("/question/user")
@@ -43,21 +44,16 @@ public class QuestionUserController extends AbstractController {
 		super();
 	}
 
-	// Listing ----------------------------------------------------------------	
+	// Creation ---------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int rendezvousId) {
 		ModelAndView result;
-		Collection<Question> questions;
-		User user;
+		Question question;
 
-		user = (User) this.actorService.findByPrincipal();
-		questions = this.questionService.findByUser(user.getId());
+		question = this.questionService.create(rendezvousId);
+		result = this.createEditModelAndView(question);
 
-		result = new ModelAndView("question/list");
-		result.addObject("questions", questions);
-		result.addObject("requestURI", "question/user/list.do");
-		result.addObject("userId", user.getId());
 		return result;
 	}
 
@@ -67,10 +63,16 @@ public class QuestionUserController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int questionId) {
 		ModelAndView result;
 		Question question;
+		Rendezvous rendezvous;
+		Collection<Answer> answers;
 
 		question = this.questionService.findOne(questionId);
 		Assert.notNull(question);
+		rendezvous = this.rendezvousService.findOne(question.getRendezvous().getId());
+		answers = question.getAnswers();
 		result = this.createEditModelAndView(question);
+		result.addObject("rendezvous", rendezvous);
+		result.addObject("answers", answers);
 
 		return result;
 	}
@@ -84,7 +86,7 @@ public class QuestionUserController extends AbstractController {
 		else
 			try {
 				this.questionService.save(question);
-				result = new ModelAndView("redirect:/question/user/list.do");
+				result = new ModelAndView("redirect:/question/list.do?rendezvousId=" + question.getRendezvous().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(question, "question.commit.error");
 			}
@@ -92,12 +94,12 @@ public class QuestionUserController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView cancel(@RequestParam final int questionId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView cancel(final Question question) {
 		ModelAndView result;
 
-		this.rendezvousService.delete(questionId);
-		result = new ModelAndView("redirect:/question/list.do?");
+		this.questionService.delete(question);
+		result = new ModelAndView("redirect:/question/list.do?rendezvousId=" + question.getRendezvous().getId());
 
 		return result;
 	}

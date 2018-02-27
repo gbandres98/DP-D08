@@ -34,6 +34,7 @@
 		<value>/views/rsvp/messages</value>
 		<value>/views/answer/messages</value>
 		<value>/views/gpsCoordinates/messages</value>
+		<value>/views/question/messages</value>
 		
 	</util:list>
 

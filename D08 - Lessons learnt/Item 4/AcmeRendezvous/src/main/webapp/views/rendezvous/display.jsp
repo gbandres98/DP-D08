@@ -52,6 +52,12 @@
 <a href="announcement/list.do?rendezvousId=${rendezvous.id}"><b><spring:message
 			code="rendezvous.display.announcement" /></b></a>
 <br />
+
+<br />
+<a href="question/list.do?rendezvousId=${rendezvous.id}"><b><spring:message
+			code="rendezvous.display.question" /></b></a>
+<br />
+
 <security:authorize access="hasRole('USER')">
 	<jstl:if test="${rsvpJoined==null && rendezvous.user.id!=userId}">
 		<a href="rsvp/user/create.do?rendezvousId=${rendezvous.id }">

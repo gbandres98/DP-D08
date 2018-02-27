@@ -43,12 +43,14 @@
 		<bean class="converters.GPSCoordinatesToStringConverter" />
 		<bean class="converters.StringToGPSCoordinatesConverter" />
 		
+		<bean class="converters.AnswerToStringConverter" />
+		<bean class="converters.StringToAnswerConverter" /> 
+		
 		<!-- 
 		<bean class="converters.ReplyToStringConverter" />
 		<bean class="converters.StringToReplyConverter" />
 		
-		<bean class="converters.AnswerToStringConverter" />
-		<bean class="converters.StringToAnswerConverter" /> -->
+		-->
 		
 	</util:list>
 	
