@@ -95,6 +95,7 @@ public class RSVPService {
 		Assert.isTrue(this.actorService.isLogged());
 		actor = this.actorService.findByPrincipal();
 		Assert.isTrue(rsvp.getUser().getId() == actor.getId());
+		Assert.isTrue(rsvp.getRendezvous().isFinalVersion() == true);
 
 		if (rsvp.getRendezvous().getQuestions().size() == rsvp.getAnswers().size() && rsvp.isJoined() == false)
 			rsvp.setJoined(true);
