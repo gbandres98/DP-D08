@@ -267,10 +267,10 @@ public class RendezvousService {
 		int n = 10;
 		if (a.size() < 10)
 			n = a.size();
-		for (int i = 0; res.size() <= n-1; i++)
+		for (int i = 0; res.size() <= n - 1; i++)
 			res.add(a.get(i));
 
-		final Collection<Rendezvous> result = a;
+		final Collection<Rendezvous> result = res;
 		return result;
 	}
 	public Collection<Rendezvous> findRendezvousWithMoreAnnouncementsThanAverage() {
