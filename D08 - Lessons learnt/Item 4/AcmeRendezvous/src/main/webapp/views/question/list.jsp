@@ -18,9 +18,11 @@
 <!-- Attributes -->
 
 <spring:message code="question.text" var="text"/>
-<display:column property="text" title="${text}" sortable="false"/>
+<display:column title="${text}" sortable="false">
+	<jstl:out value="${row.text}"/>
+</display:column>
 
-
+	
 <security:authorize access="hasRole('USER')">
 	<jstl:if test="${userId!=null && rendezvous.finalVersion==false}">
 	<display:column>

@@ -18,9 +18,13 @@
 <!-- Attributes -->
 
 <spring:message code="answer.question" var="question" />
-<display:column property="text" title="${question}"/>
+<display:column  title="${question}">
+		<jstl:out value="${row.question.text}"/>
+</display:column>
 
 <spring:message code="answer.text" var="answer" />
-<display:column property="text" title="${answer}"/>
-		
+<display:column title="${answer}">
+		<jstl:out value="${row.text}"/>
+</display:column>
 </display:table>
+
