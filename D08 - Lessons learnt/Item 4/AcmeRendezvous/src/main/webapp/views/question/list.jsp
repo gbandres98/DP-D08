@@ -33,7 +33,7 @@
 </security:authorize>
 
 </display:table>
-
+<br>
 <security:authorize access="hasRole('USER')">
 <jstl:if test="${userId!=null && rendezvous.finalVersion==false}">
 			<a href="question/user/create.do?rendezvousId=${rendezvous.id}"> 

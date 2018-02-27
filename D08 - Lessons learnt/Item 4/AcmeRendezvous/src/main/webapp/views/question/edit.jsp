@@ -26,7 +26,7 @@
 	
 	<acme:submit name="delete" code="question.delete"/>
 	
-	<acme:cancel url="question/list.do" code="question.cancel"/>
+	<acme:cancel url="question/list.do?rendezvousId=${question.rendezvous.id}" code="question.cancel"/>
 	
 </form:form>
 	
