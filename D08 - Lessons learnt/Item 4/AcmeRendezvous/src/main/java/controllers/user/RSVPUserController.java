@@ -64,4 +64,15 @@ public class RSVPUserController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int rsvpId) {
+		ModelAndView result;
+		RSVP rsvp;
+
+		rsvp = this.rsvpService.findOne(rsvpId);
+		this.rsvpService.cancel(rsvp);
+		result = new ModelAndView("redirect:/rendezvous/display.do?rendezvousId=" + rsvp.getRendezvous().getId());
+
+		return result;
+	}
 }

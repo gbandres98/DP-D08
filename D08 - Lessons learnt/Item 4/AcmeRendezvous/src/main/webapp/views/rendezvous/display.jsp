@@ -67,9 +67,10 @@
 	
 	<jstl:if test="${rsvpJoined==true}">
 		<spring:message code="rendezvous.rsvp.congrats" />
+		<a href="rsvp/user/cancel.do?rsvpId=${rsvpId}">Cancel RSVP</a>
 	</jstl:if>
 	
-	<jstl:if test="${rsvpId!=null}">
+	<jstl:if test="${rsvpId!=null && rsvpJoined==false}">
 		<a href="rsvp/user/edit.do?rsvpId=${rsvpId}">
 			<spring:message code="rendezvous.rsvp.continueJoining" />
 		</a>

@@ -47,14 +47,16 @@ public class RSVPService {
 		user = (User) this.actorService.findByPrincipal();
 		Assert.isTrue(rendezvous.getUser().getId() != user.getId());
 		rsvp = this.rsvpRepository.existByRendezvousIdUserId(rendezvousId, user.getId());
-		Assert.isTrue(rsvp == null);
-		rsvp = new RSVP();
-		rsvp.setUser(user);
-		rsvp.setRendezvous(rendezvous);
-		rsvp.setCancelled(false);
-		rsvp.setJoined(false);
-		rsvp.setAnswers(new HashSet<Answer>());
-
+		Assert.isTrue(rsvp == null || rsvp.isCancelled());
+		if (rsvp == null) {
+			rsvp = new RSVP();
+			rsvp.setUser(user);
+			rsvp.setRendezvous(rendezvous);
+			rsvp.setCancelled(false);
+			rsvp.setJoined(false);
+			rsvp.setAnswers(new HashSet<Answer>());
+		} else if (rsvp.isCancelled())
+			rsvp.setCancelled(false);
 		result = this.save(rsvp);
 
 		return result;
@@ -163,6 +165,19 @@ public class RSVPService {
 		result = this.rsvpRepository.existByRendezvousIdUserId(rendezvousId, userId);
 
 		return result;
+	}
+
+	public void cancel(final RSVP rsvp) {
+		Actor actor;
+
+		actor = this.actorService.findByPrincipal();
+		Assert.notNull(rsvp);
+		Assert.isTrue(rsvp.getId() != 0);
+		Assert.isTrue(actor.getId() == rsvp.getUser().getId());
+
+		rsvp.setCancelled(true);
+		this.rsvpRepository.save(rsvp);
+
 	}
 
 }

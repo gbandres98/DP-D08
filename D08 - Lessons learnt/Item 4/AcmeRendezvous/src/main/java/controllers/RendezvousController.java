@@ -91,13 +91,13 @@ public class RendezvousController extends AbstractController {
 				result.addObject("puedeCrear", puedeCrear);
 
 				rsvp = this.rsvpService.existByRendezvousIdUserId(rendezvousId, actor.getId());
-				if (rsvp != null) {
+				if (rsvp != null && !rsvp.isCancelled()) {
+					result.addObject("rsvpId", rsvp.getId());
 					if (rsvp.isJoined())
 						result.addObject("rsvpJoined", true);
-					if (!rsvp.isJoined()) {
+					else
 						result.addObject("rsvpJoined", false);
-						result.addObject("rsvpId", rsvp.getId());
-					}
+
 				}
 
 			}
