@@ -51,11 +51,13 @@
 <!-- Attributes -->
 
 <spring:message code="comment.picture" var="picture"/>
-<display:column property="picture" title="${picture}" sortable="false"/>
-
+<display:column  title="${picture}" sortable="false">
+<jstl:out value="${row.picture}"/>
+</display:column>
 <spring:message code="comment.text" var="text"/>
-<display:column property="text" title="${text}" sortable="false"/>
- 
+<display:column  title="${text}" sortable="false">
+<jstl:out value="${row.text}"/>
+</display:column>
 <spring:message code="rendezvous.datePattern" var="datePattern"/>
 <spring:message code="comment.moment" var="moment"/>
 <display:column property="moment" title="${moment}" sortable="false" format="${datePattern}"/>
